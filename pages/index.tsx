@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import { Box } from '@chakra-ui/react'
 
 import { Banner } from '../components/Banner'
@@ -16,6 +17,15 @@ interface HomeProps {
 }
 
 export default function Home({ news, best_sellers }: HomeProps) {
+
+  const Categories = dynamic(() =>
+    import('../components/Categories').then((mod) => mod.Categories)
+  )
+
+  const Banner = dynamic(() =>
+    import('../components/Banner').then((mod) => mod.Banner)
+  )
+
   return (
     <>
       <Head>
