@@ -16,8 +16,8 @@ export const InstaFeed = () => {
     },
     {
       id: 3,
-      link: 'https://www.instagram.com/p/CgKNaQPrj_g/',
-      photo: '/assets/294221464.jpg'
+      link: 'https://www.instagram.com/p/CTSq6sLrrtq/',
+      photo: '/assets/241018401.jpg'
     },
     {
       id: 4,
@@ -77,7 +77,7 @@ export const InstaFeed = () => {
             templateRows='repeat(2, 1fr)'
             templateColumns='repeat(5, 1fr)'
             gap='8px'
-            rowGap='0px'
+            rowGap='8px'
           >
             {data.map(({ link, photo, id }) => (
               <Link
