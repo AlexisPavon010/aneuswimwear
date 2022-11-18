@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Accordion,
   AccordionButton,
@@ -14,13 +13,10 @@ import {
   InputGroup,
   InputRightElement,
   Text,
-  useMediaQuery
 } from '@chakra-ui/react'
 import { FiSend } from 'react-icons/fi'
 
 export const Footer = () => {
-  const [isLargerThan999] = useMediaQuery('(max-width: 999px)')
-
   return (
     <Box
       backgroundColor='#0d0d0d'
