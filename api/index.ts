@@ -1,1 +1,0 @@
-export { registerUser, updateUser } from "./user";
