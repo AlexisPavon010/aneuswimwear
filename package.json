@@ -22,6 +22,7 @@
     "bcrypt": "^5.1.0",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.4",
+    "formidable": "^2.0.1",
     "framer-motion": "^7.6.7",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/formidable": "^2.0.5",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/swiper": "^6.0.0"
   }
