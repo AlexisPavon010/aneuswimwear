@@ -26,6 +26,7 @@ import {
 import useSWR from "swr"
 
 import { SummaryTile } from "../../components/Admin"
+import { FullLoadingScreen } from "../../components/FullLoadingScreen"
 
 const DashboardPage = () => {
   const { data = {} as any, error } = useSWR<any>('/api/admin/dashboard', {
@@ -63,6 +64,10 @@ const DashboardPage = () => {
         </Text>
       </Box>
     )
+  }
+
+  if (!error && Object.keys(data).length === 0) {
+    return <FullLoadingScreen />
   }
 
   return (

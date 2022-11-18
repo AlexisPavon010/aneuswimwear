@@ -9,11 +9,32 @@ import useSWR from "swr";
 import { IUser } from "../../interfaces/User";
 import { updateUser } from "../../client";
 import { lightTheme } from "../../theme";
+import { FullLoadingScreen } from "../../components/FullLoadingScreen";
 
 const UsersPage = () => {
   const { data = [], error } = useSWR('/api/admin/users')
   const router = useRouter()
   const toast = useToast()
+
+
+  if (error) {
+    console.log(error)
+    return (
+      <Box p='50px 20px' h='50vh'>
+        <Text
+          fontSize='24px'
+          textAlign='center'
+        >
+          Error al cargar la informacion
+        </Text>
+      </Box>
+    )
+  }
+
+
+  if (!error && data.length <= 0) {
+    return <FullLoadingScreen />
+  }
 
   const rows = data.map((user: IUser, i: number) => ({
     id: i + 1,
