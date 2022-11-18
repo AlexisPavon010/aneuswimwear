@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getSession } from 'next-auth/react'
 
 import { db } from '../../../database'
 import { IOrder } from '../../../interfaces'
 import { Product } from '../../../models'
 import Order from '../../../models/Order'
-import { verifyUserRoles } from '../../../utils/verifyUserRoles'
 
 type Data = {
   message: string
@@ -28,7 +28,7 @@ export default function handlerOrder(
 async function createApiOrder(req: NextApiRequest, res: NextApiResponse<any>) {
   const { orderItems, total } = req.body as IOrder;
 
-  const session: any = await verifyUserRoles({ req })
+  const session: any = await getSession({ req })
   await db.connect()
 
   if (!session) {
@@ -57,7 +57,7 @@ async function createApiOrder(req: NextApiRequest, res: NextApiResponse<any>) {
       throw new Error("the costs of the products are not the same");
     }
 
-    const userId = session._id
+    const userId = session.user._id
     const newOrder = new Order({ ...req.body, isPaid: false, user: userId })
     await newOrder.save()
 
