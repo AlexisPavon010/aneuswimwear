@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/swiper": "^6.0.0"
   }
 }
