@@ -26,7 +26,6 @@ import {
 import useSWR from "swr"
 
 import { SummaryTile } from "../../components/Admin"
-import { FullLoadingScreen } from "../../components/FullLoadingScreen"
 
 const DashboardPage = () => {
   const { data = {} as any, error } = useSWR<any>('/api/admin/dashboard', {
