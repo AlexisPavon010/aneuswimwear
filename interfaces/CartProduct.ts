@@ -14,5 +14,5 @@ export interface ICartProduct {
   quantity: number;
 }
 
-export type ISize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'
-export type IType = 'shirts' | 'pants' | 'hoodies' | 'hats' | 'new' | 'bottom' | 'tops' | 'one-pices' | 'sale';
+type ISize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'
+type IType = 'shirts' | 'pants' | 'hoodies' | 'hats' | 'new' | 'bottom' | 'tops' | 'one-pices' | 'sale';
