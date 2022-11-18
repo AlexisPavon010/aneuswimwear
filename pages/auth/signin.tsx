@@ -10,7 +10,7 @@ import * as yup from "yup";
 import Link from 'next/link';
 import Head from 'next/head';
 
-// import { registerUser } from '../../api';
+import { registerUser } from '../../client';
 
 const Signin = ({ providers, error }: any) => {
   const [isRegister, setIsRegister] = useState(false)
@@ -191,7 +191,7 @@ const RegisterComponent = () => {
 
     console.log({ email, password, name })
     try {
-      // const { data } = await registerUser(email, password, name)
+      const { data } = await registerUser(email, password, name)
       await LoginWhitProviders('credentials', { email, password })
     } catch (error: any) {
       console.log(error)
