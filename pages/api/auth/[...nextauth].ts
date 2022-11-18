@@ -42,7 +42,7 @@ export default NextAuth({
     newUser: '/auth/register'
   },
 
-  // secret: process.env.AUTH_JWT_SECRET,
+  secret: process.env.AUTH_JWT_SECRET,
 
   session: {
     maxAge: 2592000, /// 30d
