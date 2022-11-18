@@ -4,16 +4,9 @@ import Credentials from 'next-auth/providers/credentials';
 
 import { checkUserEmailPassword, oAuthToDbUser } from '../../../database/dbUsers';
 
-console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)
-console.log(process.env.GOOGLE_CLIENT_SECRET)
-
-
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
-
-    // ...add more providers here
-
     Credentials({
       name: 'Custom Login',
       credentials: {
@@ -29,17 +22,15 @@ export default NextAuth({
     }),
 
     GoogleProvider({
-      clientId: '460736580067-5qauqtbs3o30gtgll58i21fmhjk0jjhe.apps.googleusercontent.com',
-      clientSecret: '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',
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-
-
   ],
 
   // Custom Pages
   pages: {
-    signIn: '/auth/login',
-    newUser: '/auth/register'
+    signIn: '/auth/signin',
+    newUser: '/auth/signin'
   },
 
   secret: process.env.AUTH_JWT_SECRET,
@@ -75,7 +66,6 @@ export default NextAuth({
       return token;
     },
 
-
     async session({ session, token, user }: any) {
       // console.log({ session, token, user });
 
@@ -84,8 +74,5 @@ export default NextAuth({
 
       return session;
     }
-
-
   }
-
 });
