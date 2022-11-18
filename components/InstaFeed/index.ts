@@ -1,0 +1,1 @@
+export { InstaFeed } from "./InstaFeed";
