@@ -93,7 +93,7 @@ const ProductsPage = () => {
         <title>Aneuswimwear | Product list</title>
       </Head>
       <Flex p={4} justifyContent='space-between' >
-        <Flex>
+        <Flex align='center'>
           <ChakraLink display='flex' alignItems='center' onClick={() => router.back()}>
             <BsArrowLeft size='32px' />
           </ChakraLink>
@@ -109,7 +109,7 @@ const ProductsPage = () => {
           Add product
         </Button>
       </Flex>
-      <Box p={4}>
+      <Box p='8px 8px 20px 8px'>
         <ThemeProvider theme={lightTheme}>
           <DataGrid
             headerHeight={40}

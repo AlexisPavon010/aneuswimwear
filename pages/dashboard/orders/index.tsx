@@ -98,12 +98,13 @@ const OrdersPage = () => {
         </ChakraLink>
         <Text
           ml={2}
+          fontSize='24px'
           fontWeight={600}
         >
           {`Orders (${data.length})`}
         </Text>
       </Flex>
-      <Box p={4}>
+      <Box p='8px 8px 20px 8px'>
         <ThemeProvider theme={lightTheme}>
           <DataGrid
             headerHeight={40}

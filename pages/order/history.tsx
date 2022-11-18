@@ -76,7 +76,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
       <Head>
         <title>Aneuswimwear | Order History</title>
       </Head>
-      <Flex p='12px 32px 0 32px'>
+      <Flex p={4} align='center'>
         <ChakraLink display='flex' alignItems='center' onClick={() => router.push('/')}>
           <BsArrowLeft size='32px' />
         </ChakraLink>
@@ -88,7 +88,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
           {`My Orders (${orders.length})`}
         </Text>
       </Flex>
-      <Box p='8'>
+      <Box p='8px 8px 20px 8px'>
         <ThemeProvider theme={lightTheme}>
           <DataGrid
             headerHeight={40}
