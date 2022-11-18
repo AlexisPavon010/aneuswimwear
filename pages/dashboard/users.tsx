@@ -1,4 +1,4 @@
-import { Box, Flex, Link as ChakraLink, useToast } from "@chakra-ui/react"
+import { Box, Flex, Link as ChakraLink, Text, useToast } from "@chakra-ui/react"
 import { MenuItem, Select, ThemeProvider } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { BsArrowLeft } from "react-icons/bs";
@@ -82,10 +82,16 @@ const UsersPage = () => {
       <Head>
         <title>Aneuswimwear | Users list</title>
       </Head>
-      <Flex p={4} justifyContent='space-between'>
-        <ChakraLink onClick={() => router.back()}>
+      <Flex p={4} align='center'>
+        <ChakraLink onClick={() => router.push('/')}>
           <BsArrowLeft size='32px' />
         </ChakraLink>
+        <Text
+          ml={2}
+          fontWeight={600}
+        >
+          {`Users (${data.length})`}
+        </Text>
       </Flex>
       <Box p={4}>
         <ThemeProvider theme={lightTheme}>
