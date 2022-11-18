@@ -77,7 +77,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
         <title>Aneuswimwear | Order History</title>
       </Head>
       <Flex p='12px 32px 0 32px'>
-        <ChakraLink display='flex' alignItems='center' onClick={() => router.back()}>
+        <ChakraLink display='flex' alignItems='center' onClick={() => router.push('/')}>
           <BsArrowLeft size='32px' />
         </ChakraLink>
         <Text

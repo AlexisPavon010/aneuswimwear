@@ -49,7 +49,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
         <title>Aneuswimwear | Order</title>
       </Head>
       <Flex p='12px 32px 0 32px' align='center'>
-        <ChakraLink display='flex' alignItems='center' onClick={() => router.back()}>
+        <ChakraLink display='flex' alignItems='center' onClick={() => router.push('/order/history')}>
           <BsArrowLeft size='24px' />
         </ChakraLink>
         <Text
