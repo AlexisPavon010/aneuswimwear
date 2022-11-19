@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react"
 export const Announcement = () => {
   return (
     <Flex
-      bg='#0a0500'
       height='40px'
     >
       <Swiper
@@ -19,7 +18,7 @@ export const Announcement = () => {
         loop={true}
         style={{
           width: '100%',
-          backgroundColor: '#0a0500',
+          backgroundColor: '#ae9e8f',
           padding: '10px 0px',
         }}
         modules={[Autoplay]}
