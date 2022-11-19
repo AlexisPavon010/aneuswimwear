@@ -38,8 +38,9 @@ export const Footer = () => {
                     flex='1'
                     color='white'
                     textAlign='left'
+                    fontWeight={600}
                   >
-                    STORE INFORMATION
+                    SHOP
                   </Text>
                   <AccordionIcon color='white' fontSize='24px' />
                 </AccordionButton>
@@ -65,8 +66,9 @@ export const Footer = () => {
                     flex='1'
                     color='white'
                     textAlign='left'
+                    fontWeight={600}
                   >
-                    PRODUCTS
+                    CUSTOMER CARE
                   </Text>
                   <AccordionIcon color='white' fontSize='24px' />
                 </AccordionButton>
@@ -97,8 +99,9 @@ export const Footer = () => {
                     flex='1'
                     color='white'
                     textAlign='left'
+                    fontWeight={600}
                   >
-                    OUR COMPANY
+                    DISCOVER
                   </Text>
                   <AccordionIcon color='white' fontSize='24px' />
                 </AccordionButton>
@@ -115,8 +118,9 @@ export const Footer = () => {
                 flex='1'
                 color='white'
                 textAlign='left'
+                fontWeight={600}
               >
-                NEWSLETTER
+                JOIN THE ANEUSWIMWEAR
               </Text>
             </h2>
             <Box pb={2}>
@@ -146,7 +150,7 @@ export const Footer = () => {
               mb='25px'
               as='h3'
             >
-              STORE INFORMATION
+              SHOP
             </Text>
             <Text>
               Address:Blossom - Lingerie Store
@@ -169,7 +173,7 @@ export const Footer = () => {
               fontWeight={700}
               color='white'
             >
-              PRODUCTS
+              CUSTOMER CARE
             </Text>
             <Text>
               Offers
@@ -193,7 +197,7 @@ export const Footer = () => {
               fontWeight={700}
               color='white'
             >
-              OUR COMPANY
+              DISCOVER
             </Text>
             <Box>
               <Text>
@@ -222,7 +226,7 @@ export const Footer = () => {
               color='white'
               fontWeight={700}
             >
-              NEWSLETTER
+              JOIN THE ANEUSWIMWEAR
             </Text>
             <Box>
               <InputGroup>
