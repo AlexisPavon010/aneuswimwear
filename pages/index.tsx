@@ -9,6 +9,7 @@ import { WhatsAppButton } from '../components/WhatsAppButton'
 import { IProduct } from '../interfaces'
 import { GetServerSideProps } from 'next'
 import { dbProducts } from '../database'
+import { Newsletter } from '../components/Newsletter'
 
 interface HomeProps {
   news: IProduct[];
@@ -34,6 +35,7 @@ export default function Home({ news, best_sellers }: HomeProps) {
         <SlideProducts title='Best sellers' products={best_sellers} />
         <InstaFeed />
         <WhatsAppButton />
+        <Newsletter />
       </Box>
     </>
   )
