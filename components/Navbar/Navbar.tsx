@@ -53,16 +53,16 @@ export const Navbar = ({ setIsOpenMenu }: NavbarProps) => {
                 </>
               ) : null}
             </ButtonGroup>
-            <NextLink
+            <Link
+              as={NextLink}
               href='/'
+              margin='0 !important'
+              fontWeight={600}
+              letterSpacing='4px'
             >
-              <Link
-                fontWeight={600}
-              >
-                Aneuswimwear
-              </Link>
-            </NextLink>
-            <HStack spacing="3">
+              ANEU SWIMWEAR
+            </Link>
+            <HStack spacing="3" margin='0 !important'>
               <InputGroup display={isDesktop ? 'flex' : 'none'}>
                 <InputLeftElement
                   top='-7px'
