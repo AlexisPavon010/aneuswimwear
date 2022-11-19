@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, MouseEventHandler, SetStateAction, useState } from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import {
@@ -16,6 +16,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -59,7 +60,17 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
       <DrawerContent>
         <DrawerCloseButton />
         <DrawerHeader>
-          <Box p={2} />
+          <Flex align='center' direction='column' justifyContent='center'>
+            <Image w='100px' src='/assets/logo_negro.png' />
+            <Text
+              mt={2}
+              fontWeight={600}
+              fontSize='14px'
+              letterSpacing='4px'
+            >
+              ANEU SWIMWEAR
+            </Text>
+          </Flex>
         </DrawerHeader>
         <DrawerBody>
           <InputGroup>
@@ -78,12 +89,12 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
           </InputGroup>
           {session ? (
             <>
-              <MenuItem icon={<MdPersonOutline size='24px' />} title='Profile' />
+              <MenuItem icon={<MdPersonOutline size='24px' />} title='Profile' onClick={() => { }} />
               <MenuItem icon={<IoTicketOutline size='24px' />} title='My orders' onClick={() => handleNavigate('/order/history')} />
               <MenuItem icon={<IoExitOutline size='24px' />} title='Log out' onClick={() => signOut()} />
             </>
           ) : (
-            <MenuItem icon={<BsKey size='24px' />} title='Log in' onClick={() => handleNavigate('/auth/signin')} />
+            <MenuItem title='Log in' onClick={() => handleNavigate('/auth/signin')} />
           )}
 
           {session?.user.role === 'admin' && (
@@ -99,7 +110,7 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
           <Accordion allowToggle>
             <AccordionItem>
               <h2>
-                <AccordionButton>
+                <AccordionButton p='8px 12px'>
                   <Box flex='1' textAlign='left' fontWeight={600}>
                     News
                   </Box>
@@ -142,7 +153,7 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
 
             <AccordionItem>
               <h2>
-                <AccordionButton>
+                <AccordionButton p='8px 12px'>
                   <Box flex='1' textAlign='left' fontWeight={600}>
                     Swimwear
                   </Box>
@@ -185,7 +196,7 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
 
             <AccordionItem>
               <h2>
-                <AccordionButton>
+                <AccordionButton p='8px 12px'>
                   <Box flex='1' textAlign='left' fontWeight={600}>
                     Collections
                   </Box>
@@ -234,6 +245,12 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
+          <MenuItem title='The Brand' onClick={() => { }} />
+          <MenuItem title='Size Guide' onClick={() => { }} />
+          <MenuItem title='Shipping & Delivery' onClick={() => { }} />
+          <MenuItem title='Returns & Exchanges' onClick={() => { }} />
+          <MenuItem title='FaQs' onClick={() => { }} />
+          <MenuItem title='Contact Us' onClick={() => { }} />
 
         </DrawerBody>
       </DrawerContent>
@@ -241,7 +258,25 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
   )
 }
 
-const MenuItem = ({ icon, title, onClick }: any) => {
+const MenuItem = ({ icon, title, onClick }: { icon?: JSX.Element, title: string, onClick: MouseEventHandler<HTMLDivElement> }) => {
+  if (!icon) {
+    return (
+      <Flex
+        onClick={onClick}
+        _hover={{ background: 'rgb(244, 245, 246)' }}
+        margin=' 4px 0px'
+        padding=' 8px 0px'
+      >
+        <Text
+          ml={3}
+          fontSize='14px'
+          fontWeight={600}
+        >
+          {title}
+        </Text>
+      </Flex >
+    )
+  }
   return (
     <Flex
       onClick={onClick}
