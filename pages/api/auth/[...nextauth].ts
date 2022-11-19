@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
 import Credentials from 'next-auth/providers/credentials';
 
 import { checkUserEmailPassword, oAuthToDbUser } from '../../../database/dbUsers';
@@ -19,6 +20,11 @@ export default NextAuth({
 
         return await checkUserEmailPassword(credentials!.email, credentials!.password);
       }
+    }),
+
+    FacebookProvider({
+      clientId: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
     }),
 
     GoogleProvider({
