@@ -1,4 +1,4 @@
-import { Box, Grid, Link, Text } from "@chakra-ui/react"
+import { Box, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react"
 import Image from "next/image"
 
 export const InstaFeed = () => {
@@ -73,9 +73,8 @@ export const InstaFeed = () => {
           </a>
         </Text>
         <Box>
-          <Grid
-            templateRows='repeat(2, 1fr)'
-            templateColumns='repeat(5, 1fr)'
+          <SimpleGrid
+            columns={{ base: 2, md: 5 }}
             gap='8px'
             rowGap='8px'
           >
@@ -90,9 +89,9 @@ export const InstaFeed = () => {
                 <Image objectFit="cover" alt="insta-feed" src={photo} height={1000} width={1000} />
               </Link>
             ))}
-          </Grid>
+          </SimpleGrid>
         </Box>
       </Box>
-    </Box>
+    </Box >
   )
 }
