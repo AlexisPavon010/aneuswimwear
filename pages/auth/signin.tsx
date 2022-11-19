@@ -49,7 +49,6 @@ const Signin = ({ providers, error }: any) => {
           >
             <Flex
               alignItems='end'
-              fontFamily='Niconne, cursive'
               fontSize='36px'
               mb='24px'
             >
@@ -67,11 +66,20 @@ const Signin = ({ providers, error }: any) => {
         </Flex>
         <Flex padding='32px' flex='1' alignItems='center' justifyContent='center'>
           <Box width='100%' maxW='450px'>
-            <Text mb='36px' fontWeight={900} fontSize='27px' as='h1'>
+            <Flex mb={8} justifyContent='center'>
+              <Image w='150px' src='/assets/logo_negro.png' />
+            </Flex>
+            <Text
+              mb='36px'
+              as='h1'
+              textAlign='center'
+              fontWeight={900}
+              fontSize='27px'
+            >
               Join Aneus Now
             </Text>
             <Box>
-              <Stack direction='column' spacing={2}>
+              <Stack direction='column' spacing={4}>
                 {providers ? Object.values(providers).map((provider: any) => {
                   if (provider.id === 'credentials') return null
                   console.log(providers)
