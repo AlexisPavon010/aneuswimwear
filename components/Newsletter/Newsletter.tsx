@@ -3,12 +3,23 @@ import NextImage from "next/image"
 import { useState } from "react"
 import { FiSend } from "react-icons/fi"
 
-export const Newsletter = () => {
+interface Props {
+  description: string;
+  firstTitle: string;
+  images: string;
+  secondTitle: string;
+  subtitle: string;
+  _id: string;
+}
+
+export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
   const [show, setShow] = useState(true)
 
   const handleCloseModal = () => {
     setShow(false)
   }
+
+  const { description, firstTitle, images, secondTitle, subtitle } = newsletter;
 
   return (
     <Modal
@@ -21,7 +32,7 @@ export const Newsletter = () => {
         <ModalCloseButton _focusVisible={{}} />
         <ModalBody p={0} >
           <NextImage
-            src="https://d3k81ch9hvuctc.cloudfront.net/company/M2zGdW/images/58fee55b-a768-4222-ac72-2f3e647740e6.jpeg"
+            src={images[0]}
             alt="Newsletter image"
             height={1000}
             width={1000}
@@ -35,27 +46,26 @@ export const Newsletter = () => {
               fontWeight={600}
               textAlign='center'
             >
-              ENJOY
+              {firstTitle}
             </Text>
             <Text
               fontSize='60px'
               fontWeight={600}
               textAlign='center'
             >
-              10% OFF
+              {secondTitle}
             </Text>
             <Text
               fontSize='24px'
               fontWeight={600}
               textAlign='center'
             >
-              OFF YOUR FIRST ORDER
+              {subtitle}
             </Text>
             <Text
               textAlign='center'
             >
-              {`special sales, new arrivals & 10% off your first orden
-              (Bassically FYI's on all the important stuff)`}
+              {description}
             </Text>
             <InputGroup mt={4}>
               <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' />
