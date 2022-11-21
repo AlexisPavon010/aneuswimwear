@@ -6,7 +6,7 @@ import NextLink from 'next/link'
 
 export const Categories = () => {
   return (
-    <Box>
+    <Box p={{ base: '0 10px', md: '0 30px' }}>
       <Text
         m='20px 0'
         fontSize='24px'
