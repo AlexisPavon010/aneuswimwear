@@ -25,9 +25,9 @@ import {
 } from "@chakra-ui/react"
 import { MdOutlineCategory, MdOutlineDashboard, MdPersonOutline } from 'react-icons/md'
 import { IoTicketOutline } from 'react-icons/io5'
-import { BsKey, BsSearch } from 'react-icons/bs'
+import { BsSearch } from 'react-icons/bs'
 import { IoExitOutline } from 'react-icons/io5'
-import { AiOutlineUserAdd } from 'react-icons/ai'
+import { AiOutlineTool, AiOutlineUserAdd } from 'react-icons/ai'
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -104,6 +104,8 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
               <MenuItem icon={<MdOutlineCategory size='24px' />} title='Products' onClick={() => handleNavigate('/dashboard/products')} />
               <MenuItem icon={<IoTicketOutline size='24px' />} title='Orders' onClick={() => handleNavigate('/dashboard/orders')} />
               <MenuItem icon={<AiOutlineUserAdd size='20px' />} title='Users' onClick={() => handleNavigate('/dashboard/users')} />
+              <MenuItem icon={<AiOutlineTool size='20px' />} title='Banner' onClick={() => handleNavigate('/dashboard/banner')} />
+              <MenuItem icon={<AiOutlineTool size='20px' />} title='Newsletter' onClick={() => handleNavigate('/dashboard/newsletter')} />
             </>
           )}
 
