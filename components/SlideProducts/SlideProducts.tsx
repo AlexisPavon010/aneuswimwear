@@ -13,7 +13,7 @@ interface NewArrivalsProps {
 export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
 
   return (
-    <Box p='20px 10px 20px 10px'>
+    <Box p={{ base: '10px', md: '30px' }}>
       <Text
         m='20px 0'
         fontSize='24px'
@@ -27,9 +27,6 @@ export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
         slidesPerView={4}
         navigation={true}
         modules={[Navigation]}
-        style={{
-          padding: '40px 0',
-        }}
         breakpoints={{
           320: {
             slidesPerView: 1,
