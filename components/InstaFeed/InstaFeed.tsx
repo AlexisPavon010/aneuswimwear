@@ -60,7 +60,7 @@ export const InstaFeed = () => {
   return (
     <Box as='section'>
       <Box
-        p='36px 30px'
+        p={{ base: '10px', md: '30px' }}
       >
         <Text
           fontSize='24px'
