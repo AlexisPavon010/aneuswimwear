@@ -259,9 +259,7 @@ const FaqPage = () => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-              <Text
-                pb='10px'
-              >
+              <Text>
                 You will receive a confirmation email once your order has been shipped that contains your tracking information.
                 If you have not received a shipping confirmation email, please check your Junk Mail or Spam folder, as it may have
                 been received there.
@@ -279,44 +277,7 @@ const FaqPage = () => {
             </AccordionPanel>
           </AccordionItem>
 
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                Can I cancel my order without being charged?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text>
-                Unfortunately, we are not able to cancel an order after it has confirmed through our system and payment has been received.
-              </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                Where is my order? I have not received it yet?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text
-                pb='10px'
-              >
-                You will receive a confirmation email once your order has been shipped that contains your tracking information.
-                If you have not received a shipping confirmation email, please check your Junk Mail or Spam folder, as it may have been received there.
-              </Text>
-              <Text>
-                For all orders, please allow 2-6 business days from the date of shipment for your parcel to arrive.
-              </Text>
-              <Text>
-                <strong>
-                  Business days do not include weekends or national public holidays and the delivery time frame excludes delays caused during international custom’s processing.
-                </strong>
-              </Text>
-            </AccordionPanel>
-          </AccordionItem>
+          {/* DESDES AQUI  */}
 
           <AccordionItem>
             <AccordionButton p='20px'>
@@ -326,11 +287,8 @@ const FaqPage = () => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-              <Text
-                pb='10px'
-              >
-                Tracking updates at times don’t reflect the exact location of your parcel.
-                Please allow ample time for tracking to update as this may occur when the parcel reaches the delivery postal depot.
+              <Text>
+                Tracking updates at times don’t reflect the exact location of your parcel . Please allow ample time for tracking to update as this may occur when the parcel reaches the delivery postal depot.
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -346,9 +304,7 @@ const FaqPage = () => {
               <Text
                 pb='10px'
               >
-                All current season items are restocked throughout the year. You can register for immediate email notifications
-                of a restock on the product page of the item you are interested in. Due to the popularity of our range, we cannot
-                guarantee that we will have the requested size in stock to exchange. We cannot set items aside for exchange.
+                All current season items are restocked throughout the year. You can register for immediate email notifications of a restock on the product page of the item you are interested in. Due to the popularity of our range, we cannot guarantee that we will have the requested size in stock to exchange. We cannot set items aside for exchange.
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -364,13 +320,11 @@ const FaqPage = () => {
               <Text
                 pb='10px'
               >
-                <strong>
-                  There are no exchanges on sale items.
-                </strong>
-                All sale items are sold as final sale only. Please refer to our Returns Policy at our Returns and Exchanges page for further details.
+                <strong>There are no exchanges on sale items. </strong> All sale items are sold as final sale only. Please refer to our Returns Policy at our Returns and Exchanges page for further details.
               </Text>
             </AccordionPanel>
           </AccordionItem>
+
 
           <AccordionItem>
             <AccordionButton p='20px'>
