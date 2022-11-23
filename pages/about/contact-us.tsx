@@ -71,12 +71,10 @@ const ContactUsPage = () => {
           <FormControl>
             <FormLabel>Name</FormLabel>
             <Input type='text' />
-            <FormHelperText>We'll never share your email.</FormHelperText>
           </FormControl>
           <FormControl>
             <FormLabel>Email</FormLabel>
             <Input type='email' />
-            <FormHelperText>We'll never share your email.</FormHelperText>
           </FormControl>
         </Flex>
         <FormControl mb='30px'>
