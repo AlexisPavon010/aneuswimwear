@@ -1,9 +1,13 @@
 import { Box, Container, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import NextImage from 'next/image'
+import Head from "next/head";
 
 const ValuesPage = () => {
   return (
     <Box>
+      <Head>
+        <title>Aneuswimwear | Values</title>
+      </Head>
       <Box position='relative' mb={8}>
         <Box
           position='absolute'

@@ -72,6 +72,7 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
             </Text>
           </Flex>
         </DrawerHeader>
+        <Divider />
         <DrawerBody>
           <InputGroup>
             <InputLeftElement>
@@ -247,13 +248,12 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
-          <MenuItem title='The Brand' onClick={() => { }} />
-          <MenuItem title='Size Guide' onClick={() => { }} />
-          <MenuItem title='Shipping & Delivery' onClick={() => { }} />
-          <MenuItem title='Returns & Exchanges' onClick={() => { }} />
-          <MenuItem title='FaQs' onClick={() => { }} />
-          <MenuItem title='Contact Us' onClick={() => { }} />
-
+          <MenuItem title='About Aneu' onClick={() => handleNavigate('/about')} />
+          <MenuItem title='Size Guide' onClick={() => handleNavigate('/about/size-guide')} />
+          <MenuItem title='Shipping & Delivery' onClick={() => handleNavigate('/about/shipping-and-delivery')} />
+          <MenuItem title='Returns & Exchanges' onClick={() => handleNavigate('/about/returns-exchanges')} />
+          <MenuItem title='FaQs' onClick={() => handleNavigate('/about/faq')} />
+          <MenuItem title='Contact Us' onClick={() => handleNavigate('/about/contact-us')} />
         </DrawerBody>
       </DrawerContent>
     </Drawer >
@@ -268,6 +268,7 @@ const MenuItem = ({ icon, title, onClick }: { icon?: JSX.Element, title: string,
         _hover={{ background: 'rgb(244, 245, 246)' }}
         margin=' 4px 0px'
         padding=' 8px 0px'
+        cursor='pointer'
       >
         <Text
           ml={3}
@@ -285,6 +286,7 @@ const MenuItem = ({ icon, title, onClick }: { icon?: JSX.Element, title: string,
       _hover={{ background: 'rgb(244, 245, 246)' }}
       margin=' 4px 0px'
       padding=' 8px 0px'
+      cursor='pointer'
     >
       {icon}
       <Text
