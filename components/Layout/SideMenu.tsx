@@ -61,7 +61,7 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
         <DrawerCloseButton />
         <DrawerHeader>
           <Flex align='center' direction='column' justifyContent='center'>
-            <Image w='100px' src='/assets/logo_negro.png' />
+            <Image w='100px' src='/assets/logo_negro.png' alt='logo' />
             <Text
               mt={2}
               fontWeight={600}
