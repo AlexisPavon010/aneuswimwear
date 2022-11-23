@@ -1,9 +1,13 @@
 import { Box, Container, Flex, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import NextImage from 'next/image'
+import Head from 'next/head'
 
 const AboutAneu = () => {
   return (
     <Box>
+      <Head>
+        <title>Aneuswimwear | About</title>
+      </Head>
       <Box position='relative' mb={8}>
         <Box
           position='absolute'
@@ -56,7 +60,7 @@ const AboutAneu = () => {
           <Box
             gridRow={{ base: 2, lg: 1 }}
           >
-            <Image src="https://cdn.shopify.com/s/files/1/2247/4301/files/Untitled_1000_x_1200_px_1000_x_1300_px.png?v=1637708815" />
+            <Image src="https://cdn.shopify.com/s/files/1/2247/4301/files/Untitled_1000_x_1200_px_1000_x_1300_px.png?v=1637708815" alt="demo" />
           </Box>
           <Flex
             justifyContent='center'
