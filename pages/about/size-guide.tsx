@@ -1,9 +1,13 @@
-import { Box, Container, Divider, Flex, ListItem, OrderedList, SimpleGrid, Table, TableCaption, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Container, Divider, Flex, ListItem, OrderedList, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import NextImage from 'next/image'
+import Head from "next/head";
 
 const sizeGuidePage = () => {
   return (
     <Box>
+      <Head>
+        <title>Aneuswimwear | Size Guide</title>
+      </Head>
       <Box position='relative' mb={8}>
         <Box
           position='absolute'
