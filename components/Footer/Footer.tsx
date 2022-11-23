@@ -14,6 +14,7 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import { FiSend } from 'react-icons/fi'
 
 export const Footer = () => {
@@ -32,30 +33,30 @@ export const Footer = () => {
         <Container maxW='720px' display={{ base: 'block', lg: 'none' }}>
           <Accordion allowMultiple>
             <AccordionItem border={0}>
-              <h2>
-                <AccordionButton>
-                  <Text
-                    flex='1'
-                    color='white'
-                    textAlign='left'
-                    fontWeight={600}
-                  >
-                    SHOP
-                  </Text>
-                  <AccordionIcon color='white' fontSize='24px' />
-                </AccordionButton>
-              </h2>
+              <AccordionButton>
+                <Text
+                  as='h2'
+                  flex='1'
+                  color='white'
+                  textAlign='left'
+                  fontWeight={600}
+                >
+                  SHOP
+                </Text>
+                <AccordionIcon color='white' fontSize='24px' />
+              </AccordionButton>
               <AccordionPanel pb={4}>
-                <Text>
-                  Address: Blossom - Lingerie Store
-                  United States
-                </Text>
-                <Text>
-                  Phone: 000-000-0000
-                </Text>
-                <Text>
-                  Email: sales@yourcompany.com
-                </Text>
+                <Flex direction='column'>
+                  <NextLink href='/collections/new-arrivals'>
+                    New Arrivals
+                  </NextLink>
+                  <NextLink href='/collections/all'>
+                    Swimwear
+                  </NextLink>
+                  <NextLink href='/collections/sale'>
+                    Sale
+                  </NextLink>
+                </Flex>
               </AccordionPanel>
             </AccordionItem>
 
@@ -74,21 +75,23 @@ export const Footer = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <Text>
-                  Offers
-                </Text>
-                <Text>
-                  News
-                </Text>
-                <Text>
-                  Best sellers
-                </Text>
-                <Text>
-                  Contact us
-                </Text>
-                <Text>
-                  Site Map
-                </Text>
+                <Flex direction='column'>
+                  <NextLink href='/about/size-guide'>
+                    Size Guide
+                  </NextLink>
+                  <NextLink href='/about/shipping-and-delivery'>
+                    Shipping & Delivery
+                  </NextLink>
+                  <NextLink href='/about/returns-exchanges'>
+                    Returns & Exchanges
+                  </NextLink>
+                  <NextLink href='/about/faq'>
+                    FAQs
+                  </NextLink>
+                  <NextLink href='/about/contact-us'>
+                    Contact Us
+                  </NextLink>
+                </Flex>
               </AccordionPanel>
             </AccordionItem>
 
@@ -107,7 +110,14 @@ export const Footer = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                <Flex direction='column'>
+                  <NextLink href='/about'>
+                    About
+                  </NextLink>
+                  <NextLink href='/about/values'>
+                    Values
+                  </NextLink>
+                </Flex>
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -120,7 +130,7 @@ export const Footer = () => {
                 textAlign='left'
                 fontWeight={600}
               >
-                JOIN THE ANEUSWIMWEAR
+                JOIN THE ANEU CLUB
               </Text>
             </h2>
             <Box pb={2}>
@@ -140,9 +150,10 @@ export const Footer = () => {
           maxW='1280px'
           margin='0 auto'
         >
-          <Box
+          <Flex
             p='0 15px'
             lineHeight='30px'
+            direction='column'
           >
             <Text
               fontWeight={700}
@@ -152,21 +163,20 @@ export const Footer = () => {
             >
               SHOP
             </Text>
-            <Text>
-              Address:Blossom - Lingerie Store
-              United States
-            </Text>
-            <Text>
-              Phone:000-000-0000
-            </Text>
-            <Text>
-              Email:sales@yourcompany.com
-            </Text>
-
-          </Box>
-          <Box
+            <NextLink href='/collections/new-arrivals'>
+              New Arrivals
+            </NextLink>
+            <NextLink href='/collections/all'>
+              Swimwear
+            </NextLink>
+            <NextLink href='/collections/sale'>
+              Sale
+            </NextLink>
+          </Flex>
+          <Flex
             p='0 15px'
             lineHeight='30px'
+            direction='column'
           >
             <Text
               mb='25px'
@@ -175,23 +185,27 @@ export const Footer = () => {
             >
               CUSTOMER CARE
             </Text>
-            <Text>
-              Offers
-            </Text>
-            <Text>
-              News
-            </Text>
-            <Text>
-              Best sellers
-            </Text>
-            <Text>
-              Contact us
-            </Text>
-            <Text>
-              Site Map
-            </Text>
-          </Box>
-          <Box p='0 15px' lineHeight='30px'>
+            <NextLink href='/about/size-guide'>
+              Size Guide
+            </NextLink>
+            <NextLink href='/about/shipping-and-delivery'>
+              Shipping & Delivery
+            </NextLink>
+            <NextLink href='/about/returns-exchanges'>
+              Returns & Exchanges
+            </NextLink>
+            <NextLink href='/about/faq'>
+              FAQs
+            </NextLink>
+            <NextLink href='/about/contact-us'>
+              Contact Us
+            </NextLink>
+          </Flex>
+          <Flex
+            p='0 15px'
+            lineHeight='30px'
+            direction='column'
+          >
             <Text
               mb='25px'
               fontWeight={700}
@@ -199,34 +213,20 @@ export const Footer = () => {
             >
               DISCOVER
             </Text>
-            <Box>
-              <Text>
-                Delivery
-              </Text>
-              <Text>
-                Legal Notice
-              </Text>
-              <Text>
-                Terms and conditions of use
-              </Text>
-              <Text>
-                About us
-              </Text>
-              <Text>
-                Secure payment
-              </Text>
-              <Box>
-
-              </Box>
-            </Box>
-          </Box>
+            <NextLink href='/about'>
+              About
+            </NextLink>
+            <NextLink href='/about/values'>
+              Values
+            </NextLink>
+          </Flex>
           <Box p='0 15px' lineHeight='30px'>
             <Text
               mb='25px'
               color='white'
               fontWeight={700}
             >
-              JOIN THE ANEUSWIMWEAR
+              JOIN THE ANEU CLUB
             </Text>
             <Box>
               <InputGroup>
@@ -235,9 +235,6 @@ export const Footer = () => {
                   <FiSend size='20px' />
                 </InputRightElement>
               </InputGroup>
-              <Box>
-
-              </Box>
             </Box>
           </Box>
 
@@ -266,7 +263,7 @@ export const Footer = () => {
             fontSize='13px'
             textAlign='center'
           >
-            © 2023 - Software Ecommerce desarrollado por Aneuswimwear ™
+            © 2023 - Ecommerce software developed by Aneuswimwear ™
           </Text>
         </Container>
       </Box>
