@@ -108,8 +108,8 @@ const ReturnsExchangesPage = () => {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Text>
-                Once your items are inspected by the returns team, you'll get your store credit notification via email typically
-                within 6-10 business days (North American customers) and 10-14 business days (Europe/International customers).
+                {`Once your items are inspected by the returns team, you'll get your store credit notification via email typically
+                within 6-10 business days (North American customers) and 10-14 business days (Europe/International customers).`}
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -184,8 +184,9 @@ const ReturnsExchangesPage = () => {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Text>
-                We are confident you’ll love your pieces however if there are any issues with quality or a
-                fault we will resolve this quickly. Please contact our <strong> Customer Care team.</strong>
+                {`We are confident you’ll love your pieces however if there are any issues with quality or a
+                fault we will resolve this quickly. Please contact our`}
+                <strong> Customer Care team.</strong>
               </Text>
             </AccordionPanel>
           </AccordionItem>
