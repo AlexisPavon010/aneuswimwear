@@ -1,3 +1,4 @@
+export { Payphone } from "./payphone";
 export { createOrder } from "./order";
 export { uploadBanner } from "./banner";
 export { uploadNewsletter } from "./newsletter";
