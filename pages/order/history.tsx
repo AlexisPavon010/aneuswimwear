@@ -69,6 +69,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
     phone: order.shippingAddress.phone,
     payment: order.isPaid,
     total: order.total,
+    isPaid: order.isPaid
   }))
 
   return (
@@ -121,7 +122,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   }
 
-  const orders = await getOrdersByUser(session.user._id)
+  const orders = await getOrdersByUser(session.user.id)
 
   return {
     props: {

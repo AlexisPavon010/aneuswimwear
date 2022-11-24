@@ -227,7 +227,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     }
   }
 
-  if (order.user !== session.user._id) {
+  if (order.user !== session.user.id) {
     return {
       redirect: {
         destination: `/order/history`,

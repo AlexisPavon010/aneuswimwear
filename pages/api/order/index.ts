@@ -57,11 +57,11 @@ async function createApiOrder(req: NextApiRequest, res: NextApiResponse<any>) {
       throw new Error("the costs of the products are not the same");
     }
 
-    const userId = session.user._id
+    const userId = session.user.id
     const newOrder = new Order({ ...req.body, isPaid: false, user: userId })
     await newOrder.save()
 
-    res.status(201).json(newOrder)
+    return res.status(201).json(newOrder)
   } catch (error: any) {
     console.log(error)
     return res.status(400).json({
