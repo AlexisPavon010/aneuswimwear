@@ -8,13 +8,11 @@ import {
   Button,
   Divider,
   Flex,
-  Grid,
   GridItem,
   Link,
   Radio,
   SimpleGrid,
   Text,
-  useMediaQuery
 } from "@chakra-ui/react"
 import { destroyCookie, parseCookies } from 'nookies'
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
@@ -26,12 +24,12 @@ import { IOrder } from "../../interfaces"
 import { addToCart, getCartTotal, getTotalItems } from "../../redux/cart/cartSlices"
 import { useState } from "react"
 import { useRouter } from "next/router"
-import { createOrder } from "../../client"
+import { createOrder, Payphone } from "../../client"
+
 
 const Shipping = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMesage, setErrorMesage] = useState('')
-  const [isMaxWidth1000] = useMediaQuery('(max-width: 1000px)')
   const { items } = useSelector((state: any) => state.cart)
   const router = useRouter()
   const dispatch = useDispatch()
@@ -51,7 +49,9 @@ const Shipping = () => {
 
   const handleCreateOrder = async () => {
     if (isLoading) return
+    if (items.length === 0) return
     setIsLoading(true)
+
     const body: IOrder = {
       orderItems: items,
       shippingAddress: {
@@ -72,14 +72,19 @@ const Shipping = () => {
       isPaid: false
     }
 
-    console.log(body)
-
     try {
       const { data } = await createOrder(body)
-      console.log(data)
+      const orderPay = {
+        amount: (getCartTotal(items) * taxRate) * 100,
+        amountWithoutTax: (getCartTotal(items) * taxRate) * 100,
+        clientTransactionId: data._id,
+        responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
+        cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
+      }
+      const { data: payphone } = await Payphone(orderPay)
       dispatch(addToCart([]))
       destroyCookie(null, 'cart')
-      router.replace(`/order/${data._id}`)
+      router.replace(payphone.payWithCard)
     } catch (error) {
       console.log(error)
       setIsLoading(false)
@@ -174,14 +179,12 @@ const Shipping = () => {
               </Text>
 
               <Flex justifyContent='space-between' border='1px solid #E2E8F0' borderRadius='8px' p='17px'>
-                <Radio>UPS Express (1-3 Working Days)</Radio>
-                <Text>
-                  $5.00
-                </Text>
+                <Radio defaultChecked>PayPhone Application Payments</Radio>
+                <img style={{ height: '24px' }} src="/assets/logo-payment.png" alt="cards" />
               </Flex>
 
               <Flex justifyContent='space-between' alignItems='center' mt='21px' direction={{ base: 'column-reverse', lg: 'row' }} rowGap='20px'>
-                <NextLink href='/checkout/information'>
+                <NextLink href='/checkout/information' passHref>
                   <Link>
                     <Flex alignItems='center' gap='8px'>
                       <FiChevronLeft color='gray.500' />
@@ -197,7 +200,7 @@ const Shipping = () => {
                   color='white'
                   bg='#000000'
                 >
-                  Create Order
+                  Place Order
                 </Button>
               </Flex>
             </Box>
