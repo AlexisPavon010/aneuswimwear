@@ -79,8 +79,8 @@ const OrdersPage = () => {
   const rows = data.map((order: IOrder, i: number) => ({
     id: i + 1,
     _id: order._id,
-    name: (order.user as IUser).name!,
-    email: (order.user as IUser).email!,
+    name: (order.user as IUser)?.name!,
+    email: (order.user as IUser)?.email!,
     total: order.total,
     isPaid: order.isPaid,
     quantity: order.numberOfItems,
