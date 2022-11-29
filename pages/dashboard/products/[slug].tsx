@@ -18,12 +18,15 @@ import {
   TagCloseButton,
   TagLabel,
   Text,
-  useToast
+  useToast,
+  Textarea,
+  InputGroup,
+  InputLeftAddon
 } from '@chakra-ui/react';
 import { GetServerSideProps, NextPage } from 'next'
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { BsArrowLeft, BsTrash } from 'react-icons/bs';
+import { BsArrowLeft, BsCurrencyDollar, BsTrash } from 'react-icons/bs';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
@@ -58,6 +61,7 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
           status: 'success',
           isClosable: true,
         })
+        router.back()
       } else {
         const { data } = await createProduct(formData)
         toast({
@@ -65,6 +69,7 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
           status: 'success',
           isClosable: true,
         })
+        router.back()
       }
     } catch (error) {
       console.log(error)
@@ -188,7 +193,7 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
             </FormControl>
             <FormControl isInvalid={errors.description}>
               <FormLabel>Description</FormLabel>
-              <Input {...register('description', { required: 'description is required' })} type='text' focusBorderColor='none' />
+              <Textarea {...register('description', { required: 'description is required' })} type='text' focusBorderColor='none' />
               <FormErrorMessage>{errors?.description?.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={errors.inStock}>
@@ -206,14 +211,19 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
             </FormControl>
             <FormControl isInvalid={errors.price}>
               <FormLabel>Price</FormLabel>
-              <Input
-                {...register('price',
-                  {
-                    required: 'price is required', min: { value: 0, message: 'stock must be 0 or greater than 1' }
-                  })}
-                type='text'
-                focusBorderColor='none'
-              />
+              <InputGroup>
+                <InputLeftAddon>
+                  <BsCurrencyDollar />
+                </InputLeftAddon>
+                <Input
+                  {...register('price',
+                    {
+                      required: 'price is required', min: { value: 0, message: 'stock must be 0 or greater than 1' }
+                    })}
+                  type='text'
+                  focusBorderColor='none'
+                />
+              </InputGroup>
               <FormErrorMessage>{errors?.price?.message}</FormErrorMessage>
             </FormControl>
             <Box>
