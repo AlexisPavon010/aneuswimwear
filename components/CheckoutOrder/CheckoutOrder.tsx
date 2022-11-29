@@ -30,10 +30,11 @@ export const CheckoutOrder = () => {
             >
               {product.title}
             </Text>
-            <Text fontSize='14px'>{product.size}</Text>
+            <Text fontSize='14px'>Quantity: {product.quantity}</Text>
+            <Text fontSize='14px'>Size: {product.size}</Text>
           </Box>
           <Box pl='14px'>
-            <Text>{product.price.toFixed(2)}</Text>
+            <Text>${product.price.toFixed(2)}</Text>
           </Box>
         </Flex>
       ))}
@@ -56,7 +57,7 @@ export const CheckoutOrder = () => {
             fontSize='14px'
             fontWeight='600'
           >
-            {getCartTotal(items)}
+            ${getCartTotal(items)}
           </Text>
         </Flex>
         <Flex justifyContent='space-between'>
@@ -98,7 +99,7 @@ export const CheckoutOrder = () => {
             fontSize='24px'
             fontWeight='600'
           >
-            {(getCartTotal(items) * taxRate)}
+            ${(getCartTotal(items) * taxRate)}
           </Text>
         </Flex>
       </Flex>
