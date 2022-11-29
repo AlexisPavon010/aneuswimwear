@@ -1,3 +1,4 @@
+export { postReview } from "./review";
 export { Payphone } from "./payphone";
 export { createOrder } from "./order";
 export { uploadBanner } from "./banner";
