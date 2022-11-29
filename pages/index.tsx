@@ -34,7 +34,6 @@ export default function Home({ news, best_sellers, banner, newsletter }: HomePro
           name="description"
           content="Somos una marca de trajes de baño, simple, alegre y divertida. Nuestro propósito es llevarte prendas a la moda, cómodas y de ediciones limitadas."
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Box as='main'>
