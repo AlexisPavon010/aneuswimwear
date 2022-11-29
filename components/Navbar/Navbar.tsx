@@ -37,57 +37,65 @@ export const Navbar = ({ setIsOpenMenu }: NavbarProps) => {
   }
 
   return (
-    <Box as="header">
+    <>
       <Announcement />
-      <Box as="nav" bg="bg-surface" boxShadow={useColorModeValue('sm', 'sm-dark')}>
-        <Container maxW='1900px' py={2}>
-          <HStack spacing="10" justify="space-between">
-            <ButtonGroup variant="link" spacing="8" alignItems='center'>
-              <FiMenu onClick={() => setIsOpenMenu(true)} fontSize="1.25rem" />
-              {isDesktop ? (
-                <>
-                  <NextLink href={`/collections/new`} >New</NextLink>
-                  <NextLink href={`/collections/all-swim`} >Swimwear</NextLink>
-                  <NextLink href={`/collections/all`} >Collections</NextLink>
-                  <NextLink href={`/collections/sale`} >Sale</NextLink>
-                </>
-              ) : null}
-            </ButtonGroup>
-            <Link
-              as={NextLink}
-              href='/'
-              margin='0 !important'
-              fontWeight={600}
-              letterSpacing='4px'
-            >
-              ANEU SWIMWEAR
-            </Link>
-            <HStack spacing="3" margin='0 !important'>
-              <InputGroup display={isDesktop ? 'flex' : 'none'}>
-                <InputLeftElement
-                  top='-7px'
-                  left='-5px'
-                  onClick={onSearchTerm}
-                >
-                  <BsSearch />
-                </InputLeftElement>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' ? onSearchTerm() : null}
-                  _focus={{ outline: 'none' }}
-                  outline='none'
-                  size='xs'
-                  type='text'
-                  variant='flushed'
-                  placeholder='Search'
-                />
-              </InputGroup>
-              <CartButton onClick={() => dispatch(openCartMenu(true))} />
+      <Box
+        as="header"
+        position='sticky'
+        top={0}
+        zIndex={3}
+        bgColor='white'
+      >
+        <Box as="nav" bg="bg-surface" boxShadow={useColorModeValue('sm', 'sm-dark')}>
+          <Container maxW='1900px' py={2}>
+            <HStack spacing="10" justify="space-between">
+              <ButtonGroup variant="link" spacing="8" alignItems='center'>
+                <FiMenu onClick={() => setIsOpenMenu(true)} fontSize="1.25rem" />
+                {isDesktop ? (
+                  <>
+                    <NextLink href={`/collections/new`} >New</NextLink>
+                    <NextLink href={`/collections/all-swim`} >Swimwear</NextLink>
+                    <NextLink href={`/collections/all`} >Collections</NextLink>
+                    <NextLink href={`/collections/sale`} >Sale</NextLink>
+                  </>
+                ) : null}
+              </ButtonGroup>
+              <Link
+                as={NextLink}
+                href='/'
+                margin='0 !important'
+                fontWeight={600}
+                letterSpacing='4px'
+              >
+                ANEU SWIMWEAR
+              </Link>
+              <HStack spacing="3" margin='0 !important'>
+                <InputGroup display={isDesktop ? 'flex' : 'none'}>
+                  <InputLeftElement
+                    top='-7px'
+                    left='-5px'
+                    onClick={onSearchTerm}
+                  >
+                    <BsSearch />
+                  </InputLeftElement>
+                  <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' ? onSearchTerm() : null}
+                    _focus={{ outline: 'none' }}
+                    outline='none'
+                    size='xs'
+                    type='text'
+                    variant='flushed'
+                    placeholder='Search'
+                  />
+                </InputGroup>
+                <CartButton onClick={() => dispatch(openCartMenu(true))} />
+              </HStack>
             </HStack>
-          </HStack>
-        </Container >
+          </Container >
+        </Box >
       </Box >
-    </Box >
+    </>
   )
 }
