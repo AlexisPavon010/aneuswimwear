@@ -1,6 +1,11 @@
 import mongoose, { Schema } from 'mongoose'
 
+import { ReviewSchema } from './Review';
+
 const ProductSchema = new Schema({
+  reviews: [ReviewSchema],
+  rating: { type: Number, default: 0 },
+  numReviews: { type: Number, default: 0 },
   description: { type: String, required: true },
   images: [{ type: String }],
   inStock: { type: Number, required: true, default: 0 },
@@ -10,8 +15,8 @@ const ProductSchema = new Schema({
   slug: { type: String, required: true, unique: true },
   tags: [{ type: String }],
   title: { type: String, required: true },
-  type: { type: String, enum: { values: ['shirts', 'pants', 'hoodies', 'hats', 'top'], message: '{VALUE} is not a valid type' } },
-  gender: { type: String, enum: { values: ['men', 'women', 'kid', 'unisex', 'top', 'new', 'new-bottom', 'best_sellers'], message: '{VALUE} is not a valid gender' } },
+  type: { type: String, enum: { values: ['shirts', 'pants', 'hoodies', 'hats', 'top', 'bottom', 'one-pices', 'new', 'new-bottom', 'best_sellers', 'all-swim', 'sale', 'one-pieces'], message: '{VALUE} is not a valid type' } },
+  gender: { type: String, enum: { values: ['men', 'women', 'kid', 'unisex', 'top', 'new', 'news', 'new-bottom', 'best_sellers'], message: '{VALUE} is not a valid gender' } },
 }, {
   timestamps: true,
 })
