@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -11,7 +12,7 @@ interface NewArrivalsProps {
 }
 
 export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
-
+  const router = useRouter()
   return (
     <Box p={{ base: '10px', md: '30px' }}>
       <Text
@@ -27,6 +28,7 @@ export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
         slidesPerView={4}
         navigation={true}
         modules={[Navigation]}
+        style={{ padding: '10px 0' }}
         breakpoints={{
           320: {
             slidesPerView: 1,
@@ -55,7 +57,9 @@ export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
         justifyContent='center'
       >
         <Button
-          variant='ghost'>
+          onClick={() => router.push('/collections/all')}
+          variant='ghost'
+        >
           See All
         </Button>
       </Flex>
