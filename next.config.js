@@ -2,6 +2,16 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  future: {
+    webpack5: true,
+  },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.html$/,
+      loader: 'html-loader',
+    });
+    return config
+  },
   images: {
     domains: [
       'cdn.shopify.com',
