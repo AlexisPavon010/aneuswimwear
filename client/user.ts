@@ -14,3 +14,16 @@ export const updateUser = (role: string, id: string) => {
     id
   })
 }
+
+export const recoveryPassword = (email: string) => {
+  return axios.post('/api/email/recovery-password', {
+    email
+  })
+}
+
+export const resetPassword = (password: string, token: string) => {
+  return axios.post('/api/email/reset-password', {
+    password,
+    token
+  })
+}
