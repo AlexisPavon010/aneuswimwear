@@ -1,3 +1,5 @@
+import { IReview } from "./Review";
+
 export interface IProduct {
   _id: string;
   quantity?: number;
@@ -5,6 +7,7 @@ export interface IProduct {
   images: string[];
   inStock: number;
   price: number;
+  reviews: IReview[];
   sizes: ISize[];
   slug: string;
   tags: string;
