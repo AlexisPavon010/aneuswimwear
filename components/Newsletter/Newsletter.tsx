@@ -1,7 +1,10 @@
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, Flex, Text, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, Flex, Text, Input, InputGroup, InputRightElement, Spinner, FormControl, FormErrorMessage, Alert, AlertIcon } from "@chakra-ui/react"
 import NextImage from "next/image"
 import { useState } from "react"
 import { FiSend } from "react-icons/fi"
+import { useForm } from 'react-hook-form'
+
+import { sendNewsletterEmail } from "../../client"
 
 interface Props {
   description: string;
@@ -13,13 +16,33 @@ interface Props {
 }
 
 export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
-  const [show, setShow] = useState(true)
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [show, setShow] = useState(true);
 
   const handleCloseModal = () => {
     setShow(false)
   }
 
   const { description, firstTitle, images, secondTitle, subtitle } = newsletter;
+
+
+  const sendEmail = async ({ email }: { email?: string }) => {
+    setIsLoading(true)
+    try {
+      const { data } = await sendNewsletterEmail(email!)
+      setIsSuccess(true)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+      setValue('email', '')
+      setTimeout(() => {
+        setShow(false)
+      }, 2500);
+    }
+  }
 
   return (
     <Modal
@@ -64,15 +87,30 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
             </Text>
             <Text
               textAlign='center'
+              mb={4}
             >
               {description}
             </Text>
-            <InputGroup mt={4}>
-              <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' />
-              <InputRightElement>
-                <FiSend size='20px' />
-              </InputRightElement>
-            </InputGroup>
+            {isSuccess ? (
+              <Alert status='success'>
+                <AlertIcon />
+                Mail sent successfully
+              </Alert>
+            ) : (
+              <FormControl isInvalid={errors.email}>
+                <InputGroup>
+                  <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' {...register('email', { required: true })} />
+                  <InputRightElement>
+                    {isLoading ? (
+                      <Spinner />
+                    ) : (
+                      <FiSend cursor='pointer' size='20px' onClick={handleSubmit(sendEmail)} />
+                    )}
+                  </InputRightElement>
+                </InputGroup>
+                <FormErrorMessage>please enter an email</FormErrorMessage>
+              </FormControl>
+            )}
           </Flex>
         </ModalBody>
       </ModalContent>
