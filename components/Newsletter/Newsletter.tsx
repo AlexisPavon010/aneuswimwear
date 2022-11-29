@@ -3,6 +3,8 @@ import NextImage from "next/image"
 import { useState } from "react"
 import { FiSend } from "react-icons/fi"
 import { useForm } from 'react-hook-form'
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup'
 
 import { sendNewsletterEmail } from "../../client"
 
@@ -15,8 +17,14 @@ interface Props {
   _id: string;
 }
 
+const schema = yup.object({
+  email: yup.string().required('comment is required'),
+})
+
 export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [show, setShow] = useState(true);
@@ -97,7 +105,7 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
                 Mail sent successfully
               </Alert>
             ) : (
-              <FormControl isInvalid={errors.email}>
+              <FormControl isInvalid={!!errors.email}>
                 <InputGroup>
                   <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' {...register('email', { required: true })} />
                   <InputRightElement>
