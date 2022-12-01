@@ -14,7 +14,7 @@ interface NewArrivalsProps {
 export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
   const router = useRouter()
   return (
-    <Box p={{ base: '10px', md: '30px' }}>
+    <Box p={{ base: '10px 0', md: '30px 0' }}>
       <Text
         m='20px 0'
         fontSize='24px'
@@ -28,7 +28,7 @@ export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
         slidesPerView={4}
         navigation={true}
         modules={[Navigation]}
-        style={{ padding: '10px 0' }}
+        style={{ padding: '8px 4px' }}
         breakpoints={{
           320: {
             slidesPerView: 1,
