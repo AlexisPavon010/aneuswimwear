@@ -71,7 +71,7 @@ const DashboardPage = () => {
   }
 
   return (
-    <Box>
+    <Box bgColor='#f8f9fa'>
       <Head>
         <title>Aneuswimwear | Dashboard</title>
       </Head>
@@ -91,47 +91,55 @@ const DashboardPage = () => {
           <SummaryTile
             title={numberOfOrders}
             subTitle='Ordenes Totales'
-            icon={<BsCreditCard2Back size='48px' color="purple" />}
+            icon={<BsCreditCard2Back size='20px' color="purple" />}
             path='/dashboard/orders'
+            color="#f6d4f6"
           />
           <SummaryTile
             title={paidOrders}
             subTitle='Ordenes Pagadas'
-            icon={<MdOutlineAttachMoney size='48px' color="green" />}
+            icon={<MdOutlineAttachMoney size='20px' color="green" />}
             path='/dashboard/orders'
+            color="#d1e7dd"
           />
           <SummaryTile
             title={notPaidOrders}
             subTitle='Ordenes Pendientes'
-            icon={<MdOutlineCreditCardOff size='48px' color="red" />}
+            icon={<MdOutlineCreditCardOff size='20px' color="red" />}
             path='/dashboard/orders'
+            color="#febaba"
           />
           <SummaryTile
             title={numberOfClients}
             subTitle='Clientes'
-            icon={<AiOutlineUsergroupDelete size='48px' />}
+            icon={<AiOutlineUsergroupDelete size='20px' />}
             path='/dashboard/users'
+            color="#b7f3bb"
           />
           <SummaryTile
             title={numberOfProducts}
             subTitle='Productos'
-            icon={<MdOutlineCategory size='48px' color="orange" />}
+            icon={<MdOutlineCategory size='20px' color="orange" />}
             path='/dashboard/products'
+            color="#fff3cd"
           />
           <SummaryTile
             title={productsWithNoInventory}
             subTitle='Sin Existencias'
-            icon={<AiOutlineCloseSquare size='48px' color="red" />}
+            color="#febaba"
+            icon={<AiOutlineCloseSquare size='20px' color="red" />}
           />
           <SummaryTile
             title={lowInventory}
             subTitle='Bajo inventario'
-            icon={<AiOutlineShoppingCart size='48px' color="orange" />}
+            icon={<AiOutlineShoppingCart size='20px' color="orange" />}
+            color="#fff3cd"
           />
           <SummaryTile
             title={counterInterval}
             subTitle='Actualizacion'
-            icon={<AiOutlineClockCircle size='48px' color="blue" />}
+            icon={<AiOutlineClockCircle size='20px' color="blue" />}
+            color="#cfe2ff"
           />
         </SimpleGrid>
       </Box>
