@@ -137,18 +137,18 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                     Bottoms
                   </Link>
                   <Link
-                    onClick={() => handleNavigate('/collections/all')}
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Summer Favorites
-                  </Link>
-                  <Link
                     onClick={() => handleNavigate('/collections/best-sellers')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
                     Best Sellers
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigate('/collections/all')}
+                    _hover={{ background: 'rgb(244, 245, 246)' }}
+                    padding='8px 0px 8px 36px'
+                  >
+                    Summer Favorites
                   </Link>
                 </Flex>
               </AccordionPanel>
@@ -173,13 +173,6 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                     All Swim
                   </Link>
                   <Link
-                    onClick={() => handleNavigate('/collections/tops')}
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Tops
-                  </Link>
-                  <Link
                     onClick={() => handleNavigate('/collections/bottoms')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
@@ -192,6 +185,13 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                     padding='8px 0px 8px 36px'
                   >
                     One Pieces
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigate('/collections/tops')}
+                    _hover={{ background: 'rgb(244, 245, 246)' }}
+                    padding='8px 0px 8px 36px'
+                  >
+                    Tops
                   </Link>
                 </Flex>
               </AccordionPanel>
@@ -212,13 +212,13 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
-                    Mykonos Madness
+                    Bright Mania
                   </Link>
                   <Link
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
-                    Villa Capri
+                    Classics
                   </Link>
                   <Link
                     _hover={{ background: 'rgb(244, 245, 246)' }}
@@ -230,19 +230,19 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
-                    Bright Mania
-                  </Link>
-                  <Link
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
                     Floral Dreams
                   </Link>
                   <Link
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
-                    Classics
+                    Mykonos Madness
+                  </Link>
+                  <Link
+                    _hover={{ background: 'rgb(244, 245, 246)' }}
+                    padding='8px 0px 8px 36px'
+                  >
+                    Villa Capri
                   </Link>
                 </Flex>
               </AccordionPanel>
