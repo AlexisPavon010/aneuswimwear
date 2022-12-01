@@ -1,10 +1,11 @@
 import { Box, Text } from "@chakra-ui/react"
+import ReactStars from "react-rating-stars-component";
 import Image from "next/image"
 import Link from "next/link";
 
 import { IProduct } from "../../interfaces/Product";
 
-export const ProductItem = ({ images, title, price, slug }: IProduct) => {
+export const ProductItem = ({ images, title, price, slug, rating }: IProduct) => {
 
   const filterTitle = (title: string) => {
     if (title.length <= 20) return title;
@@ -38,6 +39,12 @@ export const ProductItem = ({ images, title, price, slug }: IProduct) => {
           >
             {title}
           </Text>
+          <ReactStars
+            value={rating}
+            edit={false}
+            size={16}
+            activeColor="#ffd700"
+          />
           <Text>
             {`$ ${price.toFixed(2)}`}
           </Text>
