@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { Box } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 
 import { Banner } from '../components/Banner'
 import { SlideProducts } from '../components/SlideProducts'
@@ -38,12 +38,14 @@ export default function Home({ news, best_sellers, banner, newsletter }: HomePro
 
       <Box as='main'>
         <Banner banner={banner} />
-        <SlideProducts title='New arrivals' products={news} />
-        <Categories />
-        <SlideProducts title='Best sellers' products={best_sellers} />
-        <InstaFeed />
-        <WhatsAppButton />
-        <Newsletter newsletter={newsletter} />
+        <Container maxW='1600px'>
+          <SlideProducts title='New arrivals' products={news} />
+          <Categories />
+          <SlideProducts title='Best sellers' products={best_sellers} />
+          <InstaFeed />
+          <WhatsAppButton />
+          <Newsletter newsletter={newsletter} />
+        </Container>
       </Box>
     </>
   )
