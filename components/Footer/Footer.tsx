@@ -7,15 +7,23 @@ import {
   Box,
   Container,
   Flex,
+  FormControl,
+  FormErrorMessage,
   Grid,
+  IconButton,
   Image,
   Input,
   InputGroup,
   InputRightElement,
+  Spinner,
   Text,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { FiSend } from 'react-icons/fi'
+
+import { sendNewsletterEmail } from '../../client'
 
 export const Footer = () => {
   return (
@@ -134,12 +142,7 @@ export const Footer = () => {
               </Text>
             </h2>
             <Box pb={2}>
-              <InputGroup>
-                <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' />
-                <InputRightElement>
-                  <FiSend size='20px' />
-                </InputRightElement>
-              </InputGroup>
+              <EmailLargeForm />
             </Box>
           </Box>
 
@@ -229,12 +232,7 @@ export const Footer = () => {
               JOIN THE ANEU CLUB
             </Text>
             <Box>
-              <InputGroup>
-                <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' />
-                <InputRightElement>
-                  <FiSend size='20px' />
-                </InputRightElement>
-              </InputGroup>
+              <EmailSmallForm />
             </Box>
           </Box>
 
@@ -243,10 +241,9 @@ export const Footer = () => {
         <Box p='8px 16px'>
           <Flex pt='25px' justifyContent='center'>
             <Image mr='10px' src="/assets/visa.png" alt="Visa" />
-            <Image mr='10px' src="/assets/paypal.png" alt="Paypal" />
-            <Image mr='10px' src="/assets/maestro.png" alt="Maestro" />
-            <Image mr='10px' src="/assets/amex.png" alt="Amex" />
             <Image mr='10px' src="/assets/master_card.png" alt="Master Card" />
+            <Image mr='10px' src="/assets/payphone-xs.svg" alt="Payphone" />
+            <Image mr='10px' src="/assets/paypal.png" alt="Paypal" />
           </Flex>
         </Box>
 
@@ -268,5 +265,89 @@ export const Footer = () => {
         </Container>
       </Box>
     </Box >
+  )
+}
+
+const EmailLargeForm = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+  const sendEmail = async (fomrData: any) => {
+    setIsLoading(true)
+    console.log(fomrData)
+    try {
+      const { data } = await sendNewsletterEmail(fomrData.email)
+      setValue('email', '')
+      console.log(data)
+
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <FormControl isInvalid={!!errors.email}>
+      <InputGroup>
+        <Input
+          {...register('email', { required: "Please enter an email." })}
+          placeholder='Enter email'
+          focusBorderColor='none'
+          borderRadius='none'
+          type='email'
+        />
+        <InputRightElement>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <FiSend cursor='pointer' size='20px' onClick={handleSubmit(sendEmail)} />
+          )}
+        </InputRightElement>
+      </InputGroup>
+      <FormErrorMessage>please enter an email</FormErrorMessage>
+    </FormControl>
+  )
+}
+
+const EmailSmallForm = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+  const sendEmail = async (fomrData: any) => {
+    setIsLoading(true)
+    console.log(fomrData)
+    try {
+      const { data } = await sendNewsletterEmail(fomrData.email)
+      setValue('email', '')
+      console.log(data)
+
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <FormControl isInvalid={!!errors.email}>
+      <InputGroup>
+        <Input
+          {...register('email', { required: "Please enter an email." })}
+          placeholder='Enter email'
+          focusBorderColor='none'
+          borderRadius='none'
+          type='email'
+        />
+        <InputRightElement>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <FiSend cursor='pointer' size='20px' {...register('email', { required: "Please enter an email." })} onClick={handleSubmit(sendEmail)} />
+          )}
+        </InputRightElement>
+      </InputGroup>
+      <FormErrorMessage>please enter an email</FormErrorMessage>
+    </FormControl>
   )
 }
