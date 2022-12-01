@@ -3,6 +3,7 @@ import NextLink from 'next/link'
 
 interface Props {
   title: number;
+  color: string;
   subTitle: string;
   icon?: JSX.Element;
   path?: string;
@@ -17,28 +18,37 @@ export const SummaryTile = (props: Props) => {
   )
 }
 
-const Sumary = ({ icon, subTitle, title }: Props) => {
+const Sumary = ({ icon, subTitle, title, color }: Props) => {
   return (
     <Box
-      p={8}
-      borderWidth='1px'
-      borderRadius='lg'
-      boxShadow='4px 4px 4px 0px rgb(0 0 0 / 22%)'
+      p={4}
+      borderRadius='4px'
+      boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'
+      border='1px solid rgba(0,0,0,.125)'
+      bgColor='white'
     >
-      <Flex justifyContent='space-between'>
+      <Flex>
+        <Flex
+          mr={2}
+          height='48px'
+          width='48px'
+          bg={color}
+          align='center'
+          justifyContent='center'
+          borderRadius='50%'
+        >
+          {icon}
+        </Flex>
         <Box>
-          <Text>
+          <Text
+            fontWeight={600}
+          >
             {subTitle}
           </Text>
-          <Text
-            fontSize='24px'
-          >
+          <Text>
             {title || 0}
           </Text>
         </Box>
-        <Flex align='center'>
-          {icon}
-        </Flex>
       </Flex>
     </Box >
   )
