@@ -46,7 +46,7 @@ export const CheckoutOrder = () => {
         </Button>
       </Flex>
       <Divider />
-      <Flex direction='column' rowGap='10px' p='20px 0'>
+      {/* <Flex direction='column' rowGap='10px' p='20px 0'>
         <Flex justifyContent='space-between'>
           <Text
             fontSize='14px'
@@ -79,10 +79,10 @@ export const CheckoutOrder = () => {
             fontSize='14px'
             fontWeight='600'
           >
-            $5.00
+            $0.00
           </Text>
         </Flex>
-      </Flex>
+      </Flex> */}
       <Divider />
       <Flex justifyContent='space-between' mt='12px'>
         <Text
