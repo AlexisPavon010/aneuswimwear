@@ -66,7 +66,7 @@ const Signin = ({ providers, error }: any) => {
         <Flex padding='32px' flex='1' alignItems='center' justifyContent='center'>
           <Box width='100%' maxW='450px'>
             <Flex m={{ base: '40px 0 32px 0', lg: '0 0 32px 0' }} mb={8} justifyContent='center'>
-              <Image w='150px' src='/assets/logo_negro.png' />
+              <Image w='150px' src='/assets/logo_negro.png' alt='logo' />
             </Flex>
             <Text
               mb='36px'
@@ -130,16 +130,26 @@ const Signin = ({ providers, error }: any) => {
                 </Box>
                 <Box padding='16px' textAlign='center'>
                   <Flex mb={4} justifyContent='center'>
+                    {
+                      isRegister ? (
+                        <Text
+                          mr={2}
+                        >
+                          You already have an account?
+                        </Text>
+                      ) : (
+                        <Text
+                          mr={2}
+                        >
+                          You do not have an account?
+                        </Text>
+                      )}
                     <Text
-                      mr={2}
-                    >
-                      Have an account?
-                    </Text>
-                    <Text
+                      cursor='pointer'
                       fontWeight={900}
                       onClick={() => setIsRegister((state: boolean) => !state)}
                     >
-                      {isRegister ? 'Login' : 'Sign in'}
+                      {isRegister ? 'Login' : 'Sign up'}
                     </Text>
                   </Flex>
                   <ChakraLink onClick={() => setIsForgot(true)}>
