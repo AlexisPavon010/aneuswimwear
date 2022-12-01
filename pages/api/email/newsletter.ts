@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer'
 import handlebars from 'handlebars'
 import { getSession } from "next-auth/react";
 
-import templateHtml from '../../../emails/example.html'
+import templateHtml from '../../../emails/newsletter.html'
 
 export default function handlerNewsletter(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
