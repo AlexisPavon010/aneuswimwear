@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from "next"
 import { getSession } from "next-auth/react"
+import { useRouter } from "next/router"
 import Head from "next/head"
 import {
   Flex,
@@ -10,34 +11,18 @@ import {
   Tag,
   TagLeftIcon,
   TagLabel,
-  Button
 } from "@chakra-ui/react"
+import {
+  BsArrowLeft,
+  BsCreditCard2Back
+} from "react-icons/bs";
 import moment from 'moment'
 
 import { getOrderById } from "../../database/dbOrders"
 import { IOrder } from "../../interfaces"
-import { BsArrowLeft, BsCreditCard2Back } from "react-icons/bs";
-import { useRouter } from "next/router"
 
 interface Props {
   order: IOrder;
-}
-
-interface OrderCompletedProps {
-  id: string;
-  status:
-  | "COMPLETED"
-  | "SAVED"
-  | "APPROVED"
-  | "VOIDED"
-  | "COMPLETED"
-  | "PAYER_ACTION_REQUIRED";
-  payer: {
-    name: Partial<{
-      given_name: string;
-      surname: string;
-    }>;
-  }
 }
 
 const OrderPage: NextPage<Props> = ({ order }) => {
@@ -62,12 +47,12 @@ const OrderPage: NextPage<Props> = ({ order }) => {
       </Flex>
       <Box p='20px'>
 
-
         <Box p='12px' borderWidth='1px' borderRadius='lg'>
           <Flex justifyContent='space-between' mb={4} direction={{ base: 'column', md: 'row' }}>
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Order Date
               </Text>
@@ -80,6 +65,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Order ID
               </Text>
@@ -92,18 +78,29 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Payment
               </Text>
-              <Text
-                fontSize='14px'
-              >
-                {moment(order.createdAt).format('MM/DD/YYYY, h:mm:ss a')}
-              </Text>
+              {
+                order.isPaid ? (
+                  <Tag variant='subtle' colorScheme='green'>
+                    <TagLeftIcon boxSize='12px' as={BsCreditCard2Back} />
+                    <TagLabel>Success</TagLabel>
+                  </Tag>
+
+                ) : (
+                  <Tag variant='subtle' colorScheme='red'>
+                    <TagLeftIcon boxSize='12px' as={BsCreditCard2Back} />
+                    <TagLabel>Pending</TagLabel>
+                  </Tag>
+                )
+              }
             </Box>
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Address
               </Text>
@@ -157,11 +154,11 @@ const OrderPage: NextPage<Props> = ({ order }) => {
           <Box p='8px'>
             <Flex justifyContent='space-between'>
               <Text>Subtotal</Text>
-              <Text>{`$${order.subTotal}`}</Text>
+              <Text>{`$${order.subTotal.toFixed(2)}`}</Text>
             </Flex>
             <Flex justifyContent='space-between'>
               <Text>Express Shipping</Text>
-              <Text>{`$5`}</Text>
+              <Text>{`$0.00`}</Text>
             </Flex>
             <Flex justifyContent='space-between'>
               <Text>Taxes</Text>
@@ -182,21 +179,9 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             <Text
               fontWeight={600}
             >
-              {`$${order.total}`}
+              {`$${order.total.toFixed(2)}`}
             </Text>
           </Flex>
-          <Box>
-            {order.isPaid ? (
-              <Tag variant='subtle' colorScheme='green'>
-                <TagLeftIcon boxSize='12px' as={BsCreditCard2Back} />
-                <TagLabel>Success</TagLabel>
-              </Tag>
-            ) : (
-              <Button>
-                Confirm order
-              </Button>
-            )}
-          </Box>
         </Box>
       </Box>
     </Box >

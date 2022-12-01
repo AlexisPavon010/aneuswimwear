@@ -1,8 +1,20 @@
-import { Box, Button, Divider, Flex, Grid, GridItem, Link as ChakraLink, Tag, TagLabel, TagLeftIcon, Text } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import { BsArrowLeft, BsCreditCard2Back } from "react-icons/bs";
+import Head from "next/head";
+import {
+  Box,
+  Divider,
+  Flex,
+  Link as ChakraLink,
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+  Text
+} from "@chakra-ui/react";
+import {
+  BsArrowLeft,
+  BsCreditCard2Back
+} from "react-icons/bs";
 import moment from 'moment'
 
 import { getOrderById } from "../../../database/dbOrders";
@@ -19,9 +31,9 @@ const OrderPages: NextPage<Props> = ({ order }) => {
       <Head>
         <title>Aneuswimwear | Admin orders</title>
       </Head>
-      <Flex p='20px 20px' align='center'>
+      <Flex p='12px 32px 0 32px' align='center'>
         <ChakraLink onClick={() => router.push('/dashboard/orders')}>
-          <BsArrowLeft size='32px' />
+          <BsArrowLeft size='24px' />
         </ChakraLink>
         <Text
           ml={2}
@@ -32,11 +44,13 @@ const OrderPages: NextPage<Props> = ({ order }) => {
         </Text>
       </Flex>
       <Box p='20px'>
+
         <Box p='12px' borderWidth='1px' borderRadius='lg'>
           <Flex justifyContent='space-between' mb={4} direction={{ base: 'column', md: 'row' }}>
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Order Date
               </Text>
@@ -49,6 +63,7 @@ const OrderPages: NextPage<Props> = ({ order }) => {
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Order ID
               </Text>
@@ -61,18 +76,29 @@ const OrderPages: NextPage<Props> = ({ order }) => {
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Payment
               </Text>
-              <Text
-                fontSize='14px'
-              >
-                {moment(order.createdAt).format('MM/DD/YYYY, h:mm:ss a')}
-              </Text>
+              {
+                order.isPaid ? (
+                  <Tag variant='subtle' colorScheme='green'>
+                    <TagLeftIcon boxSize='12px' as={BsCreditCard2Back} />
+                    <TagLabel>Success</TagLabel>
+                  </Tag>
+
+                ) : (
+                  <Tag variant='subtle' colorScheme='red'>
+                    <TagLeftIcon boxSize='12px' as={BsCreditCard2Back} />
+                    <TagLabel>Pending</TagLabel>
+                  </Tag>
+                )
+              }
             </Box>
             <Box mb={2}>
               <Text
                 fontWeight={600}
+                mb={2}
               >
                 Address
               </Text>
@@ -126,11 +152,11 @@ const OrderPages: NextPage<Props> = ({ order }) => {
           <Box p='8px'>
             <Flex justifyContent='space-between'>
               <Text>Subtotal</Text>
-              <Text>{`$${order.subTotal}`}</Text>
+              <Text>{`$${order.subTotal.toFixed(2)}`}</Text>
             </Flex>
             <Flex justifyContent='space-between'>
               <Text>Express Shipping</Text>
-              <Text>{`$5`}</Text>
+              <Text>{`$0.00`}</Text>
             </Flex>
             <Flex justifyContent='space-between'>
               <Text>Taxes</Text>
@@ -151,21 +177,9 @@ const OrderPages: NextPage<Props> = ({ order }) => {
             <Text
               fontWeight={600}
             >
-              {`$${order.total}`}
+              {`$${order.total.toFixed(2)}`}
             </Text>
           </Flex>
-          <Box>
-            {order.isPaid ? (
-              <Tag variant='subtle' colorScheme='green'>
-                <TagLeftIcon boxSize='12px' as={BsCreditCard2Back} />
-                <TagLabel>Success</TagLabel>
-              </Tag>
-            ) : (
-              <Button>
-                Confirm order
-              </Button>
-            )}
-          </Box>
         </Box>
       </Box>
     </Box>
