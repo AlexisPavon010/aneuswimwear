@@ -8,6 +8,7 @@ export interface IProduct {
   inStock: number;
   price: number;
   reviews: IReview[];
+  rating: number;
   sizes: ISize[];
   slug: string;
   tags: string;
