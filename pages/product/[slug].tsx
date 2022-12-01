@@ -1,14 +1,29 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Flex, Grid, GridItem, Stack, Tag, TagLabel, Text, useMediaQuery } from "@chakra-ui/react"
+import {
+  Box,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Button,
+  Container,
+  Divider,
+  Flex,
+  Grid,
+  GridItem,
+  Text,
+} from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import ReactStars from "react-rating-stars-component";
+
 import Image from 'next/image';
 import Head from 'next/head';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { setCookie, parseCookies } from 'nookies';
+
 
 import { ItemCounter } from '../../components/Products/ItemCounter';
 import { SizeSelected } from '../../components/Products/SizeSelected';
@@ -18,12 +33,16 @@ import { dbProducts } from '../../database';
 import { IProduct } from '../../interfaces/Product';
 import { ICartProduct } from '../../interfaces';
 import { openCartMenu } from '../../redux/ui/uiSlice';
+import { SlideProducts } from '../../components/SlideProducts';
+import { InstaSlider } from '../../components/InstaSlider';
+import { RatingComponent } from '../../components/RatingComponent';
 
 interface Props {
-  product: IProduct
+  product: IProduct;
+  best_sellers: IProduct[];
 }
 
-const ProductPage: NextPage<Props> = ({ product }) => {
+const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
   const [color, setColor] = useState(0)
   const [topSizeSelected, setTopSizeSelected] = useState<any>('M')
   const [sizeSelected, setSizeSelected] = useState<any>('M')
@@ -121,8 +140,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   }
 
   return (
-    <Box p='0 24px'>
-
+    <Box>
       <Head>
         <title>
           {`${product.title} - Aneuswimwear`}
@@ -132,140 +150,153 @@ const ProductPage: NextPage<Props> = ({ product }) => {
         <meta name="og:description" content={product.description} />
         <meta name="og:image" content={product.images[0]} />
       </Head>
+      <Container maxW='1440px'>
+        <Box>
+          <Breadcrumb p={{ base: '12px 0', md: '12px 16px' }}>
+            <BreadcrumbItem>
+              <NextLink href='/'>Home</NextLink>
+            </BreadcrumbItem>
 
-      <Breadcrumb p='12px 16px'>
-        <BreadcrumbItem>
-          <Link href='/'>Home</Link>
-        </BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink>
+                {product.title.toLocaleLowerCase()}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
 
-        <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink>
-            {product.title.toLocaleLowerCase()}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
-
-      <Grid
-        templateColumns='repeat(12, 1fr)'
-      >
-        <GridItem display={{ base: 'none', lg: 'block' }} dir="column">
-          {product.images.map((url: string, i: number) => (
-            <Box p='0px 8px 8px 8px' key={i}>
-              <Image src={url} alt='image' objectFit='cover' height={1500} width={1200} />
-            </Box>
-          ))}
-        </GridItem>
-        <GridItem
-          colSpan={{ base: 12, md: 6 }}
-        >
-          <Swiper
-            pagination={{
-              clickable: true,
-            }}
-            initialSlide={1}
-            loop={true}
-            spaceBetween={10}
-            navigation={true}
-            modules={[Navigation]}
-            onSlideChange={({ realIndex }) => console.log(realIndex)}
+          <Grid
+            templateColumns='repeat(12, 1fr)'
           >
-            {product.images.map((url: string, i: number) => (
-              <SwiperSlide key={i}>
-                <Image src={url} alt="preview" objectFit='cover' width={1200} height={1500} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-        </GridItem>
-        <GridItem p={{ base: '8px', md: '0 16px', lg: '0px 24px' }} colSpan={{ base: 12, md: 6, lg: 5 }} >
-          <Flex direction='column'>
-            <Flex justifyContent='space-between' alignItems='center'>
-              <Text
-                as='h1'
-                fontSize='24px'
-                fontWeight={400}
+            <GridItem display={{ base: 'none', lg: 'block' }} dir="column">
+              {product.images.map((url: string, i: number) => (
+                <Box p='0px 8px 8px 8px' key={i}>
+                  <Image src={url} alt='image' objectFit='cover' height={1500} width={1200} />
+                </Box>
+              ))}
+            </GridItem>
+            <GridItem
+              colSpan={{ base: 12, md: 6 }}
+            >
+              <Swiper
+                pagination={{
+                  clickable: true,
+                }}
+                initialSlide={1}
+                loop={true}
+                spaceBetween={10}
+                navigation={true}
+                modules={[Navigation]}
+                onSlideChange={({ realIndex }) => console.log(realIndex)}
               >
-                {product.title}
-              </Text>
-              <AiOutlineHeart size='24px' />
-            </Flex>
-            <Text
-              as='h2'
-              fontWeight={400}
-            >
-              {`$${product.price.toFixed(2)}`}
-            </Text>
-            <Box
-              my={4}
-            >
-              <Text as='h3'>
-                Quantity
-              </Text>
-              <ItemCounter
-                count={count}
-                maxCount={product.inStock}
-                setCounter={setQuantity}
-              />
-            </Box>
+                {product.images.map((url: string, i: number) => (
+                  <SwiperSlide key={i}>
+                    <Image src={url} alt="preview" objectFit='cover' width={1200} height={1500} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
-            <Box>
-              <Text>
-                Color:
-              </Text>
-              <ColorSelected
-                setColorSelected={colorSelected}
-                colorSelected={color}
-              />
-            </Box>
+            </GridItem>
+            <GridItem p={{ base: '8px 0', md: '0 16px', lg: '0px 24px' }} colSpan={{ base: 12, md: 6, lg: 5 }} >
+              <Flex direction='column'>
+                <Flex justifyContent='space-between' alignItems='center'>
+                  <Text
+                    as='h1'
+                    fontSize={{ base: '16px', md: '24px' }}
+                    fontWeight={400}
+                  >
+                    {product.title}
+                  </Text>
+                  <AiOutlineHeart size='24px' />
+                </Flex>
+                <ReactStars
+                  value={product.rating}
+                  edit={false}
+                  size={24}
+                  activeColor="#ffd700"
+                />
+                <Text
+                  as='h2'
+                  fontWeight={400}
+                >
+                  {`$${product.price.toFixed(2)}`}
+                </Text>
+                <Box
+                  my={4}
+                >
+                  <Text as='h3'>
+                    Quantity
+                  </Text>
+                  <ItemCounter
+                    count={count}
+                    maxCount={product.inStock}
+                    setCounter={setQuantity}
+                  />
+                </Box>
 
-            <Box my={2}>
-              <Text>
-                Top Size:
-              </Text>
-              <SizeSelected
-                sizes={product.sizes}
-                selectedSize={topSizeSelected}
-                onSelectedSize={(size) => setTopSizeSelected(size)}
-              />
-            </Box>
+                <Box>
+                  <Text>
+                    Color:
+                  </Text>
+                  <ColorSelected
+                    setColorSelected={colorSelected}
+                    colorSelected={color}
+                  />
+                </Box>
 
-            <Box my={2}>
-              <Text>
-                Bottom Size:
-              </Text>
-              <SizeSelected
-                sizes={product.sizes}
-                selectedSize={sizeSelected}
-                onSelectedSize={(size) => selectedSize(size)}
-              />
-            </Box>
+                <Box my={2}>
+                  <Text>
+                    Top Size:
+                  </Text>
+                  <SizeSelected
+                    sizes={product.sizes}
+                    selectedSize={topSizeSelected}
+                    onSelectedSize={(size) => setTopSizeSelected(size)}
+                  />
+                </Box>
 
-            <Button
-              my={2}
-              color='white'
-              background='#000'
-              disabled={product.inStock === 0}
-              _hover={{}}
-              onClick={addProductToCart}
-            >
-              Agregar Al Carrito
-            </Button>
+                <Box my={2}>
+                  <Text>
+                    Bottom Size:
+                  </Text>
+                  <SizeSelected
+                    sizes={product.sizes}
+                    selectedSize={sizeSelected}
+                    onSelectedSize={(size) => selectedSize(size)}
+                  />
+                </Box>
 
-            <Box py={2}>
-              <Text
-                fontWeight={600}
-              >
-                Descripcion:
-              </Text>
-              <Text>
-                {product.description}
-              </Text>
-            </Box>
+                <Button
+                  my={2}
+                  color='white'
+                  background='#000'
+                  disabled={product.inStock === 0}
+                  _hover={{}}
+                  onClick={addProductToCart}
+                >
+                  Agregar Al Carrito
+                </Button>
 
-          </Flex>
-        </GridItem>
-      </Grid>
-
+                <Box py={2}>
+                  <Text
+                    fontWeight={600}
+                  >
+                    Descripcion:
+                  </Text>
+                  <Text>
+                    {product.description}
+                  </Text>
+                </Box>
+              </Flex>
+            </GridItem>
+          </Grid>
+          <Divider />
+          <InstaSlider />
+          <Divider />
+        </Box>
+        <SlideProducts title='Our Favorites' products={best_sellers} />
+        <Divider />
+        <RatingComponent product={product} />
+      </Container>
     </Box >
   )
 }
@@ -287,6 +318,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = '' } = params as { slug: string }
 
   const product = await dbProducts.getProductBySlug(slug)
+  const best_sellers = await dbProducts.getAllProductByGender('best_sellers')
 
   if (!product) {
     return {
@@ -299,9 +331,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      product
+      product,
+      best_sellers
     },
-    revalidate: 86400
+    revalidate: 43200
   }
 }
 
