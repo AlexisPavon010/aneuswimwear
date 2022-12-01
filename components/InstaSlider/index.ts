@@ -1,0 +1,1 @@
+export { InstaSlider } from "./InstaSlider";
