@@ -8,7 +8,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Grid,
+  SimpleGrid,
   Image,
   Input,
   Radio,
@@ -34,6 +34,8 @@ import { dbProducts } from '../../../database'
 import { IProduct } from '../../../interfaces/Product'
 import { Product } from '../../../models';
 import { createProduct, deleteFiles, updateProduct, uploadFiles } from '../../../client';
+import { MdCropFree } from 'react-icons/md';
+import { CropModal } from '../../../components/Crop';
 
 interface Props {
   product: IProduct;
@@ -43,6 +45,7 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
   const { register, handleSubmit, watch, formState: { errors }, getValues, setValue }: any = useForm({
     defaultValues: product
   })
+  const [cropIsLoading, setCropIsLoading] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [tagValue, setTagValue] = useState('')
   const toast = useToast()
@@ -50,6 +53,9 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
   const images = getValues('images')
   const router = useRouter()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const MultipleFileInputRef = useRef<HTMLInputElement>(null)
+  const [showCropper, setShowCropper] = useState(false);
+  const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
 
   const onSubmit = async (formData: IProduct) => {
     setIsLoading(true)
@@ -105,7 +111,7 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
   }
 
 
-  const onFileSelected = async ({ target }: ChangeEvent<HTMLInputElement>) => {
+  const onMultipleFileSelected = async ({ target }: ChangeEvent<HTMLInputElement>) => {
     if (!target.files || target.files.length === 0) {
       return;
     }
@@ -124,6 +130,46 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
     }
   }
 
+  const onFileSelected = async ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (!target.files || target.files.length === 0) {
+      return;
+    }
+
+    try {
+
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        setSrc(reader.result);
+        setShowCropper(true);
+      });
+      reader.readAsDataURL(target.files[0]);
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleUploadFile = async (file: File) => {
+    setCropIsLoading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      const { data } = await uploadFiles(formData)
+      setValue('images', [...getValues('images'), data.url], { shouldValidate: true })
+      closeCropper()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setCropIsLoading(false)
+    }
+  }
+
+  const closeCropper = () => {
+    setSrc(null);
+    setShowCropper(false);
+    // @ts-ignore
+    document.getElementById('file').value! = "";
+  }
 
   const onDeletedImage = async (image: string) => {
     setValue('images', getValues('images').filter((img: string) => img !== image), { shouldValidate: true })
@@ -178,7 +224,7 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
             Guardar
           </Button>
         </Flex>
-        <Grid templateColumns={`repeat(2, 1fr)`} gap='20px'>
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap='20px'>
           <Flex direction='column' rowGap='20px'>
             <FormControl isInvalid={errors.title}>
               <FormLabel>Title</FormLabel>
@@ -318,12 +364,12 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
             </FormControl>
             <FormControl isInvalid={true}>
               <FormLabel>Images</FormLabel>
-              <Button onClick={() => fileInputRef.current?.click()} w='100%'>Upload Images</Button>
+              <Button onClick={() => MultipleFileInputRef.current?.click()} w='100%'>Upload Images</Button>
               <input
                 multiple
                 hidden
-                ref={fileInputRef}
-                onChange={onFileSelected}
+                ref={MultipleFileInputRef}
+                onChange={onMultipleFileSelected}
                 type="file"
                 accept='image/png, image/gif, image/jpeg'
               />
@@ -362,9 +408,57 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
                   <Image objectFit='cover' w='90px' h='90px' src={img} alt='product-img' />
                 </Flex>
               ))}
+              <Flex
+                cursor='pointer'
+                justifyContent='center'
+                align='center'
+                border='1px dashed green'
+                borderRadius='8px'
+                w='90px' h='90px'
+                overflow='hidden'
+                transition='all 0.8s ease'
+                position='relative'
+                _hover={{
+                  transition: 'all 0.8s ease',
+                }}
+              >
+                <input
+                  id='file'
+                  hidden
+                  ref={fileInputRef}
+                  onChange={onFileSelected}
+                  type="file"
+                  accept='image/png, image/gif, image/jpeg'
+                />
+                <Flex
+                  onClick={() => fileInputRef.current?.click()}
+                  justifyContent='center'
+                  align='center'
+                  transition='all 0.5s ease'
+                  w='90px' h='90px'
+                  opacity={1}
+                  _hover={{
+                    opacity: 1,
+                    background: '#0da10345',
+                  }}
+                  position='absolute'
+                  top={0}
+                  bottom={0}
+                  left={0}
+                >
+                </Flex>
+                <MdCropFree size='30px' color='green' />
+              </Flex>
             </Flex>
           </Flex>
-        </Grid>
+          <CropModal
+            loading={cropIsLoading}
+            visible={showCropper}
+            image={src}
+            save={handleUploadFile}
+            close={closeCropper}
+          />
+        </SimpleGrid>
       </Box>
     </Box >
   )
