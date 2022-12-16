@@ -68,7 +68,6 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
 
 
   const selectedSize = (size: string) => {
-    console.log(sizeSelected)
     setSizeSelected(size)
     setTempProduct((state: ICartProduct) => ({
       ...state,
@@ -244,9 +243,14 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                 </Box>
 
                 <Box my={2}>
-                  <Text>
-                    Top Size:
-                  </Text>
+                  <Flex justify='space-between'>
+                    <Text>
+                      Top Size:
+                    </Text>
+                    <NextLink href='/about/size-guide'>
+                      Size Guide
+                    </NextLink>
+                  </Flex>
                   <SizeSelected
                     sizes={product.sizes}
                     selectedSize={topSizeSelected}

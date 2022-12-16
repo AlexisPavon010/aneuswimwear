@@ -14,11 +14,11 @@ export interface IProduct {
   tags: string;
   title: string;
   type: IType;
-  gender: 'men' | 'women' | 'kid' | 'unisex';
+  gender: 'best_sellers' | 'news' | 'sale';
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export type ISize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'
-export type IType = 'shirts' | 'pants' | 'hoodies' | 'hats' | 'tops' | 'bottom' | 'one-pices' | 'new' | 'sale';
+export type IType = 'top' | 'bottom' | 'one-pices' | 'set';
 

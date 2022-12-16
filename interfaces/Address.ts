@@ -7,4 +7,5 @@ export interface IAddress {
   zip: string;
   city: string;
   phone: string;
+  cedula: string;
 }

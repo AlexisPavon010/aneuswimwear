@@ -41,6 +41,7 @@ const schema = yup.object({
   zip: yup.string().required('Zip is required'),
   city: yup.string().required('City is required'),
   phone: yup.string().required('Phone is required'),
+  cedula: yup.string().required('Cedula is required'),
 })
 
 const AddressPages = () => {
@@ -53,6 +54,7 @@ const AddressPages = () => {
     zip,
     city,
     phone,
+    cedula
   } = parseCookies()
   const { register, handleSubmit, formState: { errors } }: any = useForm({
     resolver: yupResolver(schema),
@@ -65,6 +67,7 @@ const AddressPages = () => {
       zip: zip,
       city: city,
       phone: phone,
+      cedula: cedula,
     }
   })
   const { data: session } = useSession()
@@ -80,6 +83,7 @@ const AddressPages = () => {
     setCookie(null, 'zip', data.zip, { path: '/', })
     setCookie(null, 'city', data.city, { path: '/', })
     setCookie(null, 'phone', data.phone, { path: '/', })
+    setCookie(null, 'cedula', data.cedula, { path: '/', })
     router.push('/checkout/shipping')
   }
 
@@ -182,6 +186,10 @@ const AddressPages = () => {
                   <FormControl isInvalid={errors.zip}>
                     <Input {...register('zip')} placeholder="Postal Code" name="zip" type='text' focusBorderColor='none' />
                     <FormErrorMessage>Enter the area or postal code</FormErrorMessage>
+                  </FormControl>
+                  <FormControl isInvalid={errors.cedula}>
+                    <Input {...register('cedula')} placeholder="Cedula" name="cedula" type='text' focusBorderColor='none' />
+                    <FormErrorMessage>Enter the cedula</FormErrorMessage>
                   </FormControl>
                   <FormControl isInvalid={errors.city}>
                     <Input {...register('city')} placeholder="City" name="city" type='text' focusBorderColor='none' />

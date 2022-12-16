@@ -279,7 +279,7 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
                   <Radio value='top'>Top</Radio>
                   <Radio value='bottom'>Bottom</Radio>
                   <Radio value='one-pices'>One Pices</Radio>
-                  <Radio value='hoodies'>Hoodies</Radio>
+                  <Radio value='set'>Set</Radio>
                 </Stack>
               </RadioGroup>
             </Box>
@@ -287,12 +287,9 @@ const ProductAdminPages: NextPage<Props> = ({ product }) => {
               <Text>Gender</Text>
               <RadioGroup onChange={(value) => setValue('gender', value, { shouldValidate: true })} defaultValue={getValues('gender')} >
                 <Stack spacing={[3, 5]} direction={'row'} wrap='wrap'>
-                  <Radio value='men'>Men</Radio>
-                  <Radio value='women'>Women</Radio>
-                  <Radio value='kid'>Kid</Radio>
-                  <Radio value='unisex'>Unisex</Radio>
-                  <Radio value='best_sellers'>Best Sellers</Radio>
+                  <Radio value='best_sellers'>Best Seller</Radio>
                   <Radio value='news'>News</Radio>
+                  <Radio value='sale'>Sale</Radio>
                 </Stack>
               </RadioGroup>
             </Box>
