@@ -29,7 +29,7 @@ export const CropModal = ({ close, image, save, visible, loading }: Props) => {
   const [aspectRatioSelected, setAspectRatioSelected] = useState<IAspectRatios>(aspectRatios[4]);
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
-  const [rotation, setRotation] = useState(1)
+  const [rotation, setRotation] = useState(0)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
 
   const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
