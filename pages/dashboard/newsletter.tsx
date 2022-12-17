@@ -59,8 +59,10 @@ const NewsletterPage = ({ newsletter }: { newsletter: FormData }) => {
         const formData = new FormData()
         formData.append('file', file)
         const { data } = await uploadFiles(formData)
-        const [imageId, extension] = getValues('images')[0].substring(getValues('images')[0].lastIndexOf('/') + 1).split('.')
-        const { data: urlImage } = await deleteFiles(imageId)
+        if (getValues('images')[0]) {
+          const [imageId, extension] = getValues('images')[0].substring(getValues('images')[0].lastIndexOf('/') + 1).split('.')
+          const { data: urlImage } = await deleteFiles(imageId)
+        }
         setValue('images', [data.url], { shouldValidate: true })
       }
 
