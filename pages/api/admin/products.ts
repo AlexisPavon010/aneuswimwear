@@ -66,7 +66,7 @@ const updateProduct = async (req: NextApiRequest, res: NextApiResponse) => {
     })
   }
 
-  if (images.length <= 2) {
+  if (images.length < 2) {
     return res.status(400).json({
       message: 'at least 2 images are required'
     })
