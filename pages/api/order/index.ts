@@ -1,4 +1,3 @@
-import mongoose from 'mongoose'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 
@@ -37,25 +36,25 @@ async function createApiOrder(req: NextApiRequest, res: NextApiResponse<any>) {
     })
   }
 
-  const productsIds = orderItems.map(product => product._id)
-  const dbProducts = await Product.find({ _id: { $in: productsIds } }).lean()
+  // const productsIds = orderItems.map(product => product._id)
+  // const dbProducts = await Product.find({ _id: { $in: productsIds } }).lean()
 
   try {
-    const subTotal = orderItems.reduce((prev, current) => {
-      const currentPrice = dbProducts.find((p) => new mongoose.Types.ObjectId(p._id).toString() === current._id)?.price;
-      if (!currentPrice) {
-        throw new Error("the product does not exist in the cart");
-      }
+    // const subTotal = orderItems.reduce((prev, current) => {
+    //   const currentPrice = dbProducts.find((p) => new mongoose.Types.ObjectId(p._id).toString() === current._id)?.price;
+    //   if (!currentPrice) {
+    //     throw new Error("the product does not exist in the cart");
+    //   }
 
-      return (current.price * current.quantity) + prev
-    }, 0)
+    //   return (current.price * current.quantity) + prev
+    // }, 0)
 
-    const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0)
-    const backendTotal = subTotal * (taxRate + 1)
+    // const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0)
+    // const backendTotal = subTotal * (taxRate + 1)
 
-    if (total !== backendTotal) {
-      throw new Error("the costs of the products are not the same");
-    }
+    // if (total !== backendTotal) {
+    //   throw new Error("the costs of the products are not the same");
+    // }
 
     const userId = session.user.id
     const newOrder = new Order({ ...req.body, isPaid: false, user: userId })

@@ -1,4 +1,5 @@
 import { groq } from "next-sanity"
+
 import { IProduct } from "../interfaces/Product"
 import { Product } from "../models"
 import { sanityClient } from "../sanity"
@@ -9,13 +10,14 @@ export const getProductBySlug = async (slug: string): Promise<IProduct | null> =
   const query = groq`
   *[slug.current == "${slug}"]{
     description,
-      images[]{
-          ...asset->{url}
-        },
-      price,
-      sizes,
-      stock,
-      title
+    images[]{
+      ...asset->{url}
+    },
+    price,
+    sizes,
+    stock,
+    "slug": slug.current,
+    title
   }
   `
   const pageInfo = await sanityClient.fetch(query)

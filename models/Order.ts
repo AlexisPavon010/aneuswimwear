@@ -3,7 +3,7 @@ import mongoose, { model, Schema } from "mongoose";
 const OrderSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User', require: true },
   orderItems: [{
-    _id         : { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    // _id         : { type: Schema.Types.ObjectId, ref: 'Product', required: true },
     title       : { type: String, required: true },
     size        : { type: String, required: true },
     quantity    : { type: Number, required: true },

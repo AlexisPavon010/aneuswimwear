@@ -6,8 +6,6 @@ import { IProduct } from "../../interfaces/Product";
 
 export const ProductItem = ({ images, title, price, slug, rating }: IProduct) => {
 
-  console.log({ images, title, price, slug, rating })
-
   const filterTitle = (title: string) => {
     if (title.length <= 20) return title;
     return title.slice(0, 20) + '...'
