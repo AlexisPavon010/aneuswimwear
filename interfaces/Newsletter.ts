@@ -1,8 +1,11 @@
 export interface INewsletter {
-  description: string;
-  firstTitle: string;
-  images: string;
-  secondTitle: string;
+  image: Image;
+  secondtitle: string;
   subtitle: string;
-  _id: string;
+  title: string;
+  description: string;
+}
+
+interface Image {
+  url: string;
 }

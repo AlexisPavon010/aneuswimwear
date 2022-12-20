@@ -1,10 +1,17 @@
-import { db } from "."
-import { Banner } from "../models"
+import { groq } from "next-sanity"
+import { sanityClient } from "../sanity"
+
+const query = groq`
+*[_type == "banner"]{
+  images[]{
+      ...asset->{url}
+    },
+  title,
+  subtitle,
+}
+`;
 
 export const getBanner = async () => {
-  db.connect()
-
-  const banner = await Banner.find().lean()
-
-  return JSON.parse(JSON.stringify(banner[0]))
+  const pageInfo = await sanityClient.fetch(query)
+  return JSON.parse(JSON.stringify(pageInfo[0]))
 }

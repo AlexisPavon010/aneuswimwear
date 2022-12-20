@@ -4,7 +4,7 @@ export interface IProduct {
   _id: string;
   quantity?: number;
   description: string;
-  images: string[];
+  images: Image[];
   inStock: number;
   price: number;
   reviews: IReview[];
@@ -17,6 +17,10 @@ export interface IProduct {
   gender: 'best_sellers' | 'news' | 'sale';
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+interface Image {
+  url: string;
 }
 
 export type ISize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'

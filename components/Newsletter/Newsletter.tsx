@@ -8,13 +8,16 @@ import * as yup from 'yup'
 
 import { sendNewsletterEmail } from "../../client"
 
-interface Props {
-  description: string;
-  firstTitle: string;
-  images: string;
-  secondTitle: string;
+export interface Props {
+  image: Image;
+  secondtitle: string;
   subtitle: string;
-  _id: string;
+  title: string;
+  description: string;
+}
+
+export interface Image {
+  url: string;
 }
 
 const schema = yup.object({
@@ -33,7 +36,7 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
     setShow(false)
   }
 
-  const { description, firstTitle, images, secondTitle, subtitle } = newsletter;
+  const { description, title, image, secondtitle, subtitle } = newsletter;
 
 
   const sendEmail = async ({ email }: { email?: string }) => {
@@ -63,7 +66,7 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
         <ModalCloseButton _focusVisible={{}} />
         <ModalBody p={0} >
           <NextImage
-            src={images[0]}
+            src={image.url}
             alt="Newsletter image"
             height={1000}
             width={1000}
@@ -77,14 +80,14 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
               fontWeight={600}
               textAlign='center'
             >
-              {firstTitle}
+              {title}
             </Text>
             <Text
               fontSize='60px'
               fontWeight={600}
               textAlign='center'
             >
-              {secondTitle}
+              {secondtitle}
             </Text>
             <Text
               fontSize='24px'

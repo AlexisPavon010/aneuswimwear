@@ -35,7 +35,6 @@ import { ICartProduct } from '../../interfaces';
 import { openCartMenu } from '../../redux/ui/uiSlice';
 import { SlideProducts } from '../../components/SlideProducts';
 import { InstaSlider } from '../../components/InstaSlider';
-import { RatingComponent } from '../../components/RatingComponent';
 
 interface Props {
   product: IProduct;
@@ -56,7 +55,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
     size: sizeSelected,
     color: [0],
     description: product.description,
-    image: product.images[0],
+    image: product.images[0].url,
     inStock: product.inStock,
     price: product.price,
     slug: product.slug,
@@ -147,7 +146,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
         <meta name="og:title" content={product.title} />
         <meta name="description" content={product.description} />
         <meta name="og:description" content={product.description} />
-        <meta name="og:image" content={product.images[0]} />
+        <meta name="og:image" content={product.images[0].url} />
       </Head>
       <Container maxW='1440px'>
         <Box>
@@ -167,7 +166,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
             templateColumns='repeat(12, 1fr)'
           >
             <GridItem display={{ base: 'none', lg: 'block' }} dir="column">
-              {product.images.map((url: string, i: number) => (
+              {product.images.map(({ url }: { url: string }, i) => (
                 <Box p='0px 8px 8px 8px' key={i}>
                   <Image src={url} alt='image' objectFit='cover' height={1500} width={1200} />
                 </Box>
@@ -187,7 +186,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                 modules={[Navigation]}
                 onSlideChange={({ realIndex }) => console.log(realIndex)}
               >
-                {product.images.map((url: string, i: number) => (
+                {product.images.map(({ url }: { url: string }, i) => (
                   <SwiperSlide key={i}>
                     <Image src={url} alt="preview" objectFit='cover' width={1200} height={1500} />
                   </SwiperSlide>
@@ -207,12 +206,12 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                   </Text>
                   <AiOutlineHeart size='24px' />
                 </Flex>
-                <ReactStars
+                {/* <ReactStars
                   value={product.rating}
                   edit={false}
                   size={24}
                   activeColor="#ffd700"
-                />
+                /> */}
                 <Text
                   as='h2'
                   fontWeight={400}
@@ -298,8 +297,8 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
           <Divider />
         </Box>
         <SlideProducts title='Our Favorites' products={best_sellers} />
-        <Divider />
-        <RatingComponent product={product} />
+        {/* <Divider />
+        <RatingComponent product={product} /> */}
       </Container>
     </Box >
   )
@@ -338,7 +337,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       product,
       best_sellers
     },
-    revalidate: 43200
+    revalidate: 60
   }
 }
 

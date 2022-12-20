@@ -38,8 +38,6 @@ export const Categories = () => {
             slidesPerView: 3,
           },
         }}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
       >
         <SwiperSlide>
           <Category image='/assets/58410920.jpg' name='ONE PIECES' />

@@ -28,6 +28,10 @@ import { IoTicketOutline } from 'react-icons/io5'
 import { BsSearch } from 'react-icons/bs'
 import { IoExitOutline } from 'react-icons/io5'
 import { AiOutlineTool, AiOutlineUserAdd } from 'react-icons/ai'
+import useSWR from 'swr'
+import { groq } from 'next-sanity'
+
+import { sanityClient } from '../../sanity'
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -37,6 +41,13 @@ interface SideMenuProps {
 const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
   const [search, setSearch] = useState('')
   const router = useRouter()
+  const { data: collections = [], error } = useSWR(
+    groq`
+    *[_type == 'collections' ]{
+    title,
+    "slug":slug.current
+    }`,
+    (query) => sanityClient.fetch(query));
 
   const { data: session }: any = useSession()
 
@@ -102,11 +113,11 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
             <>
               <Divider />
               <MenuItem icon={<MdOutlineDashboard size='24px' />} title='Dashboard' onClick={() => handleNavigate('/dashboard')} />
-              <MenuItem icon={<MdOutlineCategory size='24px' />} title='Products' onClick={() => handleNavigate('/dashboard/products')} />
+              <MenuItem icon={<MdOutlineCategory size='24px' />} title='Products' onClick={() => handleNavigate(`${process.env.NEXT_PUBLIC_SANITY_BASE_URL!}/products`)} />
               <MenuItem icon={<IoTicketOutline size='24px' />} title='Orders' onClick={() => handleNavigate('/dashboard/orders')} />
               <MenuItem icon={<AiOutlineUserAdd size='20px' />} title='Users' onClick={() => handleNavigate('/dashboard/users')} />
-              <MenuItem icon={<AiOutlineTool size='20px' />} title='Banner' onClick={() => handleNavigate('/dashboard/banner')} />
-              <MenuItem icon={<AiOutlineTool size='20px' />} title='Newsletter' onClick={() => handleNavigate('/dashboard/newsletter')} />
+              <MenuItem icon={<AiOutlineTool size='20px' />} title='Banner' onClick={() => handleNavigate(`${process.env.NEXT_PUBLIC_SANITY_BASE_URL!}/banner`)} />
+              <MenuItem icon={<AiOutlineTool size='20px' />} title='Newsletter' onClick={() => handleNavigate(`${process.env.NEXT_PUBLIC_SANITY_BASE_URL!}/newsletter`)} />
             </>
           )}
 
@@ -208,42 +219,16 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
               </h2>
               <AccordionPanel p={0}>
                 <Flex direction='column'>
-                  <Link
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Bright Mania
-                  </Link>
-                  <Link
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Classics
-                  </Link>
-                  <Link
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Casa Monte
-                  </Link>
-                  <Link
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Floral Dreams
-                  </Link>
-                  <Link
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Mykonos Madness
-                  </Link>
-                  <Link
-                    _hover={{ background: 'rgb(244, 245, 246)' }}
-                    padding='8px 0px 8px 36px'
-                  >
-                    Villa Capri
-                  </Link>
+                  {collections.map(({ slug, title }: { slug: string, title: string }, i: number) => (
+                    <Link
+                      key={i}
+                      href={`/collections/${slug}`}
+                      _hover={{ background: 'rgb(244, 245, 246)' }}
+                      padding='8px 0px 8px 36px'
+                    >
+                      {title}
+                    </Link>
+                  ))}
                 </Flex>
               </AccordionPanel>
             </AccordionItem>

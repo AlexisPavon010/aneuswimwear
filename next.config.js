@@ -14,6 +14,7 @@ const nextConfig = {
   },
   images: {
     domains: [
+      'cdn.sanity.io',
       'cdn.shopify.com',
       'capricathemes.com',
       'res.cloudinary.com',

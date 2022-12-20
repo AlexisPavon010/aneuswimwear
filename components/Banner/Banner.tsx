@@ -5,14 +5,18 @@ import NextLink from 'next/link';
 
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
-interface Banner {
-  title: string;
+
+interface banner {
+  images: Image[];
   subtitle: string;
-  images: string[];
+  title: string;
 }
 
-export const Banner = ({ banner }: { banner: Banner }) => {
+interface Image {
+  url: string;
+}
 
+export const Banner = ({ banner }: { banner: banner }) => {
   return (
     <Swiper
       spaceBetween={30}
@@ -27,7 +31,7 @@ export const Banner = ({ banner }: { banner: Banner }) => {
       modules={[EffectFade, Autoplay]}
     >
       {
-        banner.images.map((url: string, i: number) => (
+        banner.images.map(({ url }, i) => (
           <SwiperSlide key={i}>
             <Box position='relative' >
               <Box
@@ -63,7 +67,7 @@ export const Banner = ({ banner }: { banner: Banner }) => {
                   zIndex={1}
                 >
                   <Text
-                    mb={4}
+                    mb={0}
                     color='white'
                     fontSize='40px'
                     fontWeight={600}
