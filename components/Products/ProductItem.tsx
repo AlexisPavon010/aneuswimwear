@@ -23,7 +23,7 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
           height='calc(80% - 25px)'
           overflow='hidden'
         >
-          <Image objectFit='cover' alt={title} src={images[1].url} width={320} height={480} />
+          <Image objectFit='cover' alt={title} src={images[1].url} width={420} height={500} />
         </Box>
         <Box
           height='calc(80% - 25px)'
@@ -33,7 +33,7 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
           top='0'
           _hover={{ opacity: 0 }}
         >
-          <Image objectFit='cover' alt={title} src={images[0].url} width={320} height={480} />
+          <Image objectFit='cover' alt={title} src={images[0].url} width={420} height={500} />
         </Box>
         <Box
           p='12px 8px'
