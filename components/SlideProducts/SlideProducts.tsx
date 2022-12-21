@@ -30,19 +30,22 @@ export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
         modules={[Navigation]}
         style={{ padding: '8px 4px' }}
         breakpoints={{
-          320: {
+          360: {
             slidesPerView: 1,
           },
           480: {
             slidesPerView: 2,
           },
-          540: {
+          1000: {
             slidesPerView: 3,
           },
-          720: {
-            slidesPerView: 4,
-          },
-          900: {
+          // 540: {
+          //   slidesPerView: 3,
+          // },
+          // 720: {
+          //   slidesPerView: 4,
+          // },
+          1200: {
             slidesPerView: 5,
           },
         }}
