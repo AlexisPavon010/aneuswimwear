@@ -72,14 +72,14 @@ export const Banner = ({ banner }: { banner: banner }) => {
                     fontSize='40px'
                     fontWeight={600}
                   >
-                    {banner.title.toUpperCase()}
+                    {banner?.title?.toUpperCase()}
                   </Text>
                   <Text
                     mb={4}
                     color='white'
                     fontSize='24px'
                   >
-                    {banner.subtitle.toUpperCase()}
+                    {banner?.subtitle?.toUpperCase()}
                   </Text>
                   <Button
                     as={NextLink}
