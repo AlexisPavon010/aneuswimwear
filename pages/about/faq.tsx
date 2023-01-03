@@ -337,7 +337,7 @@ const FaqPage = () => {
               <Text
                 pb='10px'
               >
-                ANEU SWIMWEAR is designed internationally with our own design team and manufactured in Bali.
+                ANEU SWIMWEAR Designed and manufactured in the Ecuadorian Coast in Guayaquil City.
               </Text>
             </AccordionPanel>
           </AccordionItem>
