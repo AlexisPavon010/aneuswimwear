@@ -27,7 +27,7 @@ const ReturnsExchangesPage = () => {
             }}
             width={6000}
             height={6000}
-            src='/assets/IMG_0077.jpg'
+            src='/assets/IMG_0077.JPG'
             alt='banner'
           />
         </Box>

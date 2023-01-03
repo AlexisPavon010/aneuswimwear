@@ -27,7 +27,7 @@ const ValuesPage = () => {
             }}
             width={6000}
             height={6000}
-            src={'https://cdn.shopify.com/s/files/1/2247/4301/files/LOOK_12_038_1600x.jpg?v=1652224126'}
+            src='/assets/IMG_0236.JPG'
             alt='banner'
           />
         </Box>

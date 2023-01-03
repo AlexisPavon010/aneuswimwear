@@ -27,7 +27,7 @@ const ShippingAndDeliveryPage = () => {
             }}
             width={6000}
             height={6000}
-            src='/assets/IMG_4368.jpg'
+            src='/assets/IMG_4368.JPG'
             alt='banner'
           />
         </Box>
