@@ -27,7 +27,7 @@ const ContactUsPage = () => {
             }}
             width={6000}
             height={6000}
-            src={'https://cdn.shopify.com/s/files/1/2247/4301/files/LOOK_4_019_1600x.jpg?v=1650942336'}
+            src='/assets/IMG_4368.jpg'
             alt='banner'
           />
         </Box>
@@ -67,7 +67,7 @@ const ContactUsPage = () => {
         >
           For Media/PR enquiries, any general enquiries or enquiries on returns and exchanges please use the form below:
         </Text>
-        <Flex gap='20px' mb='25px'>
+        <Flex gap='20px' mb='25px' direction={{ base: 'column', md: 'row' }}>
           <FormControl>
             <FormLabel>Name</FormLabel>
             <Input type='text' />

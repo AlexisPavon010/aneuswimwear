@@ -44,7 +44,7 @@ const sizeGuidePage = () => {
             <Text
               mb={4}
               color='white'
-              fontSize='40px'
+              fontSize={{ base: '30px', md: '36px', lg: '40px' }}
               fontWeight={600}
             >
               CUSTOMER CARE

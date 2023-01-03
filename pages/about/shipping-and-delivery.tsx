@@ -27,7 +27,7 @@ const ShippingAndDeliveryPage = () => {
             }}
             width={6000}
             height={6000}
-            src={'https://cdn.shopify.com/s/files/1/2247/4301/files/LOOK_12_038_1600x.jpg?v=1652224126'}
+            src='/assets/IMG_4368.jpg'
             alt='banner'
           />
         </Box>
@@ -44,7 +44,7 @@ const ShippingAndDeliveryPage = () => {
             <Text
               mb={4}
               color='white'
-              fontSize='40px'
+              fontSize={{ base: '30px', md: '36px', lg: '40px' }}
               fontWeight={600}
             >
               CUSTOMER CARE
@@ -54,7 +54,7 @@ const ShippingAndDeliveryPage = () => {
       </Box>
       <Container maxW='1000'>
         <Text
-          fontSize={{ base: '30px', md: '36px', lg: '40px' }}
+          fontSize={{ base: '26px', md: '36px', lg: '40px' }}
           fontWeight={600}
           align='center'
           mb='25px'

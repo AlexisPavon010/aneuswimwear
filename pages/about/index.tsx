@@ -1,8 +1,23 @@
 import { Box, Container, Flex, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import NextImage from 'next/image'
 import Head from 'next/head'
+import { GetServerSideProps } from "next";
+import { groq } from "next-sanity";
 
-const AboutAneu = () => {
+import { sanityClient } from "../../sanity";
+import PortableText from "react-portable-text";
+
+interface Image {
+  url: string;
+}
+
+interface Props {
+  banner: Image;
+  bodyImage: Image;
+  body: any;
+}
+
+const AboutAneu = ({ banner, bodyImage, body }: Props) => {
   return (
     <Box>
       <Head>
@@ -27,7 +42,7 @@ const AboutAneu = () => {
             }}
             width={6000}
             height={6000}
-            src={'https://cdn.shopify.com/s/files/1/2247/4301/files/LOOK_4_019_1600x.jpg?v=1650942336'}
+            src={banner?.url}
             alt='banner'
           />
         </Box>
@@ -60,50 +75,50 @@ const AboutAneu = () => {
           <Box
             gridRow={{ base: 2, lg: 1 }}
           >
-            <Image src="https://cdn.shopify.com/s/files/1/2247/4301/files/Untitled_1000_x_1200_px_1000_x_1300_px.png?v=1637708815" alt="demo" />
+            <Image src={bodyImage?.url} alt="demo" />
           </Box>
           <Flex
             justifyContent='center'
             direction='column'
             textAlign='center'
           >
-            <Text
-              mb={4}
-            >
-              Collections that transcend seasons.
-            </Text>
-            <Text
-              mb={4}
-            >
-              Sommer Swim is a pioneering label at the cutting edge of design.
-              Carved from the foundations of elegant minimalism, nostalgic sensuality,
-              and understated luxury. Our highly anticipated annual collections come to
-              life through the art of story telling captured in postcard-perfect destinations.
-            </Text>
-            <Text
-              mb={4}
-            >
-              Originating from a desire to create unique silhouettes not yet seen on the market,
-              Sommer Swim quickly developed into cult brand status and has continued to mature into
-              one of the most recognisable swimwear names internationally.
-            </Text>
-            <Text
-              mb={4}
-            >
-              Our highly coveted styles are simplistic, alluring in nature, and coax out the sensual
-              side of all who wear them. Sommer Swim is for women of a new-era. Minimalists who seek
-              effortless staples and the elegantly bold who set the trends rather than follow them.
-            </Text>
-            <Text
-              mb={4}
-            >
-              Inspired by our loyal followers, designed for seasons to come, and here for the magic moments. We are Sommer Swim.
-            </Text>
+            <PortableText
+              content={body}
+              projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
+              dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+              serializers={{
+                normal: (props: any) => (
+                  <p style={{ marginBottom: '16px' }} {...props} />
+                )
+              }}
+            />
           </Flex>
         </SimpleGrid >
       </Container>
     </Box >
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const query = groq`
+    *[_type == 'about'][0]{
+      banner{
+        ...asset->{url}
+      },
+      bodyImage{
+        ...asset->{url}
+      },
+      body
+    }
+  `
+
+  const pageInfo = await sanityClient.fetch(query)
+
+  return {
+    props: {
+      ...pageInfo,
+    }
+  }
 }
 
 export default AboutAneu;
