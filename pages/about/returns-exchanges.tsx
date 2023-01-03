@@ -74,136 +74,56 @@ const ReturnsExchangesPage = () => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-              <Text>
-                We accept bikinis purchased from sommerswim.com in new condition with tags and liners in tact <strong> for store credit. </strong>
-                Return shipping is at customer expense. You have 21 days from the day your delivery arrived to send them back to us for store credit.
-                Please note sale items are final sale are not eligible for return. Sale items including full price items purchased at a discount of more
-                than 15% are not eligible for return. For sanitary reasons please try on swimwear over your underwear, we do not accept exchanges that are
-                worn or are soiled/stained. <strong> Important: Return Form is Required to be Filled Out with RMA and Order Number in order to identify your return. </strong>
+              <Text
+                mb='10px'
+              >
+                Se deberá notificar el problema hasta 48 horas posterior a la entrega. En caso de que Aneu sea responsable de la incidencia, se procede a una devolución o cambio. Se reembolsaría el valor completo del producto y sus gastos de envíos; o se enviaría el nuevo producto sin costo adicional. Esto solo aplica en daño de fabrica.
               </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                Is it easy to return items?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text>
-                Super easy- initiate a return through our return portal on our website by clicking ‘start a return’.
-                You’ll then follow the prompts to return eligible items for store credit.
+              <Text
+                mb='10px'
+              >
+                Si el cliente ha pedido una talla incorrecta:
+                <br />
+                En este caso, el cliente será responsable de los gastos de envío y devolución para un nuevo cambio. No se aceptan devoluciones injustificadas.
               </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                How soon will I get my store credit?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text>
-                {`Once your items are inspected by the returns team, you'll get your store credit notification via email typically
-                within 6-10 business days (North American customers) and 10-14 business days (Europe/International customers).`}
+              <Text
+                mb='10px'
+              >
+                Por razones sanitarias, pruébate el traje de baño sobre la ropa interior, no aceptamos cambios que estén usados o sucios/manchados.
               </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                Can I return Final Sale Items or Items purchased with a Discount Code?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text>
-                All items marked as final sale, or with a Discount Code of above 15% have been reduced in price and cannot be returned for an
-                exchange to store credit. We understand that buying final sale items can be tricky, so if you have any questions about sizing,
-                fit or fabric please contact our <strong> Customer Care team </strong> and review our size chart before placing your order.
-                No exceptions can be made for sizing, fit or fabric issues on final sale items.
+              <Text
+                mb='10px'
+              >
+                Por favor contáctanos mediante correo, WhatsApp o mail.
               </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                What items are exchangeable?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <UnorderedList>
-                <ListItem>
-                  Items within 21 days of their arrival date.
-                </ListItem>
-                <ListItem>
-                  Full priced items in new condition. Item must be undamaged, unworn, unwashed with tags attached and in original packaging.
-                </ListItem>
-              </UnorderedList>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                What items are non-exchangeable?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <UnorderedList>
-                <ListItem>
-                  Items marked as final sale.
-                </ListItem>
-                <ListItem>
-                  Free gifts or promotional items with retail value.
-                </ListItem>
-                <ListItem>
-                  Sale items including items purchased during flash sales or with a code above 15%
-                </ListItem>
-                <ListItem>
-                  Items that have been worn or are soiled/stained.
-                </ListItem>
-              </UnorderedList>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                What to do if you experience issues with your items?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text>
-                {`We are confident you’ll love your pieces however if there are any issues with quality or a
-                fault we will resolve this quickly. Please contact our`}
-                <strong> Customer Care team.</strong>
+              <Text
+                mb='10px'
+              >
+                <strong>Correo: </strong>aneuswimwear@gmail.com
+                <br />
+                <strong>WhatsApp: </strong>+593 98 292 2066
+                <br />
+                <strong>Instagram: </strong>@aneuswimwear
               </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                What happens if your exchange is rejected by our returns team?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text>
-                Any items received that are not in original condition, in packaging with panty liner in tact and tags attached or
-                have stains/soiling will be immediately shipped back to you from our returns warehouse. We are unable to issue store
-                credits on these items for sanitary reasons. Shipping costs will be covered by deducting from store credit.
-                (North America $10, Europe and International $25).
+              <Text
+                mb='10px'
+              >
+                If the customer has ordered an incorrect size:
+                In this case, the customer will be responsible for the shipping and return costs for a new exchange. Unjustified returns are not accepted.
+              </Text>
+              <Text
+                mb='10px'
+              >
+                For sanitary reasons please try on swimwear over your underwear, we do not accept exchanges that are worn or are soiled/stained.
+              </Text>
+              <Text
+                mb='10px'
+              >
+                <strong>Mail: </strong>aneuswimwear@gmail.com
+                <br />
+                <strong>WhatsApp: </strong>+593 98 292 2066
+                <br />
+                <strong>Instagram: </strong>@aneuswimwear
               </Text>
             </AccordionPanel>
           </AccordionItem>
