@@ -77,27 +77,27 @@ const ShippingAndDeliveryPage = () => {
                 fontWeight={600}
                 mb='10px'
               >
-                North America
+                Ecuador
               </Text>
               <Text
                 mb='10px'
               >
-                USPS Standard (4-6 business days)
+                Servientrega (2-3 días laborables)
                 <br />
-                UPS Expediated (2-3 business days)
-                <br />
-                UPS Overnight (Business Day shipping and delivery only - see policies for exclusions)
+                Servientrega (Bikinis personalizados: 6-7 días laborables)
               </Text>
               <Text
                 fontWeight={600}
                 mb='10px'
               >
-                Europe and International
+                International Shipping
               </Text>
               <Text
                 mb='10px'
               >
-                Express varying DHL/UPS/Fedex (3-5 business days)
+                DHL (4-6 business days)
+                <br />
+                DHL (Custom bikini 10-14 business days)
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -114,23 +114,32 @@ const ShippingAndDeliveryPage = () => {
                 fontWeight={600}
                 mb='10px'
               >
-                North America
+                ECUADOR
               </Text>
               <Text
                 mb='10px'
               >
-                Depending on the shipping service you have selected, after dispatch, your order will arrive within 1-6 business days. Please note weekend days are not business days. Please allow 1-2 business day for processing. Please note that transit times are measured at the point of dispatch. For Overnight Shipping exclusions include Hawaii, Puerto rico, Alaska, PO boxes and military bases.
+                Los bikinis en stock llegan en 2-3 días laborables mediante servientrega.
+                Los bikinis personalizados entre 6-7 días laborables.
+                Toma en cuenta que tu bikini es personalizado si:
+                Cambiaste el color/print original
+                Mezclaste top y bottoms
+                Pediste menos o más cobertura en el bottom
               </Text>
               <Text
                 fontWeight={600}
                 mb='10px'
               >
-                Europe and International
+                INTERNATIONAL
               </Text>
               <Text
                 mb='10px'
               >
-                After dispatch, your order will arrive within 3-5 business days.  Some remote addresses in European countries may be shipped with an International service with estimated 8-10 business days delivery.
+                After dispatch, your order will arrive within 4-5 business days. Please note weekend days are not business days. Please allow 1-2 business day for processing. Please note that transit times are measured at the point of dispatch.
+                <br />
+                <strong>Important: </strong>Holidays or orders made Friday, Saturday or Sunday are not count as a Business Day
+                <br />
+                <strong>Please note: </strong>During peak periods (Sales, Public Holidays, or the day after a Public Holiday), please allow up to 5 business days for orders to be sent out.
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -176,44 +185,9 @@ const ShippingAndDeliveryPage = () => {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Text
-                fontWeight={600}
                 mb='10px'
               >
-                North America
-              </Text>
-              <Text
-                mb='10px'
-              >
-                Parcels are shipped locally within the USA and Canada, meaning no customs duties are incurred. Orders to Mexico are subject to customs.
-              </Text>
-              <Text
-                fontWeight={600}
-                mb='10px'
-              >
-                Europe and International
-              </Text>
-              <Text
-                mb='10px'
-              >
-                Customs duties and/or VAT are calculated and included at checkout for EU countries meaning there will be no surprise fees. Customs duties and/or VAT may apply to countries outside the EU. Customs duties are at the discretion of the destination country and are the responsibility of the customer. Sommer Swim is not responsible for any customs charges or local taxes due to international shipment. Please familiarise yourself with your countries regulations as payment of these duties may be necessary to release your order.
-              </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                If a parcel is rejected on arrival what will the process be?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <Text
-                mb='10px'
-              >
-                In the event that is parcel is not claimed or is rejected/refused by the receiver for any reason - DHL or the relevant carrier will return this parcel to Sommer Swim. Consequently there will be a $60 fee deducted from your store credit to cover return shipping due to your refusal.
-                <strong> This is non-negotiable. </strong>
-                Any customs fees paid at checkout for EU countries will be non-refundable in the circumstance of a rejected parcel. In addition to this any parcel returned to sender due to incorrect address will incur a fee ($10-US, $60-EU).
+                Aneu Swimwear is not responsible for any customs charges or local taxes due to international shipment. Please familiarise yourself with your countries regulations as payment of these duties may be necessary to release your order.
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -229,7 +203,21 @@ const ShippingAndDeliveryPage = () => {
               <Text
                 mb='10px'
               >
+                Si necesitas cambiar tu orden, contáctanos mediante Instagram, WhatsApp o correo lo más pronto posible.
+              </Text>
+              <Text
+                mb='10px'
+              >
                 If you need to change your order, please contact us immediately. We process orders quickly, and once our warehouse has processed your order we will be unable to make changes. Once orders have been confirmed in our system they are unable to be cancelled. There is no guarantee an order can be changed.
+              </Text>
+              <Text
+                mb='10px'
+              >
+                <strong>Mail: </strong>aneuswimwear@gmail.com
+                <br />
+                <strong>WhatsApp: </strong>+593 98 292 2066
+                <br />
+                <strong>Instagram: </strong>@aneuswimwear
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -277,23 +265,13 @@ const ShippingAndDeliveryPage = () => {
               <Text
                 mb='10px'
               >
-                At times delays can occur which are outside Sommer Swim’s control, and which we are not responsible for. If you have a delayed parcel please reach out to the shipping carrier initially with your tracking number as they will have the most up to date information. Following this the customer care team can assist with any unanswered questions.
+                A veces pueden ocurrir retrasos que están fuera del control de Aneu. Si tienes un paquete retrasado, comunícate con el courrier con el número de guía, ellos tendrán la información más actualizada. En caso de que el courrier no responda, puedes contactarnos para ayudarte lo más pronto posible.
+                Toma en cuenta que en feriados/días festivos/sales los paquetes pueden tardar más en llegar.
               </Text>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionButton p='20px'>
-              <Box flex='1' textAlign='left'>
-                My parcel is taking longer than the estimated delivery time, what should I do?
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4}>
               <Text
                 mb='10px'
               >
-                At times delays can occur which are outside Sommer Swim’s control, and which we are not responsible for. If you have a delayed parcel please reach out to the shipping carrier initially with your tracking number as they will have the most up to date information. Following this the customer care team can assist with any unanswered questions.
+                At times delays can occur which are outside {`Aneu’s`} control. If you have a delayed parcel please reach out to the shipping carrier initially with your tracking number as they will have the most up to date information. Following this the customer care team can assist with any unanswered questions.
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -309,9 +287,22 @@ const ShippingAndDeliveryPage = () => {
               <Text
                 mb='10px'
               >
-                We encourage you to reach out to the shipping carrier responsible for delivery and quote your tracking number as they will have the most up to date information. If you still require assistance
-                <br />
+                Escríbenos con tu número de orden y guía para poder ayudarte mejor.
+              </Text>
+              <Text
+                mb='10px'
+              >
+                We encourage you to reach out to the shipping carrier responsible for delivery and quote your tracking number as they will have the most up to date information. If you still require assistance contact our Customer Care team.
                 <strong> contact our Customer Care team.</strong>
+              </Text>
+              <Text
+                mb='10px'
+              >
+                <strong>Mail: </strong>aneuswimwear@gmail.com
+                <br />
+                <strong>WhatsApp: </strong>+593 98 292 2066
+                <br />
+                <strong>Instagram: </strong>@aneuswimwear
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -327,7 +318,11 @@ const ShippingAndDeliveryPage = () => {
               <Text
                 mb='10px'
               >
-                Enter promotion code or store credit code at checkout at the top right hand side. Enter code in the box with text ‘Gift card or discount code’ and press Apply. This will minus the store credit amount from your order total, or apply the discount to the order.
+                Enter promotion code or store credit code at checkout at the top right hand side. Enter code in the box with text {`‘Gift card or discount code’`} and press Apply. This will minus the store credit amount from your order total, or apply the discount to the order.
+              </Text>
+              <Text
+                mb='10px'
+              >
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -335,7 +330,7 @@ const ShippingAndDeliveryPage = () => {
           <AccordionItem>
             <AccordionButton p='20px'>
               <Box flex='1' textAlign='left'>
-                What can I do if the promo code or store credit isn’t working?
+                What can I do if the promo code or store credit {`isn’t`} working?
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -362,6 +357,22 @@ const ShippingAndDeliveryPage = () => {
                 mb='10px'
               >
                 If your order has been fulfilled address changes are not possible. If you request a change prior to fulfilment this may be possible but cannot be guaranteed.
+              </Text>
+              <Text
+                mb='10px'
+              >
+                Si tu orden ya fue enviada no es posible cambiar la dirección.
+                <br />
+                Si tu orden no ha sido enviada, por favor contáctanos para hacer el cambio de dirección.
+              </Text>
+              <Text
+                mb='10px'
+              >
+                <strong>Mail: </strong>aneuswimwear@gmail.com
+                <br />
+                <strong>WhatsApp: </strong>+593 98 292 2066
+                <br />
+                <strong>Instagram: </strong>@aneuswimwear
               </Text>
             </AccordionPanel>
           </AccordionItem>
