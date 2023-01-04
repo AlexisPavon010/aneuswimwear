@@ -3,8 +3,32 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Box, Link, Text } from "@chakra-ui/react"
 import Image from "next/image";
 import NextLink from 'next/link'
+import { groq } from "next-sanity";
+import useSWR from "swr";
+
+import { sanityClient } from "../../sanity";
+
+interface Image {
+  url: string
+}
+
+interface CategoriesProps {
+  title: string;
+  image: Image;
+}
 
 export const Categories = () => {
+
+  const { data = [], error } = useSWR(
+    groq`
+      *[_type == 'category']{
+      image{
+        ...asset -> {url}
+      },
+      title
+    }`,
+    (query) => sanityClient.fetch(query));
+
   return (
     <Box>
       <Text
@@ -39,15 +63,11 @@ export const Categories = () => {
           },
         }}
       >
-        <SwiperSlide>
-          <Category image='/assets/58410920.jpg' name='ONE PIECES' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Category image='/assets/136093379.jpg' name='TOPS' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Category image='/assets/50728933.jpg' name='BOTTOMS' />
-        </SwiperSlide>
+        {data.map(({ image, title }: CategoriesProps, i: number) => (
+          <SwiperSlide key={i}>
+            <Category image={image?.url} name={title} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </Box >
   )
@@ -57,7 +77,7 @@ const Category = ({ image, name }: { image: string, name: string }) => {
   return (
     <Link
       as={NextLink}
-      href={`/collections/${name.toLowerCase()}`}
+      href={`/categories/${name.toLowerCase()}`}
       position='relative'
       overflow='hidden'
     >
@@ -67,7 +87,7 @@ const Category = ({ image, name }: { image: string, name: string }) => {
         _hover={{
           transform: 'scale(1.07)',
           _after: {
-            opacity: '0.5'
+            opacity: '0.3'
           }
         }}
         _after={{
@@ -78,7 +98,7 @@ const Category = ({ image, name }: { image: string, name: string }) => {
           width: '100%',
           height: '100%',
           background: '#000',
-          opacity: ' 0.3',
+          opacity: ' 0',
           content: `""`
         }}
         _before={{
@@ -95,7 +115,16 @@ const Category = ({ image, name }: { image: string, name: string }) => {
           content: `${JSON.stringify(name)}`,
         }}
       >
-        <Image objectFit="cover" src={image} alt="imagen" height={1200} width={1000} />
+        <Image
+          style={{
+            objectFit: 'cover',
+            aspectRatio: '8/9'
+          }}
+          src={image}
+          alt={name}
+          height={1200}
+          width={1000}
+        />
       </Box>
     </Link>
   )
