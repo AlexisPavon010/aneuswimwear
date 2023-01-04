@@ -5,6 +5,7 @@ export interface IProduct {
   quantity?: number;
   description: string;
   images: Image[];
+  colors: Colors[];
   inStock: number;
   price: number;
   reviews: IReview[];
@@ -17,6 +18,10 @@ export interface IProduct {
   gender: 'best_sellers' | 'news' | 'sale';
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+interface Colors {
+  url: string;
 }
 
 interface Image {
