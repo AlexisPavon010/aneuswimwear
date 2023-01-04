@@ -12,18 +12,17 @@ import {
   Grid,
   GridItem,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import ReactStars from "react-rating-stars-component";
 
 import Image from 'next/image';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { setCookie, parseCookies } from 'nookies';
-
 
 import { ItemCounter } from '../../components/Products/ItemCounter';
 import { SizeSelected } from '../../components/Products/SizeSelected';
@@ -42,8 +41,7 @@ interface Props {
 }
 
 const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
-  const [color, setColor] = useState(0)
-  const [topSizeSelected, setTopSizeSelected] = useState<any>('M')
+  const [previewImage, setPreviewImage] = useState<any>(0)
   const [sizeSelected, setSizeSelected] = useState<any>('M')
   const [count, setCounter] = useState(1)
   const { items } = useSelector((state: any) => state.cart)
@@ -53,7 +51,6 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
     _id: product._id,
     quantity: count,
     size: sizeSelected,
-    color: [0],
     description: product.description,
     image: product.images[0].url,
     inStock: product.inStock,
@@ -64,7 +61,6 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
     type: product.type,
     gender: product.gender,
   })
-
 
   const selectedSize = (size: string) => {
     setSizeSelected(size)
@@ -79,14 +75,6 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
     setTempProduct((state: ICartProduct) => ({
       ...state,
       quantity
-    }))
-  }
-
-  const colorSelected = (color: number) => {
-    setColor(color)
-    setTempProduct((state: ICartProduct) => ({
-      ...state,
-      color: [color]
     }))
   }
 
@@ -168,7 +156,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
             <GridItem display={{ base: 'none', lg: 'block' }} dir="column">
               {product.images.map(({ url }: { url: string }, i) => (
                 <Box p='0px 8px 8px 8px' key={i}>
-                  <Image src={url} alt='image' objectFit='cover' height={1500} width={1200} />
+                  <Image style={{ border: i == previewImage ? '1px solid #3182ce' : '' }} src={url} alt='image' objectFit='cover' height={1500} width={1200} />
                 </Box>
               ))}
             </GridItem>
@@ -184,7 +172,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                 spaceBetween={10}
                 navigation={true}
                 modules={[Navigation]}
-                onSlideChange={({ realIndex }) => console.log(realIndex)}
+                onSlideChange={({ realIndex }) => setPreviewImage(realIndex)}
               >
                 {product.images.map(({ url }: { url: string }, i) => (
                   <SwiperSlide key={i}>
@@ -233,15 +221,12 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
 
                 <Box>
                   <Text>
-                    Color:
+                    Colors:
                   </Text>
-                  <ColorSelected
-                    setColorSelected={colorSelected}
-                    colorSelected={color}
-                  />
+                  <ColorSelected />
                 </Box>
 
-                <Box my={2}>
+                {/* <Box my={2}>
                   <Flex justify='space-between'>
                     <Text>
                       Top Size:
@@ -255,17 +240,39 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                     selectedSize={topSizeSelected}
                     onSelectedSize={(size) => setTopSizeSelected(size)}
                   />
-                </Box>
+                </Box> */}
 
                 <Box my={2}>
                   <Text>
-                    Bottom Size:
+                    Size:
                   </Text>
                   <SizeSelected
                     sizes={product.sizes}
                     selectedSize={sizeSelected}
                     onSelectedSize={(size) => selectedSize(size)}
                   />
+                </Box>
+
+                <Box my={2}>
+                  <Text
+                    mb={2}
+                    fontWeight={600}
+                  >
+                    Agrega tu personalizacion
+                  </Text>
+                  <Text
+                    mb={2}
+                    fontSize='14px'
+                  >
+                    - Puedes mezclar tallas de Tops y Bottom, en caso de necesitarlo.
+                    <br />
+                    - Puedes personalizar tu bikini en otro color.
+                    <br />
+                    - Ejemplo: Este bikini en ANEU09
+                    <br />
+                    - Si personalizas el bikini con otro color la entrega sera en 4-5 dias laborales
+                  </Text>
+                  <Textarea placeholder='Hola! Quisiera este bikini en Top M y Bottom L En aneu08'  />
                 </Box>
 
                 <Button
@@ -281,6 +288,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
 
                 <Box py={2}>
                   <Text
+                    mb={2}
                     fontWeight={600}
                   >
                     Descripcion:
