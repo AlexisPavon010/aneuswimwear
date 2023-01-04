@@ -3,7 +3,7 @@ export interface ICartProduct {
   description: string;
   image: string;
   inStock: number;
-  color: number[];
+  colors: Colors[];
   price: number;
   size?: string;
   slug: string;
@@ -12,6 +12,10 @@ export interface ICartProduct {
   type: IType;
   gender: 'best_sellers' | 'news' | 'sale';
   quantity: number;
+}
+
+interface Colors {
+  url: string;
 }
 
 type ISize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'
