@@ -48,7 +48,11 @@ export const Navbar = ({ setIsOpenMenu }: NavbarProps) => {
       >
         <Box as="nav" bg="bg-surface" boxShadow={useColorModeValue('sm', 'sm-dark')}>
           <Container maxW='1900px' py={2}>
-            <HStack spacing="10" justify="space-between">
+            <HStack
+              display='grid'
+              gridTemplateAreas={`'navigation heading icons'`}
+              gridTemplateColumns={'1fr auto 1fr'}
+            >
               <ButtonGroup variant="link" spacing="8" alignItems='center'>
                 <FiMenu onClick={() => setIsOpenMenu(true)} fontSize="1.25rem" />
                 {isDesktop ? (
@@ -69,8 +73,8 @@ export const Navbar = ({ setIsOpenMenu }: NavbarProps) => {
               >
                 ANEU SWIMWEAR
               </Link>
-              <HStack spacing="3" margin='0 !important'>
-                <InputGroup display={isDesktop ? 'flex' : 'none'}>
+              <HStack spacing="3" justifyContent='end'>
+                <InputGroup display={isDesktop ? 'flex' : 'none'} maxW='200px'>
                   <InputLeftElement
                     top='-7px'
                     left='-5px'
