@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react"
+import { Box, Flex, Text } from "@chakra-ui/react"
 import Image from "next/image"
 import Link from "next/link";
 
@@ -17,7 +17,6 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
         height='100%'
         position='relative'
         borderRadius='6px'
-        boxShadow='0 1px 1px 0 rgb(0 0 0 / 10%), 0 -1px 2px 0 rgb(0 0 0 / 10%)'
       >
         <Box
           height='calc(80% - 25px)'
@@ -26,7 +25,8 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
           <Image
             style={{
               height: '100%',
-              objectFit: 'cover'
+              objectFit: 'cover',
+              borderRadius: '5px'
             }}
             alt={title}
             src={images[1].url}
@@ -45,7 +45,8 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
           <Image
             style={{
               height: '100%',
-              objectFit: 'cover'
+              objectFit: 'cover',
+              borderRadius: '5px'
             }}
             alt={title}
             width={1000}
@@ -53,8 +54,9 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
             src={images[0].url}
           />
         </Box>
-        <Box
+        <Flex
           p='12px 8px'
+          justifyContent='space-between'
         >
           <Text
             fontSize='14px'
@@ -64,7 +66,7 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
           <Text>
             {`$ ${price.toFixed(2)}`}
           </Text>
-        </Box>
+        </Flex>
       </Box>
     </Link >
   )
