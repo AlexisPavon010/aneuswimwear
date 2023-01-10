@@ -18,6 +18,12 @@ export interface IProduct {
   gender: 'best_sellers' | 'news' | 'sale';
   createdAt?: Date;
   updatedAt?: Date;
+  discountCode?: IDiscountCode | null;
+}
+
+export interface IDiscountCode {
+  discount: string;
+  couponCode: string
 }
 
 interface Colors {

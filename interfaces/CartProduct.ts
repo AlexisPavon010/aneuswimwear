@@ -1,16 +1,23 @@
 export interface ICartProduct {
   _id: string;
   description: string;
+  discountCode?: IDiscountCode | null;
   image: string;
   inStock: number;
   price: number;
-  size?: string;
+  topSize?: string;
+  bottomSize?: string;
   slug: string;
   tags: string;
   title: string;
   type: IType;
   gender: 'best_sellers' | 'news' | 'sale';
   quantity: number;
+}
+
+interface IDiscountCode {
+  discount: string;
+  discoutCode: string
 }
 
 type ISize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'

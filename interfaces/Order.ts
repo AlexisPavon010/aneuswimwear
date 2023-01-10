@@ -1,7 +1,8 @@
 import { IUser } from "./User";
 
 export interface IOrder {
-  _id?: string;
+  // _id?: string;
+  discountCode?: IDiscountCode | null;
   user?: IUser | string;
   orderItems: IOrderItems[]
   shippingAddress: ShippingAddress;
@@ -15,6 +16,11 @@ export interface IOrder {
   transactionID?: string;
   createdAt?: string;
   updatedAt?: string;
+}
+
+interface IDiscountCode {
+  discount: string;
+  couponCode: string
 }
 
 export interface IOrderItems {

@@ -1,11 +1,16 @@
 import mongoose, { model, Schema } from "mongoose";
 
 const OrderSchema = new Schema({
-  user: { type: Schema.Types.ObjectId, ref: 'User', require: true },
+  user          : { type: Schema.Types.ObjectId, ref: 'User', require: true },
+  discountCode  : {
+    couponNumber: { type: String },
+    discount    : { type: Number },
+  },
   orderItems: [{
-    // _id         : { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    _id         : { type: String, required: true },
     title       : { type: String, required: true },
-    size        : { type: String, required: true },
+    topSize     : { type: String, required: true },
+    bottomSize  : { type: String, required: true },
     quantity    : { type: Number, required: true },
     slug        : { type: String, required: true },
     image       : { type: String, required: true },
