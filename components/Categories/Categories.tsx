@@ -82,6 +82,7 @@ const Category = ({ image, name }: { image: string, name: string }) => {
       overflow='hidden'
     >
       <Box
+        borderRadius='5px'
         transition='all 0.8s ease'
         transform='scale(1.03)'
         _hover={{
