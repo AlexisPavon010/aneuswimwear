@@ -63,8 +63,8 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
     >
       <ModalOverlay />
       <ModalContent borderRadius={0}>
-        <ModalCloseButton _focusVisible={{}} />
-        <ModalBody p={0} >
+        <ModalCloseButton _focusVisible={{}} zIndex={3} />
+        <ModalBody p={0} position='relative' >
           <NextImage
             src={image.url}
             alt="Newsletter image"
@@ -72,6 +72,13 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
             width={1000}
           />
           <Flex
+            color={'white'}
+            position='absolute'
+            top={0}
+            left={0}
+            bottom={0}
+            right={0}
+            justifyContent='end'
             direction='column'
             p='8px 16px 24px 16px'
           >
@@ -110,12 +117,12 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
             ) : (
               <FormControl isInvalid={!!errors.email}>
                 <InputGroup>
-                  <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' {...register('email', { required: true })} />
+                  <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' {...register('email', { required: true })} backgroundColor='white' />
                   <InputRightElement>
                     {isLoading ? (
                       <Spinner />
                     ) : (
-                      <FiSend cursor='pointer' size='20px' onClick={handleSubmit(sendEmail)} />
+                      <FiSend cursor='pointer' size='20px' color="gray" onClick={handleSubmit(sendEmail)} />
                     )}
                   </InputRightElement>
                 </InputGroup>
