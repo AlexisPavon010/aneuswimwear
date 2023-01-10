@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { parseCookies, setCookie } from 'nookies'
 
-import { ICartProduct } from "../../interfaces";
+import { ICartProduct, IDiscountCode } from "../../interfaces";
 
 const { cart } = parseCookies()
 
 interface initialStateProps {
-  items: ICartProduct[]
+  items: any[]
+  discount?: IDiscountCode | null
 }
 
 const initialState: initialStateProps = {
-  items: cart ? JSON.parse(cart) : []
+  items: cart ? JSON.parse(cart) : [],
+  discount: null
 }
 
-
-export const getCartTotal = (cart: any) =>
-  cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0)
-    .toFixed(2);
+export const getCartTotal = (cart: any, discount?: number) => discount
+  ? cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0).toFixed(2) - ((Number(discount) / 100) * cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0).toFixed(2))
+  : cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0).toFixed(2)
 
 export const getTotalItems = (cart: any) =>
   cart?.reduce((total: number, item: ICartProduct) => item.quantity + total, 0);
@@ -62,8 +63,18 @@ export const cartSlices = createSlice({
     RemoveAllItems: (state) => {
       state.items = []
       // localStorage.removeItem("cart");
+    },
+    setDiscoutCode: (state, { payload }) => {
+        state.items.push(payload)
     }
-  },
+  }
 })
 
-export const { addToCart, RemoveFroToCart, incrementQuantity, decrementQuantity, RemoveAllItems } = cartSlices.actions;
+export const {
+  addToCart,
+  RemoveFroToCart,
+  incrementQuantity,
+  decrementQuantity,
+  RemoveAllItems,
+  setDiscoutCode
+} = cartSlices.actions;
