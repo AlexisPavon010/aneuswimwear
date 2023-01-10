@@ -115,11 +115,21 @@ export const CartDrawer = () => {
                     maxWidth='115px'
                   />
                   <Box p='8px 16px'>
-                    <Text>{product.title}</Text>
+                    <Text mb={1}>{product.title}</Text>
                     <Text
                       fontSize='13px'
                     >
-                      {`Size: ${product.size} `}
+                      Sizes:
+                    </Text>
+                    <Text
+                      fontSize='13px'
+                    >
+                      {`Top: ${product.topSize} `}
+                    </Text>
+                    <Text
+                      fontSize='13px'
+                    >
+                      {`Bottom: ${product.topSize} `}
                     </Text>
                     <Flex py={2} alignItems='center'>
                       <IconButton
@@ -141,7 +151,7 @@ export const CartDrawer = () => {
                         icon={<AiOutlinePlus />}
                       />
                     </Flex>
-                    <Text>{`$${product.price.toFixed(2)}`}</Text>
+                    <Text>{`$${product.price?.toFixed(2)}`}</Text>
                   </Box>
                   <Flex paddingTop='8px' justifyContent='end' flex={1} w='100%'>
                     <BsTrash onClick={() => handleRemoveCartProduct(product)} cursor='pointer' fill='red' size='16px' />
