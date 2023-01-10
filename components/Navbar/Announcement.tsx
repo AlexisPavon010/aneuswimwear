@@ -1,8 +1,24 @@
 import { Flex, Text } from "@chakra-ui/react"
+import { groq } from "next-sanity"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
+import useSWR from "swr"
+
+import { sanityClient } from "../../sanity"
+
+interface IAnnouncement {
+  name: string
+}
 
 export const Announcement = () => {
+  const { data = [], error } = useSWR(
+    groq`
+      *[_type == 'announcement'][]{
+        name
+      }`,
+    (query) => sanityClient.fetch(query)
+  );
+
   return (
     <Flex
       height='40px'
@@ -23,26 +39,21 @@ export const Announcement = () => {
         }}
         modules={[Autoplay]}
       >
-        <SwiperSlide>
-          <Text
-            color='white'
-            textAlign='center'
-            fontSize='13px'
-          >
-            free shipping on US orders & international orders $200+
-          </Text>
-        </SwiperSlide>
-        <br />
-        <SwiperSlide>
-          <Text
-            color='white'
-            textAlign='center'
-            fontSize='13px'
-          >
-            shop our newest swim collection
-          </Text>
-        </SwiperSlide>
-
+        {
+          data.map((a: IAnnouncement, i: number) => (
+            <>
+              <SwiperSlide>
+                <Text
+                  color='white'
+                  textAlign='center'
+                  fontSize='13px'
+                >
+                  {a?.name}
+                </Text>
+              </SwiperSlide>
+            </>
+          ))
+        }
       </Swiper>
     </Flex >
   )
