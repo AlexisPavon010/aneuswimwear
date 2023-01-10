@@ -1,7 +1,7 @@
 import { IUser } from "./User";
 
 export interface IOrder {
-  // _id?: string;
+  _id?: string;
   discountCode?: IDiscountCode | null;
   user?: IUser | string;
   orderItems: IOrderItems[]
