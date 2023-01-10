@@ -18,23 +18,28 @@ import { destroyCookie, parseCookies } from 'nookies'
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
 import { useSession } from "next-auth/react"
 import { useDispatch, useSelector } from "react-redux"
+import { GetServerSideProps } from "next"
+import { groq } from "next-sanity"
 
 import { CheckoutOrder } from "../../components/CheckoutOrder"
 import { IOrder } from "../../interfaces"
 import { addToCart, getCartTotal, getTotalItems } from "../../redux/cart/cartSlices"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { createOrder, Payphone } from "../../client"
+import { setLoadShippings } from "../../redux/shippings/shippings"
+import { sanityClient } from "../../sanity"
 
 
-const Shipping = () => {
+const Shipping = ({ shippings }: any) => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMesage, setErrorMesage] = useState('')
   const { items } = useSelector((state: any) => state.cart)
+  const shipping = useSelector((state: any) => state.shippings)
   const router = useRouter()
   const dispatch = useDispatch()
   const { data: session } = useSession()
-  const taxRate = (Number(process.env.NEXT_PUBLIC_TAX_RATE || 0) + 1)
+  const taxRate = (Number(process.env.NEXT_PUBLIC_TAX_RATE) + 1) || 0
 
   const {
     country,
@@ -67,7 +72,8 @@ const Shipping = () => {
       paymentMethod: "",
       numberOfItems: getTotalItems(items),
       subTotal: getCartTotal(items),
-      total: (getCartTotal(items) * taxRate),
+      total: (getCartTotal(items, items[0]?.discountCode?.discount) * taxRate),
+      discountCode: items[0]?.discountCode,
       tax: taxRate,
       isPaid: false
     }
@@ -75,13 +81,14 @@ const Shipping = () => {
     try {
       const { data } = await createOrder(body)
       const orderPay = {
-        amount: (getCartTotal(items) * taxRate) * 100,
-        amountWithoutTax: (getCartTotal(items) * taxRate) * 100,
+        amount: (getCartTotal(items, items[0]?.discountCode?.discount) * taxRate) * 100 + shipping.price,
+        amountWithoutTax: (getCartTotal(items, items[0].discountCode?.discount) * taxRate) * 100 + shipping.price,
         clientTransactionId: data._id,
         responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
         cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
       }
       const { data: payphone } = await Payphone(orderPay)
+      console.log(payphone)
       dispatch(addToCart([]))
       destroyCookie(null, 'cart')
       router.replace(payphone.payWithCard)
@@ -92,6 +99,16 @@ const Shipping = () => {
       setIsLoading(false)
     }
   }
+
+  useEffect(() => {
+    const cookies = parseCookies()
+    try {
+      const shippingName = cookies.country ? JSON.parse(JSON.stringify(cookies.country)) : { name: '', price: 0 }
+      dispatch(setLoadShippings(shippings.find((country: { name: string }) => country.name == shippingName)))
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   return (
     <Box>
@@ -157,8 +174,7 @@ const Shipping = () => {
                     <Text
                       fontSize='14px'
                     >
-                      {`${address}, ${address2}, ${zip}, ${country}, ${city},`}
-                      {/* paraguay990, 2 A, 3400 Corrientes, MA, Chile */}
+                      {`${address}, ${address2}, ${zip}, ${country}, ${city}`}
                     </Text>
                   </Flex>
                   <NextLink href={'/checkout/information'}>
@@ -212,6 +228,23 @@ const Shipping = () => {
       </SimpleGrid >
     </Box >
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+
+  const query = groq`
+  *[_type == 'shippings'][]{
+    name,
+    price
+  }
+  `
+  const shippings = await sanityClient.fetch(query)
+
+  return {
+    props: {
+      shippings
+    }
+  }
 }
 
 export default Shipping
