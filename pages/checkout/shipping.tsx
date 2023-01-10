@@ -103,8 +103,8 @@ const Shipping = ({ shippings }: any) => {
   useEffect(() => {
     const cookies = parseCookies()
     try {
-      const shippingName = cookies.country ? JSON.parse(JSON.stringify(cookies.country)) : { name: '', price: 0 }
-      dispatch(setLoadShippings(shippings.find((country: { name: string }) => country.name == shippingName)))
+      const shippingName = cookies.country ? JSON.parse(JSON.stringify(cookies.country)) : null
+      dispatch(setLoadShippings(shippingName ? shippings.find((country: { name: string }) => country.name == shippingName) : { name: '', price: 0 }))
     } catch (error) {
       console.log(error)
     }

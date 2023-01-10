@@ -107,8 +107,8 @@ const AddressPages = ({ shippings }: AddressPagesProps) => {
   useEffect(() => {
     const cookies = parseCookies()
     try {
-      const shipping = cookies.country ? JSON.parse(JSON.stringify(cookies.country)) : { name: '', price: 0 }
-      dispatch(setLoadShippings(shippings.length > 0 ? shippings.find((country: { name: string }) => country.name == shipping) : { name: '', price: 0 }))
+      const shippingName = cookies.country ? JSON.parse(JSON.stringify(cookies.country)) : null
+      dispatch(setLoadShippings(shippingName ? shippings.find((country: { name: string }) => country.name == shippingName) : { name: '', price: 0 }))
     } catch (error) {
       console.log(error)
     }
