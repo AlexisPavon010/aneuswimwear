@@ -12,13 +12,12 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  Grid,
   GridItem,
   Input,
   Link,
+  Select,
   SimpleGrid,
   Text,
-  useMediaQuery
 } from "@chakra-ui/react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,10 +26,14 @@ import { parseCookies, setCookie } from 'nookies'
 import { useDispatch } from "react-redux";
 import * as yup from 'yup'
 import { useEffect } from "react";
+import { groq } from "next-sanity";
 
 import { IAddress } from "../../interfaces";
 import { CheckoutOrder } from "../../components/CheckoutOrder";
 import { addToCart } from "../../redux/cart/cartSlices";
+import { sanityClient } from "../../sanity";
+import { setLoadShippings } from "../../redux/shippings/shippings";
+import { GetServerSideProps } from "next";
 
 const schema = yup.object({
   country: yup.string().required('Country is required'),
@@ -44,7 +47,11 @@ const schema = yup.object({
   cedula: yup.string().required('Cedula is required'),
 })
 
-const AddressPages = () => {
+interface AddressPagesProps {
+  shippings: any
+}
+
+const AddressPages = ({ shippings }: AddressPagesProps) => {
   const {
     country,
     firsName,
@@ -56,7 +63,7 @@ const AddressPages = () => {
     phone,
     cedula
   } = parseCookies()
-  const { register, handleSubmit, formState: { errors } }: any = useForm({
+  const { register, handleSubmit, watch, formState: { errors } }: any = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       country: country,
@@ -97,6 +104,27 @@ const AddressPages = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const cookies = parseCookies()
+    try {
+      const shipping = cookies.country ? JSON.parse(JSON.stringify(cookies.country)) : { name: '', price: 0 }
+      dispatch(setLoadShippings(shippings.length > 0 ? shippings.find((country: { name: string }) => country.name == shipping) : { name: '', price: 0 }))
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
+  useEffect(() => {
+    const subscribe = watch((value: any, { name, type }: { name: string, type: string }) => {
+      console.log(name, value, 'form')
+      if (name === 'country') {
+        const shipping = shippings.find((country: { name: string }) => country.name == value.country)
+        dispatch(setLoadShippings(shipping))
+      }
+    })
+    return () => subscribe.unsubscribe();
+  }, [])
+
   return (
     <Box>
       <Head>
@@ -104,7 +132,7 @@ const AddressPages = () => {
       </Head>
       <SimpleGrid columns={{ base: 1, lg: 2 }}>
         <GridItem>
-          <Flex direction='column' gap='40px' p='40px 70px' borderRight='1px solid #E2E8F0'>
+          <Flex direction='column' gap='40px' p={{ base: '40px 20px', md: '40px 70px' }} borderRight='1px solid #E2E8F0'>
             <Text
               fontSize='24px'
               fontWeight='600'
@@ -162,7 +190,14 @@ const AddressPages = () => {
               </Text>
               <Flex direction='column' gap='12px' mb='10px'>
                 <FormControl isInvalid={errors.country}>
-                  <Input {...register('country')} placeholder='Country' name="country" type='text' focusBorderColor='none' />
+                  <Select {...register('country')} name="country" type='text' focusBorderColor='none' >
+                    {
+                      shippings.map(({ name, price }: { name: string, price: number }, i: number) => (
+                        <option key={name} value={name}>{name}</option>
+                      ))
+                    }
+                  </Select>
+                  {/* <Input {...register('country')} placeholder='Country' name="country" type='text' focusBorderColor='none' /> */}
                   <FormErrorMessage>{errors?.country?.message}</FormErrorMessage>
                 </FormControl>
                 <Flex gap='12px'>
@@ -225,6 +260,23 @@ const AddressPages = () => {
       </SimpleGrid>
     </Box >
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+
+  const query = groq`
+  *[_type == 'shippings'][]{
+    name,
+    price
+  }
+  `
+  const shippings = await sanityClient.fetch(query)
+
+  return {
+    props: {
+      shippings
+    }
+  }
 }
 
 export default AddressPages;
