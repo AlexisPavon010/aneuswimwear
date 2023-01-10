@@ -18,31 +18,34 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-
+import { groq } from 'next-sanity';
 import Image from 'next/image';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { setCookie, parseCookies } from 'nookies';
+import PortableText from 'react-portable-text';
 
 import { ItemCounter } from '../../components/Products/ItemCounter';
 import { SizeSelected } from '../../components/Products/SizeSelected';
 import { addToCart } from '../../redux/cart/cartSlices';
-import { ColorSelected } from '../../components/Products';
 import { dbProducts } from '../../database';
 import { IProduct } from '../../interfaces/Product';
 import { ICartProduct } from '../../interfaces';
 import { openCartMenu } from '../../redux/ui/uiSlice';
 import { SlideProducts } from '../../components/SlideProducts';
 import { InstaSlider } from '../../components/InstaSlider';
+import { sanityClient } from '../../sanity';
 
 interface Props {
   product: IProduct;
   best_sellers: IProduct[];
+  pageInfo: any;
 }
 
-const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
+const ProductPage: NextPage<Props> = ({ product, best_sellers, pageInfo }) => {
   const [previewImage, setPreviewImage] = useState<any>(0)
-  const [sizeSelected, setSizeSelected] = useState<any>('M')
+  const [bottomSizeSelected, setBottomSizeSelected] = useState<any>('M')
+  const [topSizeSelected, setTopSizeSelected] = useState<any>('M')
   const [count, setCounter] = useState(1)
   const { items } = useSelector((state: any) => state.cart)
   const dispatch = useDispatch()
@@ -50,7 +53,8 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
   const [temProduct, setTempProduct] = useState<ICartProduct>({
     _id: product._id,
     quantity: count,
-    size: sizeSelected,
+    topSize: topSizeSelected,
+    bottomSize: bottomSizeSelected,
     description: product.description,
     image: product.images[0].url,
     inStock: product.inStock,
@@ -62,11 +66,19 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
     gender: product.gender,
   })
 
-  const selectedSize = (size: string) => {
-    setSizeSelected(size)
+  const selectedTopSize = (topSize: string) => {
+    setTopSizeSelected(topSize)
     setTempProduct((state: ICartProduct) => ({
       ...state,
-      size
+      topSize
+    }))
+  }
+
+  const selectedBottomSize = (bottomSize: string) => {
+    setBottomSizeSelected(bottomSize)
+    setTempProduct((state: ICartProduct) => ({
+      ...state,
+      bottomSize
     }))
   }
 
@@ -95,7 +107,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
   }, [items])
 
   const addProductToCart = () => {
-    if (!temProduct.size) return
+    if (!temProduct.topSize) return
 
     const productInCart = items.some((p: ICartProduct) => p._id === product._id)
 
@@ -104,7 +116,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
       return dispatch(addToCart([...items, temProduct]))
     }
 
-    const pproductInCartButDifferentSize = items.some((p: ICartProduct) => p._id === product._id && p.size === temProduct.size)
+    const pproductInCartButDifferentSize = items.some((p: ICartProduct) => p._id === product._id && p.topSize === temProduct.topSize)
 
     if (!pproductInCartButDifferentSize) {
       dispatch(openCartMenu(true))
@@ -113,7 +125,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
 
     const updateProduct = items.map((p: ICartProduct) => {
       if (p._id !== temProduct._id) return p
-      if (p.size !== temProduct.size) return p
+      if (p.topSize !== temProduct.topSize) return p
 
       return {
         ...p,
@@ -167,7 +179,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                 pagination={{
                   clickable: true,
                 }}
-                initialSlide={1}
+                initialSlide={0}
                 loop={true}
                 spaceBetween={10}
                 navigation={true}
@@ -194,12 +206,6 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                   </Text>
                   <AiOutlineHeart size='24px' />
                 </Flex>
-                {/* <ReactStars
-                  value={product.rating}
-                  edit={false}
-                  size={24}
-                  activeColor="#ffd700"
-                /> */}
                 <Text
                   as='h2'
                   fontWeight={400}
@@ -219,14 +225,9 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                   />
                 </Box>
 
-                <Box>
-                  <Text>
-                    Colors:
-                  </Text>
-                  <ColorSelected />
-                </Box>
 
-                {/* <Box my={2}>
+
+                <Box my={2}>
                   <Flex justify='space-between'>
                     <Text>
                       Top Size:
@@ -238,42 +239,41 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
                   <SizeSelected
                     sizes={product.sizes}
                     selectedSize={topSizeSelected}
-                    onSelectedSize={(size) => setTopSizeSelected(size)}
-                  />
-                </Box> */}
-
-                <Box my={2}>
-                  <Text>
-                    Size:
-                  </Text>
-                  <SizeSelected
-                    sizes={product.sizes}
-                    selectedSize={sizeSelected}
-                    onSelectedSize={(size) => selectedSize(size)}
+                    onSelectedSize={(size) => selectedTopSize(size)}
                   />
                 </Box>
 
                 <Box my={2}>
+                  <Text>
+                    Bottom Size:
+                  </Text>
+                  <SizeSelected
+                    sizes={product.sizes}
+                    selectedSize={bottomSizeSelected}
+                    onSelectedSize={(size) => selectedBottomSize(size)}
+                  />
+                </Box>
+
+                <Box>
                   <Text
                     mb={2}
                     fontWeight={600}
                   >
                     Agrega tu personalizacion
                   </Text>
-                  <Text
-                    mb={2}
-                    fontSize='14px'
-                  >
-                    - Puedes mezclar tallas de Tops y Bottom, en caso de necesitarlo.
-                    <br />
-                    - Puedes personalizar tu bikini en otro color.
-                    <br />
-                    - Ejemplo: Este bikini en ANEU09
-                    <br />
-                    - Si personalizas el bikini con otro color la entrega sera en 4-5 dias laborales
-                  </Text>
-                  <Textarea placeholder='Hola! Quisiera este bikini en Top M y Bottom L En aneu08'  />
+                  <PortableText
+                    content={pageInfo.body}
+                    projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
+                    dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+                    serializers={{
+                      normal: (props: any) => (
+                        <p style={{ marginBottom: '16px' }} {...props} />
+                      )
+                    }}
+                  />
+                  <Textarea placeholder='Hola! Quisiera este bikini en color Cherry' />
                 </Box>
+
 
                 <Button
                   my={2}
@@ -304,7 +304,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers }) => {
           <InstaSlider />
           <Divider />
         </Box>
-        <SlideProducts title='Our Favorites' products={best_sellers} />
+        <SlideProducts title='Our Favorites 🤍' products={best_sellers} />
         {/* <Divider />
         <RatingComponent product={product} /> */}
       </Container>
@@ -328,6 +328,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = '' } = params as { slug: string }
 
+  const query = groq`
+    *[_type == 'customization'][0]{
+      body
+    }
+  `
+
+  const pageInfo = await sanityClient.fetch(query)
   const product = await dbProducts.getProductBySlug(slug)
   const best_sellers = await dbProducts.getAllProductByGender('best_sellers')
 
@@ -343,6 +350,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       product,
+      pageInfo,
       best_sellers
     },
     revalidate: 60
