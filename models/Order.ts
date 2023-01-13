@@ -7,7 +7,7 @@ const OrderSchema = new Schema({
     discount    : { type: Number },
   },
   orderItems: [{
-    _id         : { type: String, required: true },
+    _id         : { type: String },
     title       : { type: String, required: true },
     topSize     : { type: String, required: true },
     bottomSize  : { type: String, required: true },
