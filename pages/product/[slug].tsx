@@ -64,6 +64,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers, pageInfo }) => {
     title: product.title,
     type: product.type,
     gender: product.gender,
+    customization: ''
   })
 
   const selectedTopSize = (topSize: string) => {
@@ -271,7 +272,13 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers, pageInfo }) => {
                       )
                     }}
                   />
-                  <Textarea placeholder='Hola! Quisiera este bikini en color Cherry' />
+                  <Textarea
+                    placeholder='Hola! Quisiera este bikini en color Cherry'
+                    onChange={({ target }) => setTempProduct({
+                      ...temProduct,
+                      customization: target.value
+                    })}
+                  />
                 </Box>
 
 
