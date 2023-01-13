@@ -81,17 +81,16 @@ const Shipping = ({ shippings }: any) => {
     try {
       const { data } = await createOrder(body)
       const orderPay = {
-        amount: (getCartTotal(items, items[0]?.discountCode?.discount) * taxRate) * 100 + shipping.price,
-        amountWithoutTax: (getCartTotal(items, items[0].discountCode?.discount) * taxRate) * 100 + shipping.price,
+        amount: getCartTotal(items, items[0]?.discountCode?.discount) * 100 + shipping.price,
+        amountWithoutTax: getCartTotal(items, items[0].discountCode?.discount) * 100 + shipping.price,
         clientTransactionId: data._id,
         responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
         cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
       }
-      console.log(orderPay)
-      // const { data: payphone } = await Payphone(orderPay)
+      const { data: payphone } = await Payphone(orderPay)
       dispatch(addToCart([]))
       destroyCookie(null, 'cart')
-      // router.replace(payphone.payWithCard)
+      router.replace(payphone.payWithCard)
     } catch (error) {
       console.log(error)
       setIsLoading(false)
