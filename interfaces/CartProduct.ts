@@ -13,6 +13,7 @@ export interface ICartProduct {
   type: IType;
   gender: 'best_sellers' | 'news' | 'sale';
   quantity: number;
+  customization: string;
 }
 
 interface IDiscountCode {
