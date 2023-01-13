@@ -87,11 +87,11 @@ const Shipping = ({ shippings }: any) => {
         responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
         cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
       }
-      const { data: payphone } = await Payphone(orderPay)
-      console.log(payphone)
+      console.log(orderPay)
+      // const { data: payphone } = await Payphone(orderPay)
       dispatch(addToCart([]))
       destroyCookie(null, 'cart')
-      router.replace(payphone.payWithCard)
+      // router.replace(payphone.payWithCard)
     } catch (error) {
       console.log(error)
       setIsLoading(false)
