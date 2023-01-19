@@ -1,8 +1,9 @@
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { FilterMenu } from '../../components/FilterMenu'
+import Head from 'next/head'
 
+import { FilterMenu } from '../../components/FilterMenu'
 import { ProductItem } from '../../components/Products'
 import { getProductByTags } from '../../database/dbProducts'
 import { IProduct } from '../../interfaces/Product'
@@ -18,6 +19,9 @@ const Tops = ({ products }: TopsProps) => {
 
   return (
     <Box>
+      <Head>
+        <title>Aneuswimwear | {pathName}</title>
+      </Head>
       <Box p='20px 30px'>
         <Box>
           <Text
@@ -51,7 +55,7 @@ const Tops = ({ products }: TopsProps) => {
         </Box>
         <Box p='36px 0'>
           <SimpleGrid columns={{ base: 1, md: 4 }} gap='20px'>
-            {products.map((product, i) => (
+            {products?.map((product, i) => (
               <ProductItem
                 key={i}
                 {...product}
@@ -72,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, params }) 
 
   return {
     props: {
-      products
+      ...products
     }
   }
 }
