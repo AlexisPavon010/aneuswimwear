@@ -23,6 +23,7 @@ export const FilterMenu = () => {
   const [sort, setSort] = useState('')
   const router = useRouter()
 
+
   const updateQuery = (size: string, color: string, sort: string) => {
     let query = {}
     if (size) {
@@ -34,8 +35,9 @@ export const FilterMenu = () => {
     if (sort) {
       query = { ...query, sort }
     }
+    const route = router.asPath.split('?')[0]
     router.push({
-      pathname: router.asPath,
+      pathname: route,
       query: query,
     });
   };
