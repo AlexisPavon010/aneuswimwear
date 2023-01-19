@@ -89,6 +89,7 @@ const Shipping = ({ shippings }: any) => {
       }
       const { data: payphone } = await Payphone(orderPay)
       dispatch(addToCart([]))
+      dispatch(setLoadShippings({ name: '', price: 0 }))
       destroyCookie(null, 'cart')
       router.replace(payphone.payWithCard)
     } catch (error) {
