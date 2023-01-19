@@ -64,7 +64,7 @@ export const InstaSlider = () => {
         align='center'
         fontSize='20px'
       >
-        As Seen On Insta
+        As Seen On Insta 📷
       </Text>
       <Swiper
         spaceBetween={10}
