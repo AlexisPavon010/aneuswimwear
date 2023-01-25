@@ -260,7 +260,7 @@ const ProductPage: NextPage<Props> = ({ product, best_sellers, pageInfo }) => {
                     mb={2}
                     fontWeight={600}
                   >
-                    Agrega tu personalizacion
+                    CUSTOMIZE YOUR ANEU
                   </Text>
                   <PortableText
                     content={pageInfo.body}
