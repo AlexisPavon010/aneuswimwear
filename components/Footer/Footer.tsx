@@ -103,7 +103,7 @@ export const Footer = () => {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem border={0}>
+            {/* <AccordionItem border={0}>
               <h2>
                 <AccordionButton>
                   <Text
@@ -127,7 +127,7 @@ export const Footer = () => {
                   </NextLink>
                 </Flex>
               </AccordionPanel>
-            </AccordionItem>
+            </AccordionItem> */}
           </Accordion>
           <Box p='8px 16px'>
             <h2>
@@ -209,7 +209,7 @@ export const Footer = () => {
             lineHeight='30px'
             direction='column'
           >
-            <Text
+            {/* <Text
               mb='25px'
               fontWeight={700}
               color='white'
@@ -221,7 +221,7 @@ export const Footer = () => {
             </NextLink>
             <NextLink href='/about/values'>
               Values
-            </NextLink>
+            </NextLink> */}
           </Flex>
           <Box p='0 15px' lineHeight='30px'>
             <Text
