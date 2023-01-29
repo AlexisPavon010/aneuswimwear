@@ -39,9 +39,9 @@ export default function Home({ news, best_sellers, banner, newsletter }: HomePro
       <Box as='main'>
         <Banner banner={banner} />
         <Container maxW='1600px'>
-          <SlideProducts title='New arrivals' products={news} />
+          <SlideProducts title='NEW ARRIVALS' products={news} />
           <Categories />
-          <SlideProducts title='Best sellers' products={best_sellers} />
+          <SlideProducts title='BEST SELLERS' products={best_sellers} />
           <InstaFeed />
           <WhatsAppButton />
           <Newsletter newsletter={newsletter} />

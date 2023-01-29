@@ -37,7 +37,7 @@ export const Categories = () => {
         textAlign='center'
         fontFamily='Tenor Sans'
       >
-        Categories
+        CATEGORIES
       </Text>
       <Swiper
         spaceBetween={50}
