@@ -10,7 +10,7 @@ export const SizeSelected = ({ sizes, selectedSize, onSelectedSize }: SizeSelect
 
   return (
     <Stack m='10px 0' spacing={1} direction='row' align='center'>
-      {sizes.map((size: string, i: number) => (
+      {sizes?.map((size: string, i: number) => (
         <Button
           key={i}
           p={0}
