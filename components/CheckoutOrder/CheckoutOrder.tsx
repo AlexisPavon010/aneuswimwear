@@ -144,7 +144,7 @@ export const CheckoutOrder = () => {
             fontSize='14px'
             fontWeight='600'
           >
-            {getCartTotal(items) > 200 ? 'Free' : `$${shipping?.price}`}
+            {getCartTotal(items) >= 200 ? 'Free' : `$${shipping?.price}`}
           </Text>
         </Flex>
       </Flex>
@@ -164,7 +164,7 @@ export const CheckoutOrder = () => {
             fontSize='24px'
             fontWeight='600'
           >
-            ${(getCartTotal(items, items[0]?.discountCode?.discount) * taxRate) + (getCartTotal(items) > 200 ? 0 : shipping.price)}
+            ${(getCartTotal(items, items[0]?.discountCode?.discount) * taxRate) + (getCartTotal(items) >= 200 ? 0 : shipping.price)}
           </Text>
         </Flex>
       </Flex>

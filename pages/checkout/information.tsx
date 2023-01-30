@@ -223,8 +223,8 @@ const AddressPages = ({ shippings }: AddressPagesProps) => {
                     <FormErrorMessage>Enter the area or postal code</FormErrorMessage>
                   </FormControl>
                   <FormControl isInvalid={errors.cedula}>
-                    <Input {...register('cedula')} placeholder="Cedula" name="cedula" type='text' focusBorderColor='none' />
-                    <FormErrorMessage>Enter the cedula</FormErrorMessage>
+                    <Input {...register('cedula')} placeholder="ID" name="cedula" type='text' focusBorderColor='none' />
+                    <FormErrorMessage>Enter the ID</FormErrorMessage>
                   </FormControl>
                   <FormControl isInvalid={errors.city}>
                     <Input {...register('city')} placeholder="City" name="city" type='text' focusBorderColor='none' />
