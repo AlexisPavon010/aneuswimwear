@@ -16,7 +16,7 @@ export const WhatsAppButton = () => {
         rounded='full'
         zIndex={3}
         _hover={{}}
-        onClick={() => window.open('https://api.whatsapp.com/send/?phone=543751307791&text=Hi+%2AAneu%2A%21+I+need+more+info+about+Homepage+https%3A%2F%2Faneuswimwear.vercel.app&type=phone_number&app_absent=0')}
+        onClick={() => window.open('https://api.whatsapp.com/send/?phone=593982922066&text=Hello+%2AAneu&type=phone_number&app_absent=0')}
       >
         <BsWhatsapp size='24px' />
       </Button >
