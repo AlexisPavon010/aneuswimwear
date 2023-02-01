@@ -28,7 +28,7 @@ import { sendNewsletterEmail } from '../../client'
 export const Footer = () => {
   return (
     <Box
-      backgroundColor='#0d0d0d'
+      backgroundColor='rgb(174, 158, 143)'
       float='left'
       width='100%'
     >
@@ -54,7 +54,7 @@ export const Footer = () => {
                 <AccordionIcon color='white' fontSize='24px' />
               </AccordionButton>
               <AccordionPanel pb={4}>
-                <Flex direction='column'>
+                <Flex direction='column' color='white'>
                   <NextLink href='/collections/new-arrivals'>
                     New Arrivals
                   </NextLink>
@@ -83,7 +83,7 @@ export const Footer = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <Flex direction='column'>
+                <Flex direction='column' color='white'>
                   <NextLink href='/about/size-guide'>
                     Size Guide
                   </NextLink>
@@ -157,6 +157,7 @@ export const Footer = () => {
             p='0 15px'
             lineHeight='30px'
             direction='column'
+            color='white'
           >
             <Text
               fontWeight={700}
@@ -180,6 +181,7 @@ export const Footer = () => {
             p='0 15px'
             lineHeight='30px'
             direction='column'
+            color='white'
           >
             <Text
               mb='25px'
@@ -252,7 +254,7 @@ export const Footer = () => {
       <Box>
         <Container
           maxW='960px'
-          borderTop='1px solid #3a3a3a'
+          borderTop='1px solid white'
           padding='30px 0px'
         >
           <Text
@@ -292,6 +294,7 @@ const EmailLargeForm = () => {
       <InputGroup>
         <Input
           {...register('email', { required: "Please enter an email." })}
+          _placeholder={{ color: 'white' }}
           placeholder='Enter email'
           focusBorderColor='none'
           borderRadius='none'
@@ -301,7 +304,7 @@ const EmailLargeForm = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <FiSend cursor='pointer' size='20px' onClick={handleSubmit(sendEmail)} />
+            <FiSend color='white' cursor='pointer' size='20px' onClick={handleSubmit(sendEmail)} />
           )}
         </InputRightElement>
       </InputGroup>
@@ -334,6 +337,7 @@ const EmailSmallForm = () => {
       <InputGroup>
         <Input
           {...register('email', { required: "Please enter an email." })}
+          _placeholder={{ color: 'white' }}
           placeholder='Enter email'
           focusBorderColor='none'
           borderRadius='none'
@@ -343,7 +347,7 @@ const EmailSmallForm = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <FiSend cursor='pointer' size='20px' {...register('email', { required: "Please enter an email." })} onClick={handleSubmit(sendEmail)} />
+            <FiSend color='white' cursor='pointer' size='20px' {...register('email', { required: "Please enter an email." })} onClick={handleSubmit(sendEmail)} />
           )}
         </InputRightElement>
       </InputGroup>
