@@ -41,17 +41,15 @@ export const Announcement = () => {
       >
         {
           data.map((a: IAnnouncement, i: number) => (
-            <>
-              <SwiperSlide>
-                <Text
-                  color='white'
-                  textAlign='center'
-                  fontSize='13px'
-                >
-                  {a?.name}
-                </Text>
-              </SwiperSlide>
-            </>
+            <SwiperSlide key={i}>
+              <Text
+                color='white'
+                textAlign='center'
+                fontSize='13px'
+              >
+                {a?.name}
+              </Text>
+            </SwiperSlide>
           ))
         }
       </Swiper>
