@@ -58,7 +58,7 @@ export const Navbar = ({ setIsOpenMenu }: NavbarProps) => {
                 {isDesktop ? (
                   <>
                     <NextLink href={`/collections/new`} >New</NextLink>
-                    <NextLink href={`/collections/all-swim`} >Swimwear</NextLink>
+                    <NextLink href={`/collections/swimwear`} >Swimwear</NextLink>
                     <NextLink href={`/collections/all`} >Collections</NextLink>
                     <NextLink href={`/collections/sale`} >Sale</NextLink>
                   </>

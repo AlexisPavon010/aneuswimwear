@@ -134,11 +134,11 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
               <AccordionPanel p={0}>
                 <Flex flexDirection='column'>
                   <Link
-                    onClick={() => handleNavigate('/collections/all-swim')}
+                    onClick={() => handleNavigate('/collections/swimwear')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
-                    All swimwear
+                    Swimwear
                   </Link>
                   <Link
                     onClick={() => handleNavigate('/collections/bottoms')}
