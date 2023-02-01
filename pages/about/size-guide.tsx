@@ -60,7 +60,7 @@ const sizeGuidePage = () => {
             mb='25px'
             as='h1'
           >
-            SOMMER SWIM SIZE GUIDE
+            ANEU SWIMWEAR SIZE GUIDE
           </Text>
           <Text
             m='25px 0'
@@ -99,7 +99,7 @@ const sizeGuidePage = () => {
               <NextImage
                 width={600}
                 height={600}
-                src='https://cdn.shopify.com/s/files/1/0266/3084/8621/files/fit_image.jpg?v=1571799548'
+                src='/assets/size-guide.jpg'
                 alt="size guide"
               />
             </Box>
@@ -135,7 +135,26 @@ const sizeGuidePage = () => {
               <Text
                 mb='20px'
               >
-                Measure around the fullest/widest part of hips and bottom, keeping tape parallel to the floor.
+                Pass the metric tape in the largest part of your hips and buttocks. Keep the tape parallel to the ground. Join the ends at the front and record your measurement.
+              </Text>
+              <Text
+                fontWeight={600}
+                mb='20px'
+              >
+                Recommendations:
+              </Text>
+              <Text
+                mb='20px'
+              >
+                • Keep your posture straight while taking measurements
+                <br />
+                • Avoid being too tight
+                <br />
+                • The tape should be in a straight line
+                <br />
+                {`• Don't hold your breath, don't stick your belly in while taking your measurements.`}
+                <br />
+                • In case you do not have a tape measure you can use a string and then measure with a ruler
               </Text>
             </Box>
           </Flex>
@@ -146,14 +165,14 @@ const sizeGuidePage = () => {
             m='25px 0'
             as='h1'
           >
-            SWIMWEAR SIZE GUIDE
+            SIZE CHART
           </Text>
           <Text
             fontSize='24px'
             m='25px 0'
             as='h2'
           >
-            TOP FIT
+            FIT
           </Text>
           <TableContainer mb='40px'>
             <Table border='1px solid #edf2f7' variant='simple'>
@@ -164,55 +183,61 @@ const sizeGuidePage = () => {
                     fontSize='14px'
                     color='#000'
                   >
-                    Size
+                    SIZE
                   </Th>
                   <Th
                     border='1px solid #edf2f7'
                     fontSize='14px'
                     color='#000'
                   >
-                    Bust Size (in)
+                    BUST
                   </Th>
                   <Th
                     border='1px solid #edf2f7'
                     fontSize='14px'
                     color='#000'
                   >
-                    Bust Size (cm)
+                    WAIST
                   </Th>
                   <Th
                     border='1px solid #edf2f7'
                     fontSize='14px'
                     color='#000'
                   >
-                    Cup Size
+                    HIPS
                   </Th>
                 </Tr>
               </Thead>
               <Tbody>
                 <Tr>
                   <Td border='1px solid #edf2f7'>XS</Td>
-                  <Td border='1px solid #edf2f7'>30-32</Td>
-                  <Td border='1px solid #edf2f7'>76-82</Td>
-                  <Td border='1px solid #edf2f7'>A-B</Td>
+                  <Td border='1px solid #edf2f7'>82</Td>
+                  <Td border='1px solid #edf2f7'>60</Td>
+                  <Td border='1px solid #edf2f7'>87</Td>
                 </Tr>
                 <Tr>
                   <Td border='1px solid #edf2f7'>S</Td>
-                  <Td border='1px solid #edf2f7'>32-34</Td>
-                  <Td border='1px solid #edf2f7'>82-86</Td>
-                  <Td border='1px solid #edf2f7'>B-C</Td>
+                  <Td border='1px solid #edf2f7'>86</Td>
+                  <Td border='1px solid #edf2f7'>65</Td>
+                  <Td border='1px solid #edf2f7'>90</Td>
                 </Tr>
                 <Tr>
                   <Td border='1px solid #edf2f7'>M</Td>
-                  <Td border='1px solid #edf2f7'>34-36</Td>
-                  <Td border='1px solid #edf2f7'>86-91</Td>
-                  <Td border='1px solid #edf2f7'>C-D</Td>
+                  <Td border='1px solid #edf2f7'>90</Td>
+                  <Td border='1px solid #edf2f7'>70</Td>
+                  <Td border='1px solid #edf2f7'>95</Td>
                 </Tr>
                 <Tr>
                   <Td border='1px solid #edf2f7'>L</Td>
-                  <Td border='1px solid #edf2f7'>36-38</Td>
-                  <Td border='1px solid #edf2f7'>91-96.5</Td>
-                  <Td border='1px solid #edf2f7'>D+</Td>
+                  <Td border='1px solid #edf2f7'>94</Td>
+                  <Td border='1px solid #edf2f7'>75</Td>
+                  <Td border='1px solid #edf2f7'>100</Td>
+                </Tr>
+                <Tr>
+                  <Td border='1px solid #edf2f7'>XXL</Td>
+                  <Td border='1px solid #edf2f7'>98</Td>
+                  <Td border='1px solid #edf2f7'>80</Td>
+                  <Td border='1px solid #edf2f7'>105</Td>
                 </Tr>
               </Tbody>
             </Table>
