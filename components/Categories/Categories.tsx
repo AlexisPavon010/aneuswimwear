@@ -77,7 +77,7 @@ const Category = ({ image, name }: { image: string, name: string }) => {
   return (
     <Link
       as={NextLink}
-      href={`/categories/${name.toLowerCase()}`}
+      href={`/categories/${name.toLowerCase().replace(" ","-")}`}
       position='relative'
       overflow='hidden'
     >
