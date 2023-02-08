@@ -166,25 +166,10 @@ export const getProductByTags = async (query: getProductByTagsProps) => {
     `
   }
 
-  if (tag == 'new') {
+  if (tag !== 'all' && SHOP_CONTANST.validCollections.includes(tag)) {
     term = groq`
     *[][0]{
-      "products": *[_type == "products" && gender == 'new']{    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (tag == 'sale') {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products" && gender == 'sale']{    
+      "products": *[_type == "products" && gender == ${tag}]{    
         "slug": slug.current,
         title,
         price,
