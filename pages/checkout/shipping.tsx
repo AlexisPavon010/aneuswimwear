@@ -34,12 +34,12 @@ import { sanityClient } from "../../sanity"
 const Shipping = ({ shippings }: any) => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMesage, setErrorMesage] = useState('')
-  const { items } = useSelector((state: any) => state.cart)
+  const { items, discount } = useSelector((state: any) => state.cart)
   const shipping = useSelector((state: any) => state.shippings)
   const router = useRouter()
   const dispatch = useDispatch()
   const { data: session } = useSession()
-  const taxRate = (Number(process.env.NEXT_PUBLIC_TAX_RATE) + 1) || 0
+  const taxRate = (Number(process.env.NEXT_PUBLIC_TAX_RATE) + 1) || 1
 
   const {
     country,
@@ -58,6 +58,8 @@ const Shipping = ({ shippings }: any) => {
     setIsLoading(true)
 
     const body: IOrder = {
+      discountCode: discount,
+      shipping,
       orderItems: items,
       shippingAddress: {
         country,
@@ -72,8 +74,7 @@ const Shipping = ({ shippings }: any) => {
       paymentMethod: "",
       numberOfItems: getTotalItems(items),
       subTotal: getCartTotal(items),
-      total: (getCartTotal(items, items[0]?.discountCode?.discount) * taxRate),
-      discountCode: items[0]?.discountCode,
+      total: (getCartTotal(items, discount?.discount) * taxRate),
       tax: taxRate,
       isPaid: false
     }
@@ -81,8 +82,8 @@ const Shipping = ({ shippings }: any) => {
     try {
       const { data } = await createOrder(body)
       const orderPay = {
-        amount: getCartTotal(items, items[0]?.discountCode?.discount) * 100 + shipping.price,
-        amountWithoutTax: getCartTotal(items, items[0].discountCode?.discount) * 100 + shipping.price,
+        amount: (getCartTotal(items, discount?.discount) + shipping.price) * 100,
+        amountWithoutTax: (getCartTotal(items, discount?.discount) + shipping.price) * 100,
         clientTransactionId: data._id,
         responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
         cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
