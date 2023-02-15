@@ -1,9 +1,11 @@
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 
+import { Box, Drawer, DrawerOverlay, Spinner, Text } from '@chakra-ui/react'
+
+import { successOrder } from '../../client/order'
 import { Order } from '../../models'
 import { db } from '../../database'
-import { Box, Drawer, DrawerOverlay, Flex, Spinner, Text } from '@chakra-ui/react'
 
 const OrderCompleted = () => {
   return (
@@ -27,7 +29,7 @@ const OrderCompleted = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { id, clientTransactionId: clientTxId } = query as { id: string, clientTransactionId: string }
-  
+
   const token = process.env.NEXT_PUBLIC_PAYPHONE_TOKEN
 
   try {
@@ -47,6 +49,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       dbOrder.transactionId = id
       dbOrder.isPaid = true
       await dbOrder.save()
+      await successOrder(dbOrder)
     }
 
     return {
