@@ -3,7 +3,6 @@ import { getSession } from 'next-auth/react'
 
 import { db } from '../../../database'
 import { IOrder } from '../../../interfaces'
-import { Product } from '../../../models'
 import Order from '../../../models/Order'
 
 type Data = {
