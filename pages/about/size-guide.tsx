@@ -108,53 +108,53 @@ const sizeGuidePage = () => {
                 fontWeight={600}
                 mb='20px'
               >
-                Bust
+                Busto
               </Text>
               <Text
                 mb='20px'
               >
-                Measure around your chest at the fullest point of bust with no bra on. Make sure measuring tape is relaxed and not tight. Find your bust measurement from the guide as shown.
-              </Text>
-              <Text
-                fontWeight={600}
-                mb='20px'
-              >
-                Waist
-              </Text>
-              <Text
-                mb='20px'
-              >
-                Consulting our guide, measure around the smallest part of your waist. Keep tape parallel to the floor and ensure one finger fits in between your body and the tape for a more comfortable fit.
+                Mida alrededor de su pecho en el punto más completo del busto sin sostén. Asegúrese de que la cinta métrica esté relajada y no apretada.  Registra tu medida y compárala con nuestra tabla.
               </Text>
               <Text
                 fontWeight={600}
                 mb='20px'
               >
-                Hips
+                Cintura
               </Text>
               <Text
                 mb='20px'
               >
-                Pass the metric tape in the largest part of your hips and buttocks. Keep the tape parallel to the ground. Join the ends at the front and record your measurement.
+                Envuelve la cinta métrica en tu cintura. Une las puntas en el centro de la parte frontal. Registra tu medida y compárala con nuestra tabla.
               </Text>
               <Text
                 fontWeight={600}
                 mb='20px'
               >
-                Recommendations:
+                Cadera
               </Text>
               <Text
                 mb='20px'
               >
-                • Keep your posture straight while taking measurements
+                Pasa la cina métrica en la parte más abultada de tus caderas y glúteos. Mantén la cinta en paralelo al suelo. Une las puntas en la parte frontal y registra tu medida.
+              </Text>
+              <Text
+                fontWeight={600}
+                mb='20px'
+              >
+                Recomendaciones:
+              </Text>
+              <Text
+                mb='20px'
+              >
+                • Mantén la postura recta mientras tomas las medidas.
                 <br />
-                • Avoid being too tight
+                • Evita que esté muy ajustado.
                 <br />
-                • The tape should be in a straight line
+                • La cinta debe estar en línea recta.
                 <br />
-                {`• Don't hold your breath, don't stick your belly in while taking your measurements.`}
+                • No aguantes la respiración ni metas el vientre mientras te tomas las medidas.
                 <br />
-                • In case you do not have a tape measure you can use a string and then measure with a ruler
+                • En caso de no tener una cinta métrica puedes usar una cuerda y después medir con una regla.
               </Text>
             </Box>
           </Flex>
@@ -242,7 +242,7 @@ const sizeGuidePage = () => {
               </Tbody>
             </Table>
           </TableContainer>
-          <Divider />
+          {/* <Divider />
           <Text
             fontSize='24px'
             m='25px 0'
@@ -768,7 +768,7 @@ const sizeGuidePage = () => {
                 </Tr>
               </Tbody>
             </Table>
-          </TableContainer>
+          </TableContainer> */}
         </Box>
       </Container >
     </Box >
