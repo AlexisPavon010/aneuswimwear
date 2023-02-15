@@ -6,6 +6,10 @@ const OrderSchema = new Schema({
     couponNumber: { type: String },
     discount    : { type: Number },
   },
+  shipping      : {
+    name        : { type: String },
+    price       : { type: String },
+  },
   orderItems: [{
     _id         : { type: String },
     title       : { type: String, required: true },
@@ -15,6 +19,7 @@ const OrderSchema = new Schema({
     slug        : { type: String, required: true },
     image       : { type: String, required: true },
     price       : { type: Number, required: true },
+    customization: { type: String },
   }],
   shippingAddress: {
     country     : { type: String, required: true },
