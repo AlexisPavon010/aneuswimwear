@@ -13,15 +13,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { groq } from 'next-sanity'
 
-import { ICartProduct, IProduct } from '../../interfaces'
-import { addToCart, getCartTotal } from '../../redux/cart/cartSlices'
+import { ICartProduct } from '../../interfaces'
+import { getCartTotal, setDiscoutCode } from '../../redux/cart/cartSlices'
 import { sanityClient } from '../../sanity'
 
 export const CheckoutOrder = () => {
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
   const { register, handleSubmit, setValue, setError, formState: { errors } } = useForm()
-  const { items } = useSelector((state: any) => state.cart)
+  const { items, discount } = useSelector((state: any) => state.cart)
   const shipping = useSelector((state: any) => state.shippings)
   const taxRate = (Number(process.env.NEXT_PUBLIC_TAX_RATE || 0) + 1)
 
@@ -42,12 +42,8 @@ export const CheckoutOrder = () => {
         return
       }
 
-      const newProductWhitCupon = items.map((item: IProduct) => ({
-        ...item,
-        discountCode: result
-      }))
 
-      dispatch(addToCart(newProductWhitCupon))
+      dispatch(setDiscoutCode(result))
 
     } catch (error) {
       console.log(error)
@@ -121,18 +117,18 @@ export const CheckoutOrder = () => {
           </Text>
         </Flex>
         {
-          items[0]?.discountCode
+          discount
             ? <Flex justifyContent='space-between'>
               <Text
                 fontSize='14px'
               >
-                {`Discount (${items[0]?.discountCode.discount}%)`}
+                {`Discount (${discount.discount}%)`}
               </Text>
               <Text
                 fontSize='14px'
                 fontWeight='600'
               >
-                {`$${((Number(items[0]?.discountCode.discount) / 100) * getCartTotal(items))}`}
+                {`$${((Number(discount.discount) / 100) * getCartTotal(items))}`}
               </Text>
             </Flex>
             : <></>
@@ -164,7 +160,7 @@ export const CheckoutOrder = () => {
             fontSize='24px'
             fontWeight='600'
           >
-            ${(getCartTotal(items, items[0]?.discountCode?.discount) * taxRate) + (getCartTotal(items) >= 200 ? 0 : shipping.price)}
+            ${(getCartTotal(items, discount?.discount) * taxRate) + (getCartTotal(items) >= 200 ? 0 : shipping.price)}
           </Text>
         </Flex>
       </Flex>
