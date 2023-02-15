@@ -65,7 +65,7 @@ export const cartSlices = createSlice({
       // localStorage.removeItem("cart");
     },
     setDiscoutCode: (state, { payload }) => {
-        state.items.push(payload)
+        state.discount = payload
     }
   }
 })
