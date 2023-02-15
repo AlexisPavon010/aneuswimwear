@@ -3,6 +3,7 @@ import { IUser } from "./User";
 export interface IOrder {
   _id?: string;
   discountCode?: IDiscountCode | null;
+  shipping: IShipping;
   user?: IUser | string;
   orderItems: IOrderItems[]
   shippingAddress: ShippingAddress;
@@ -32,6 +33,7 @@ export interface IOrderItems {
   image: string;
   price: number;
   gender: string;
+  customization: string;
 }
 
 export interface ShippingAddress {
@@ -43,4 +45,9 @@ export interface ShippingAddress {
   zip: string;
   city: string;
   phone: string;
+}
+
+interface IShipping {
+  name: string,
+  price: number
 }
