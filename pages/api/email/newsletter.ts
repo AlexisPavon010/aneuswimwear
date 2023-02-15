@@ -2,9 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { google } from 'googleapis'
 import nodemailer from 'nodemailer'
 import handlebars from 'handlebars'
+import { groq } from "next-sanity";
 import { getSession } from "next-auth/react";
 
 import templateHtml from '../../../emails/newsletter.html'
+import { sanityClient } from "../../../sanity";
 
 export default function handlerNewsletter(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -38,10 +40,19 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
       refresh_token: REFRESH_TOKEN
     })
 
+    const query = groq`
+    *[_type == 'coupons'][0]{
+      couponNumber,
+      discount
+    }
+    `
+
+    const data = await sanityClient.fetch(query)
 
     const template = handlebars.compile(templateHtml);
     const replacements = {
-      username: session ? session.user.name : 'Hey there swimmer!'
+      code: data?.couponNumber,
+      discount: data?.discount
     };
     const htmlToSend = template(replacements);
     const accessToken: any = await oAuth2Client.getAccessToken();
@@ -50,7 +61,7 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
       service: 'gmail',
       auth: {
         type: 'OAuth2',
-        user: 'themaster034@gmail.com',
+        user: 'aneuswimwearteam@gmail.com',
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
@@ -59,15 +70,12 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const mailOptions = {
-      // from: 'test@test123123.com',
       to: email,
-      subject: 'Hello from gmail using API',
-      text: 'Hello from gmail email using API',
+      subject: 'Hello!',
       html: htmlToSend
     };
 
     const response = await transport.sendMail(mailOptions);
-    console.log(response)
 
     return res.status(200).json(response)
 
