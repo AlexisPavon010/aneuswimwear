@@ -328,5 +328,7 @@ export const getProductByCategories = async (path: { categories: string, size?: 
 
   const pageInfo = await sanityClient.fetch(term)
 
-  return JSON.parse(JSON.stringify(pageInfo));
+  return JSON.parse(JSON.stringify({
+    products: pageInfo.products.filter((el: any) => el !== null)
+  }));
 }
