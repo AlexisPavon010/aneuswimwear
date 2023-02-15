@@ -99,7 +99,7 @@ const sizeGuidePage = () => {
               <NextImage
                 width={600}
                 height={600}
-                src='/assets/size-guide.jpg'
+                src='/assets/sizeguide.jpg'
                 alt="size guide"
               />
             </Box>
