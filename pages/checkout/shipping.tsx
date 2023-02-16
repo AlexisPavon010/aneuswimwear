@@ -74,7 +74,7 @@ const Shipping = ({ shippings }: any) => {
       paymentMethod: "",
       numberOfItems: getTotalItems(items),
       subTotal: getCartTotal(items),
-      total: (getCartTotal(items, discount?.discount) * taxRate),
+      total: getCartTotal(items, discount?.discount),
       tax: taxRate,
       isPaid: false
     }
@@ -82,8 +82,8 @@ const Shipping = ({ shippings }: any) => {
     try {
       const { data } = await createOrder(body)
       const orderPay = {
-        amount: (getCartTotal(items, discount?.discount) + shipping.price) * 100,
-        amountWithoutTax: (getCartTotal(items, discount?.discount) + shipping.price) * 100,
+        amount: (getCartTotal(items, discount?.discount) * 100) + (getCartTotal(items) >= 200 ? 0 : shipping.price),
+        amountWithoutTax: (getCartTotal(items, discount?.discount) * 100) + (getCartTotal(items) >= 200 ? 0 : shipping.price),
         clientTransactionId: data._id,
         responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
         cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
