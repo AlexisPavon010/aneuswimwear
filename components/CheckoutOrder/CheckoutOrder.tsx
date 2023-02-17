@@ -128,7 +128,7 @@ export const CheckoutOrder = () => {
                 fontSize='14px'
                 fontWeight='600'
               >
-                {`$${((Number(discount.discount) / 100) * getCartTotal(items))}`}
+                {`$ -${((Number(discount.discount) / 100) * getCartTotal(items))}`}
               </Text>
             </Flex>
             : <></>
