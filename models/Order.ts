@@ -1,6 +1,7 @@
 import mongoose, { model, Schema } from "mongoose";
 
 const OrderSchema = new Schema({
+  discount      : { type: String },
   user          : { type: Schema.Types.ObjectId, ref: 'User', require: true },
   discountCode  : {
     couponNumber: { type: String },
@@ -8,7 +9,7 @@ const OrderSchema = new Schema({
   },
   shipping      : {
     name        : { type: String },
-    price       : { type: String },
+    price       : { type: Number },
   },
   orderItems: [{
     _id         : { type: String },

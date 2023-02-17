@@ -1,6 +1,7 @@
 import { IUser } from "./User";
 
 export interface IOrder {
+  discount: number;
   _id?: string;
   discountCode?: IDiscountCode | null;
   shipping: IShipping;
