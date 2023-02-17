@@ -33,7 +33,7 @@ export const Categories = () => {
     <Box>
       <Text
         m='20px 0'
-        fontSize='24px'
+        fontSize={{ base: '16px', md: '20px' }}
         textAlign='center'
         fontFamily='Tenor Sans'
       >
