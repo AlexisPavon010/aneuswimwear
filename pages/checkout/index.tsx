@@ -6,6 +6,7 @@ import { Box, Drawer, DrawerOverlay, Spinner, Text } from '@chakra-ui/react'
 import { successOrder } from '../../client/order'
 import { Order } from '../../models'
 import { db } from '../../database'
+import { getSession } from 'next-auth/react'
 
 const OrderCompleted = () => {
   return (
@@ -27,8 +28,9 @@ const OrderCompleted = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const { id, clientTransactionId: clientTxId } = query as { id: string, clientTransactionId: string }
+  const session: any = await getSession({ req })
 
   const token = process.env.NEXT_PUBLIC_PAYPHONE_TOKEN
 
@@ -49,7 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       dbOrder.transactionId = id
       dbOrder.isPaid = true
       await dbOrder.save()
-      await successOrder(dbOrder)
+      await successOrder(dbOrder, session.user.email)
     }
 
     return {
