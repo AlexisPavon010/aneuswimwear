@@ -1,11 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getSession } from 'next-auth/react'
 import { google } from 'googleapis'
 import nodemailer from 'nodemailer'
 import handlebars from 'handlebars'
+import moment from 'moment'
 
 import templateHtml from '../../../emails/success.html'
-import moment from 'moment'
 
 
 export default function handlerSuccess(req: NextApiRequest, res: NextApiResponse) {
@@ -21,11 +20,9 @@ export default function handlerSuccess(req: NextApiRequest, res: NextApiResponse
 }
 
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { _id, total, numberOfItems, shippingAddress, orderItems, createdAt } = req.body
+  const { _id, total, subTotal, numberOfItems, shippingAddress, shipping, orderItems, createdAt, email, discount } = req.body.payload
   const { country, firsName, lastName, address, address2, zip, city, phone } = shippingAddress;
-  const session: any = await getSession({ req })
-
-  console.log(session)
+  const { price } = shipping;
 
   const CLIENT_ID = process.env.NEXT_PUBLIC_NODEMAILER_CLIENT_ID
   const CLIENT_SECRET = process.env.NODEMAILER_CLIENT_SECRET
@@ -48,8 +45,12 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
       _id, country, firsName, lastName, address, address2, zip, city, phone,
       date: moment(createdAt).format('MM/DD/YYYY, h:mm:ss a'),
       total: total.toFixed(2),
+      subTotal,
       numberOfItems,
-      orderItems
+      orderItems,
+      shipping: Number(price).toFixed(2),
+      isFree: total >= 200 ? true : false,
+      discount: discount ? Number(discount).toFixed(2) : 0.00
     };
     const htmlToSend = template(replacements);
     const accessToken: any = await oAuth2Client.getAccessToken();
@@ -67,7 +68,10 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const mailOptions = {
-      to: 'themaster034@gmail.com',
+      to: [
+        email,
+        'aneuswimwearteam@gmail.com'
+      ],
       subject: 'Gracias por tu compra 😀',
       html: htmlToSend
     };
