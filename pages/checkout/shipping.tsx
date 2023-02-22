@@ -39,7 +39,7 @@ const Shipping = ({ shippings }: any) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { data: session } = useSession()
-  const total = (getCartTotal(items) >= 200 ? 0 : shipping.price + getCartTotal(items, discount?.discount))
+  const total = (getCartTotal(items) >= 200 ? getCartTotal(items) : shipping.price + getCartTotal(items, discount?.discount)) * 100
 
   const {
     country,
@@ -83,8 +83,8 @@ const Shipping = ({ shippings }: any) => {
     try {
       const { data } = await createOrder(body)
       const orderPay = {
-        amount: total * 100,
-        amountWithoutTax: total * 100,
+        amount: total,
+        amountWithoutTax: total,
         clientTransactionId: data._id,
         responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
         cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
