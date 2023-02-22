@@ -20,7 +20,7 @@ export default function handlerSuccess(req: NextApiRequest, res: NextApiResponse
 }
 
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { _id, total, subTotal, numberOfItems, shippingAddress, shipping, orderItems, createdAt, email, discount } = req.body.payload
+  const { _id, total, subTotal, numberOfItems, shippingAddress, shipping, orderItems, createdAt, discount } = req.body.payload
   const { country, firsName, lastName, address, address2, zip, city, phone } = shippingAddress;
   const { price } = shipping;
 
@@ -69,10 +69,10 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const mailOptions = {
       to: [
-        email,
+        req.body.email,
         'aneuswimwearteam@gmail.com'
       ],
-      subject: 'Gracias por tu compra 😀',
+      subject: 'THANK YOU ANEU GIRL 🤍',
       html: htmlToSend
     };
 
