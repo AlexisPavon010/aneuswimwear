@@ -39,7 +39,7 @@ const Shipping = ({ shippings }: any) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { data: session } = useSession()
-  const taxRate = (Number(process.env.NEXT_PUBLIC_TAX_RATE) + 1) || 1
+  const total = (getCartTotal(items) >= 200 ? 0 : shipping.price + getCartTotal(items, discount?.discount))
 
   const {
     country,
@@ -58,6 +58,7 @@ const Shipping = ({ shippings }: any) => {
     setIsLoading(true)
 
     const body: IOrder = {
+      discount: Number((discount?.discount / 100) * getCartTotal(items)),
       discountCode: discount,
       shipping,
       orderItems: items,
@@ -74,16 +75,16 @@ const Shipping = ({ shippings }: any) => {
       paymentMethod: "",
       numberOfItems: getTotalItems(items),
       subTotal: getCartTotal(items),
-      total: getCartTotal(items, discount?.discount),
-      tax: taxRate,
+      total: total,
+      tax: 0,
       isPaid: false
     }
 
     try {
       const { data } = await createOrder(body)
       const orderPay = {
-        amount: (getCartTotal(items, discount?.discount) * 100) + (getCartTotal(items) >= 200 ? 0 : shipping.price),
-        amountWithoutTax: (getCartTotal(items, discount?.discount) * 100) + (getCartTotal(items) >= 200 ? 0 : shipping.price),
+        amount: total * 100,
+        amountWithoutTax: total * 100,
         clientTransactionId: data._id,
         responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
         cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
