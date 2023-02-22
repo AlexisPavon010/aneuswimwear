@@ -129,7 +129,7 @@
                                                     <p class="p_date"><br></p>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td align="left" class="esd-block-text es-p20t es-p20b es-m-txt-c">
                                                     <p><strong>Billing address</strong></p>
                                                 </td>
@@ -139,7 +139,7 @@
                                                     <p class="p_billing_address">Martinsburg,<br>4540 Hall Valley
                                                         Drive<br>West Virginia</p>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </td>
@@ -258,11 +258,11 @@
                                             <tr>
                                                 <td class="esd-block-image es-m-txt-c" align="center"
                                                     style="font-size: 0px;">
-                                                    <a href="https://www.aneuswimwear.com/product/{{slug}}" target="_blank">
+                                                    <a href="https://www.aneuswimwear.com/product/{{slug}}"
+                                                        target="_blank">
                                                         <img class="p_image" src="{{image}}"
                                                             alt="Natural Balance L.I.D., sale 30%"
-                                                            title="Natural Balance L.I.D., sale 30%" 
-                                                            width="126"
+                                                            title="Natural Balance L.I.D., sale 30%" width="126"
                                                             style="display: block;">
                                                     </a>
                                                 </td>
@@ -302,12 +302,13 @@
                                             </tr>
                                             <tr>
                                                 <td align="left" class="esd-block-text">
-                                                    <p style="color: #999999;" class="p_option">Pink</p>
+                                                    <p style="color: #999999;" class="p_option">Top size: {{topSize}}
+                                                        Bottom size: {{bottomSize}}</p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td align="left" class="esd-block-text">
-                                                    <p style="color: #999999;" class="p_option_s">Medium</p>
+                                                    <p style="color: #999999;" class="p_option_s">{{customization}}</p>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -366,22 +367,30 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="text-align: right; line-height: 150%;">
-                                                                    <p>Subtotal ({{numberOfItems}} items):</p>
+                                                                    <p>Total ({{numberOfItems}} items):</p>
                                                                 </td>
                                                                 <td
                                                                     style="text-align: right; font-size: 18px; line-height: 150%;">
-                                                                    <p class="p_subtotal">${{total}}</p>
+                                                                    <p class="p_subtotal">${{subTotal}}</p>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td
                                                                     style="text-align: right; font-size: 18px; line-height: 150%;">
-                                                                    <p style="font-size: 18px;"><strong>Flat-rate
-                                                                            Shipping:</strong></p>
+                                                                    <p style="font-size: 18px;">
+                                                                        <strong>Shipping:</strong>
+                                                                    </p>
                                                                 </td>
                                                                 <td
                                                                     style="text-align: right; font-size: 18px; line-height: 150%; color: #008000;">
-                                                                    <p><strong class="p_rate_shipping">FREE</strong></p>
+                                                                    <p>
+                                                                        {{#if isFree}}
+                                                                        <strong class="p_rate_shipping">Free</strong>
+                                                                        {{else}}
+                                                                        <strong
+                                                                            class="p_rate_shipping">${{shipping}}</strong>
+                                                                        {{/if}}
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -391,10 +400,10 @@
                                                                 </td>
                                                                 <td
                                                                     style="text-align: right; font-size: 18px; line-height: 150%;">
-                                                                    <p class="p_discount">$0.00</p>
+                                                                    <p class="p_discount">$-{{discount}}</p>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
+                                                            <!-- <tr>
                                                                 <td
                                                                     style="text-align: right; font-size: 18px; line-height: 150%;">
                                                                     <p>Tax:</p>
@@ -403,7 +412,7 @@
                                                                     style="text-align: right; font-size: 18px; line-height: 150%;">
                                                                     <p class="p_tax">$0.00</p>
                                                                 </td>
-                                                            </tr>
+                                                            </tr> -->
                                                         </tbody>
                                                     </table>
                                                     <p style="line-height: 150%; color: #38761d;"><br></p>
