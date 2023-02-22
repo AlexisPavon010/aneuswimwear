@@ -234,7 +234,7 @@ const sizeGuidePage = () => {
                   <Td border='1px solid #edf2f7'>100</Td>
                 </Tr>
                 <Tr>
-                  <Td border='1px solid #edf2f7'>XXL</Td>
+                  <Td border='1px solid #edf2f7'>XL</Td>
                   <Td border='1px solid #edf2f7'>98</Td>
                   <Td border='1px solid #edf2f7'>80</Td>
                   <Td border='1px solid #edf2f7'>105</Td>
