@@ -1,9 +1,12 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import FacebookProvider from 'next-auth/providers/facebook';
 import Credentials from 'next-auth/providers/credentials';
+import { google } from 'googleapis'
+import nodemailer from 'nodemailer'
+import handlebars from 'handlebars'
 
 import { checkUserEmailPassword, oAuthToDbUser } from '../../../database/dbUsers';
+import templateHtml from '../../../emails/welcome.html'
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -52,6 +55,8 @@ export default NextAuth({
 
     async jwt({ token, account, user }) {
       // console.log({ token, account, user });
+      // @ts-ignore 
+      await sendMail(user?.email)
 
       if (account) {
         token.accessToken = account.access_token;
@@ -82,3 +87,55 @@ export default NextAuth({
     }
   }
 });
+
+const sendMail = async (email: string) => {
+
+  if (!email) return
+
+  const CLIENT_ID = process.env.NEXT_PUBLIC_NODEMAILER_CLIENT_ID
+  const CLIENT_SECRET = process.env.NODEMAILER_CLIENT_SECRET
+  const REDIRECT_URI = process.env.NODEMAILER_REDIRECT_URL
+  const REFRESH_TOKEN = process.env.NODEMAILER_REFRESH_TOKEN
+
+  try {
+
+    const oAuth2Client = new google.auth.OAuth2(
+      CLIENT_ID,
+      CLIENT_SECRET,
+      REDIRECT_URI
+    );
+
+    oAuth2Client.setCredentials({
+      refresh_token: REFRESH_TOKEN
+    })
+
+    const template = handlebars.compile(templateHtml);
+    const replacements = {};
+    const htmlToSend = template(replacements);
+    const accessToken: any = await oAuth2Client.getAccessToken();
+
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: 'aneuswimwearteam@gmail.com',
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: accessToken,
+      },
+    });
+
+    const mailOptions = {
+      to: email,
+      subject: 'WELCOME ANEU GIRL 🤍',
+      html: htmlToSend
+    };
+
+    const response = await transport.sendMail(mailOptions);
+
+  } catch (error) {
+    console.log(error)
+  }
+
+};
