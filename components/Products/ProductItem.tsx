@@ -29,12 +29,12 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
               borderRadius: '5px'
             }}
             alt={title}
-            src={images[1].url}
+            src={images[0].url}
             width={1000}
             height={1000}
           />
         </Box>
-        <Box
+        {/* <Box
           height='calc(80% - 25px)'
           overflow='hidden'
           transition='0.4s ease-out'
@@ -53,7 +53,7 @@ export const ProductItem = ({ images, title, price, slug, rating }: IProduct) =>
             height={1000}
             src={images[0].url}
           />
-        </Box>
+        </Box> */}
         <Flex
           p='12px 8px'
           justifyContent='space-between'
