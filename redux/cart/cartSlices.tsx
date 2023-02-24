@@ -16,8 +16,8 @@ const initialState: initialStateProps = {
 }
 
 export const getCartTotal = (cart: any, discount?: number) => discount
-  ? cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0).toFixed(2) - ((Number(discount) / 100) * cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0).toFixed(2))
-  : cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0).toFixed(2)
+  ? cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0) - ((Number(discount) / 100) * cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0))
+  : cart?.reduce((amount: number, item: ICartProduct) => item.price * item.quantity + amount, 0)
 
 export const getTotalItems = (cart: any) =>
   cart?.reduce((total: number, item: ICartProduct) => item.quantity + total, 0);
@@ -65,7 +65,7 @@ export const cartSlices = createSlice({
       // localStorage.removeItem("cart");
     },
     setDiscoutCode: (state, { payload }) => {
-        state.discount = payload
+      state.discount = payload
     }
   }
 })
