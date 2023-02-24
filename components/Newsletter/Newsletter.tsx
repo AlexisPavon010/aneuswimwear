@@ -117,7 +117,14 @@ export const Newsletter = ({ newsletter }: { newsletter: Props }) => {
             ) : (
               <FormControl isInvalid={!!errors.email}>
                 <InputGroup>
-                  <Input placeholder='Enter email' focusBorderColor='none' borderRadius='none' {...register('email', { required: true })} backgroundColor='white' />
+                  <Input
+                    color='black'
+                    placeholder='Enter email'
+                    focusBorderColor='none'
+                    borderRadius='none'
+                    {...register('email', { required: true })}
+                    backgroundColor='white'
+                  />
                   <InputRightElement>
                     {isLoading ? (
                       <Spinner />
