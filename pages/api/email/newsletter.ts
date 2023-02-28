@@ -5,7 +5,7 @@ import handlebars from 'handlebars'
 import { groq } from "next-sanity";
 import { getSession } from "next-auth/react";
 
-import templateHtml from '../../../emails/newsletter.html'
+import templateHtml from '../../../emails/welcome.html'
 import { sanityClient } from "../../../sanity";
 
 export default function handlerNewsletter(req: NextApiRequest, res: NextApiResponse) {
