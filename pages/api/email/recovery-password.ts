@@ -73,6 +73,10 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse<any>) {
     });
 
     const mailOptions = {
+      from: {
+        name: 'Aneu Swimwear',
+        address: 'aneuswimwearteam@gmail.com'
+      },
       to: email,
       subject: 'Password reset request',
       text: 'Password reset request',

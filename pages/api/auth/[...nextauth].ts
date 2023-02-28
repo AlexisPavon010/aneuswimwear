@@ -5,7 +5,7 @@ import { google } from 'googleapis'
 import nodemailer from 'nodemailer'
 import handlebars from 'handlebars'
 
-import { checkUserEmailPassword, oAuthToDbUser } from '../../../database/dbUsers';
+import { checkUserEmailPassword, getUser, oAuthToDbUser } from '../../../database/dbUsers';
 import templateHtml from '../../../emails/welcome.html'
 
 export default NextAuth({
@@ -92,6 +92,10 @@ const sendMail = async (email: string) => {
 
   if (!email) return
 
+  const user = await getUser(email)
+
+  if (user) return
+
   const CLIENT_ID = process.env.NEXT_PUBLIC_NODEMAILER_CLIENT_ID
   const CLIENT_SECRET = process.env.NODEMAILER_CLIENT_SECRET
   const REDIRECT_URI = process.env.NODEMAILER_REDIRECT_URL
@@ -127,6 +131,10 @@ const sendMail = async (email: string) => {
     });
 
     const mailOptions = {
+      from: {
+        name: 'Aneu Swimwear',
+        address: 'aneuswimwearteam@gmail.com'
+      },
       to: email,
       subject: 'WELCOME ANEU GIRL 🤍',
       html: htmlToSend

@@ -41,3 +41,10 @@ export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string) => {
   const { name, email, role, _id } = newUser;
   return { name, email, role, id: _id };
 }
+
+export const getUser = async (email: string) => {
+  await db.connect();
+  const user = await User.findOne({ email });
+
+  return user;
+}

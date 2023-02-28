@@ -70,6 +70,10 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const mailOptions = {
+      from: {
+        name: 'Aneu Swimwear',
+        address: 'aneuswimwearteam@gmail.com'
+      },
       to: email,
       subject: 'Hello!',
       html: htmlToSend
