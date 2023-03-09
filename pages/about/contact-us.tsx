@@ -52,49 +52,37 @@ const ContactUsPage = () => {
           </Box>
         </Flex>
       </Box>
-      <Container maxW='1000px'>
-        <Text
-          fontSize={{ base: '30px', md: '36px', lg: '40px' }}
-          fontWeight={600}
-          align='center'
-          mb='25px'
-        >
-          CONTACT US
-        </Text>
-        <Text
-          align='center'
-          mb='25px'
-        >
-          For Media/PR enquiries, any general enquiries or enquiries on returns and exchanges please use the form below:
-        </Text>
-        <Flex gap='20px' mb='25px' direction={{ base: 'column', md: 'row' }}>
-          <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input type='text' />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input type='email' />
-          </FormControl>
-        </Flex>
-        <FormControl mb='30px'>
-          <FormLabel>Message</FormLabel>
-          <Textarea />
-        </FormControl>
-        <Flex
-          justifyContent='center'
-          mb='50px'
-        >
-          <Button
-            borderRadius={0}
-            bgColor='#000'
-            color='white'
-            _hover={{}}
-            fontSize='12px'
-            p='10px 20px'
+      <Container maxW='1000px' p='40px 0'>
+        <Flex direction='column' align='center'>
+          <Text
+            fontSize={{ base: '30px', md: '36px', lg: '40px' }}
+            fontWeight={600}
+            align='center'
+            mb='25px'
           >
-            SEND
-          </Button>
+            CONTACT US
+          </Text>
+          <Text
+            align='center'
+            mb='25px'
+          >
+            For Media/PR enquiries, any general enquiries or enquiries on returns.
+          </Text>
+          <Text
+            mb='10px'
+          >
+            Mail: <a href="mailto:aneuswimwear@gmail.com">aneuswimwear@gmail.com</a>
+          </Text>
+          <Text
+            mb='10px'
+          >
+            WhatsApp: <a href="https://api.whatsapp.com/send/?phone=593982922066">+593 98 292 2066</a>
+          </Text>
+          <Text
+            mb='10px'
+          >
+            Instagram: <a href="https://www.instagram.com/aneuswimwear/">@aneuswimwear</a>
+          </Text>
         </Flex>
       </Container>
     </Box >
