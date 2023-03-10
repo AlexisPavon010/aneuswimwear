@@ -53,7 +53,7 @@ const ContactUsPage = () => {
         </Flex>
       </Box>
       <Container maxW='1000px' p='40px 0'>
-        <Flex direction='column' align='center'>
+        {/* <Flex direction='column' align='center'>
           <Text
             fontSize={{ base: '30px', md: '36px', lg: '40px' }}
             fontWeight={600}
@@ -83,7 +83,7 @@ const ContactUsPage = () => {
           >
             Instagram: <a href="https://www.instagram.com/aneuswimwear/">@aneuswimwear</a>
           </Text>
-        </Flex>
+        </Flex> */}
       </Container>
     </Box >
   )
