@@ -148,7 +148,7 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                     Bottoms
                   </Link> */}
                   <Link
-                    onClick={() => handleNavigate('/categories/best-sellers')}
+                    onClick={() => handleNavigate('/gender/best-seller')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
@@ -191,18 +191,18 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                     Bottom
                   </Link>
                   <Link
-                    onClick={() => handleNavigate('/type/one-pieces')}
+                    onClick={() => handleNavigate('/type/one_pieces')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
                     One Pieces
                   </Link>
                   <Link
-                    onClick={() => handleNavigate('/type/tops')}
+                    onClick={() => handleNavigate('/type/top')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
-                    Tops
+                    Top
                   </Link>
                 </Flex>
               </AccordionPanel>

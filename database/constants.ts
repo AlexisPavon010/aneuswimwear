@@ -1,5 +1,5 @@
 export const SHOP_CONTANST = {
-  validGeenders: ['swimwear', 'sale', 'best_sellers', 'new', 'all-swim'],
+  validGeenders: ['swimwear', 'sale', 'best-seller', 'new', 'all-swim'],
   validTypes: ['top', 'bottom', 'one_pieces'],
   validTags: ['tops', 'bottoms', 'one_pieces'],
   validCollections: ['new', 'swimwear', 'sale'],
