@@ -107,9 +107,12 @@ export const getProductByTerm = async (query: getProductByTermProps) => {
   const { search, sort } = query;
   const [tag, params] = search.substring(search.lastIndexOf('/') + 1).split('?')
 
+  // @ts-ignore 
+  const sortExpression = ESort[sort] || 'title asc';
+
   const term = groq`
     *[_type == "products" && title match "${tag}" + "*"  ]
-    ${sort ? `| order(${ESort[sort]})` : ''} 
+    ${sort ? `| order(${sortExpression})` : ''} 
     {
       "slug": slug.current,
       title,
@@ -131,10 +134,13 @@ export const getProductByType = async (query: ProductByTypeProps) => {
 
   const validations = [...SHOP_CONTANST.validTypes];
 
+  // @ts-ignore 
+  const sortExpression = ESort[sort] || 'title asc';
+
   if (validations.includes(tag)) {
     term = groq`
     *[_type == "products" && type[0] == '${tag}']
-    ${sort ? `| order(${ESort[sort]})` : ''} 
+    ${sort ? `| order(${sortExpression})` : ''} 
       { 
         "slug": slug.current,
         title,
@@ -156,11 +162,14 @@ export const getProductByGender = async (query: getProductByGenderProps) => {
 
   const validTags = [...SHOP_CONTANST.validGeenders, 'all'];
 
+  // @ts-ignore 
+  const sortExpression = ESort[sort] || 'title asc';
+
   if (validTags.includes(gender)) {
     term = groq`
     *[][0]{
       "products": *[_type == "products" && gender == '${gender}'] 
-      ${sort ? `| order(${ESort[sort]})` : ''} 
+      ${sort ? `| order(${sortExpression})` : ''} 
       {    
         "slug": slug.current,
         title,
@@ -180,11 +189,13 @@ export const getProductByGender = async (query: getProductByGenderProps) => {
 export const getProductByCategories = async (query: ProductByCategoriesProps) => {
   const { category, sort } = query;
 
+  // @ts-ignore 
+  const sortExpression = ESort[sort] || 'title asc';
+
   let term = '*[_type == category]'
 
-
   term = `*[_type == 'category' && slug.current == '${category}'][0]
-  ${sort ? `| order(${ESort[sort]})` : ''} 
+  ${sort ? `| order(${sortExpression})` : ''} 
  {
    products[]-> {
      "slug": slug.current,
@@ -205,15 +216,19 @@ export const getProductByCategories = async (query: ProductByCategoriesProps) =>
 }
 
 export const getProductByCollection = async (query: ProductByCollectionProps) => {
-
   const { collection, sort } = query;
+
+  // @ts-ignore 
+  const sortExpression = ESort[sort] || 'title asc';
 
   let term = '*[_type == collections]'
 
   if (collection == 'all') {
     term = `
     *[][0]{
-      "products": *[_type == "products"]{    
+      "products": *[_type == "products"]
+      ${sort ? `| order(${sortExpression})` : ''}  
+      {    
         "slug": slug.current,
           title,
           price,
@@ -225,7 +240,7 @@ export const getProductByCollection = async (query: ProductByCollectionProps) =>
   } else {
 
     term = `*[_type == 'collections' && slug.current == '${collection}'][0]
-      ${sort ? `| order(${ESort[sort]})` : ''}  
+      ${sort ? `| order(${sortExpression})` : ''}  
       {
         products[]-> {
           "slug": slug.current,
