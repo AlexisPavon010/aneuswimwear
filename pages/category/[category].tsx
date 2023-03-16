@@ -1,21 +1,21 @@
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
-
+import { useRouter } from 'next/router'
+import React from 'react'
 import { FilterMenu } from '../../components/FilterMenu'
 import { ProductItem } from '../../components/Products'
-import { getProductByCollection } from '../../database/dbProducts'
-import { IProduct } from '../../interfaces/Product'
+import { getProductByCategories } from '../../database/dbProducts'
+import { IProduct } from '../../interfaces'
 
-interface TopsProps {
+interface CategoryProps {
   products: IProduct[];
 }
 
-const Tops = ({ products }: TopsProps) => {
+const CategoryPage = ({ products }: CategoryProps) => {
   const router = useRouter()
-  const { collection } = router.query
-  const pathName = (collection as string).split('?')[0]
+  const { category } = router.query
+  const pathName = (category as string).split('?')[0]
 
   return (
     <Box>
@@ -68,11 +68,9 @@ const Tops = ({ products }: TopsProps) => {
   )
 }
 
-
-
 export const getServerSideProps: GetServerSideProps = async ({ query, params }) => {
 
-  const products = await getProductByCollection(query as any)
+  const products = await getProductByCategories(query as any)
 
   return {
     props: {
@@ -81,4 +79,4 @@ export const getServerSideProps: GetServerSideProps = async ({ query, params }) 
   }
 }
 
-export default Tops
+export default CategoryPage

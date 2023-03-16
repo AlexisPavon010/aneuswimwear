@@ -5,17 +5,17 @@ import Head from 'next/head'
 
 import { FilterMenu } from '../../components/FilterMenu'
 import { ProductItem } from '../../components/Products'
-import { getProductByCollection } from '../../database/dbProducts'
+import { getProductByGender } from '../../database/dbProducts'
 import { IProduct } from '../../interfaces/Product'
 
 interface TopsProps {
   products: IProduct[];
 }
 
-const Tops = ({ products }: TopsProps) => {
+const ProductByGender = ({ products }: TopsProps) => {
   const router = useRouter()
-  const { collection } = router.query
-  const pathName = (collection as string).split('?')[0]
+  const { gender } = router.query
+  const pathName = (gender as string).split('?')[0]
 
   return (
     <Box>
@@ -72,7 +72,7 @@ const Tops = ({ products }: TopsProps) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ query, params }) => {
 
-  const products = await getProductByCollection(query as any)
+  const products = await getProductByGender(query as any)
 
   return {
     props: {
@@ -81,4 +81,4 @@ export const getServerSideProps: GetServerSideProps = async ({ query, params }) 
   }
 }
 
-export default Tops
+export default ProductByGender
