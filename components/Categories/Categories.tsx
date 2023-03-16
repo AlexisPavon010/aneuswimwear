@@ -13,6 +13,7 @@ interface Image {
 }
 
 interface CategoriesProps {
+  slug: string;
   title: string;
   image: Image;
 }
@@ -25,7 +26,8 @@ export const Categories = () => {
       image{
         ...asset -> {url}
       },
-      title
+      title,
+      "slug": slug.current,
     }`,
     (query) => sanityClient.fetch(query));
 
@@ -63,9 +65,9 @@ export const Categories = () => {
           },
         }}
       >
-        {data.map(({ image, title }: CategoriesProps, i: number) => (
+        {data.map(({ image, title, slug }: CategoriesProps, i: number) => (
           <SwiperSlide key={i}>
-            <Category image={image?.url} name={title} />
+            <Category image={image?.url} name={title} slug={slug} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -73,11 +75,11 @@ export const Categories = () => {
   )
 }
 
-const Category = ({ image, name }: { image: string, name: string }) => {
+const Category = ({ image, name, slug }: { image: string, name: string, slug: string }) => {
   return (
     <Link
       as={NextLink}
-      href={`/categories/${name.toLowerCase().replace(" ","-")}`}
+      href={`/type/${slug}`}
       position='relative'
       overflow='hidden'
     >
