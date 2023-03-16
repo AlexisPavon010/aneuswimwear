@@ -82,28 +82,6 @@ export const FilterMenu = () => {
             <h2>
               <AccordionButton>
                 <Box flex='1' textAlign='left'>
-                  Color
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <RadioGroup onChange={setColor} value={color}>
-                <Stack spacing={5} direction='column'>
-                  <Radio value='red' colorScheme='red'>Red</Radio>
-                  <Radio value='yellow' colorScheme='yellow'>Yellow</Radio>
-                  <Radio value='green' colorScheme='green'>Green</Radio>
-                  <Radio value='orange' colorScheme='orange'>Orange</Radio>
-                  <Radio value='blackAlpha' colorScheme='blackAlpha'>Black</Radio>
-                </Stack>
-              </RadioGroup>
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex='1' textAlign='left'>
                   Sort
                 </Box>
                 <AccordionIcon />
@@ -112,10 +90,10 @@ export const FilterMenu = () => {
             <AccordionPanel pb={4}>
               <RadioGroup onChange={setSort} value={sort}>
                 <Stack spacing={5} direction='column'>
-                  <Radio value='name_asc'>Name: A - Z</Radio>
-                  <Radio value='name_des'>Name: Z - A</Radio>
-                  <Radio value='low-to-high'>Price: Low to High</Radio>
-                  <Radio value='high-to-low'>Price: High to Low</Radio>
+                  <Radio value='title_asc'>Name: A - Z</Radio>
+                  <Radio value='title_des'>Name: Z - A</Radio>
+                  <Radio value='low_to_high'>Price: Low to High</Radio>
+                  <Radio value='high_to_low'>Price: High to Low</Radio>
                   {/* <Radio value='newest'>Newest</Radio> */}
                 </Stack>
               </RadioGroup>
