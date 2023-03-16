@@ -57,10 +57,10 @@ export const Navbar = ({ setIsOpenMenu }: NavbarProps) => {
                 <FiMenu onClick={() => setIsOpenMenu(true)} fontSize="1.25rem" />
                 {isDesktop ? (
                   <>
-                    <NextLink href={`/collections/new`} >New</NextLink>
-                    <NextLink href={`/collections/swimwear`} >Swimwear</NextLink>
+                    <NextLink href={`/gender/new`} >New</NextLink>
+                    <NextLink href={`/gender/swimwear`} >Swimwear</NextLink>
                     <NextLink href={`/collections/all`} >Collections</NextLink>
-                    <NextLink href={`/collections/sale`} >Sale</NextLink>
+                    <NextLink href={`/gender/sale`} >Sale</NextLink>
                   </>
                 ) : null}
               </ButtonGroup>
