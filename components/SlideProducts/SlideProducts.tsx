@@ -1,5 +1,4 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { Text } from '@chakra-ui/react';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -12,7 +11,6 @@ interface NewArrivalsProps {
 }
 
 export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
-  const router = useRouter()
   return (
     <>
       <Text
@@ -52,7 +50,7 @@ export const SlideProducts = ({ title, products }: NewArrivalsProps) => {
       >
         {products?.map((data: IProduct, i: number) => (
           <SwiperSlide key={i} style={{ height: 'initial' }}>
-            <ProductItem {...data} />
+            <ProductItem key={i} {...data} />
           </SwiperSlide>
         ))}
       </Swiper >
