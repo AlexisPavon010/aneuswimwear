@@ -140,13 +140,13 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                   >
                     Swimwear
                   </Link>
-                  <Link
+                  {/* <Link
                     onClick={() => handleNavigate('/categories/bottoms')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
                     Bottoms
-                  </Link>
+                  </Link> */}
                   <Link
                     onClick={() => handleNavigate('/categories/best-sellers')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
@@ -154,13 +154,13 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
                   >
                     Best Sellers
                   </Link>
-                  <Link
+                  {/* <Link
                     onClick={() => handleNavigate('/collections/all')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
                     Summer Favorites
-                  </Link>
+                  </Link> */}
                 </Flex>
               </AccordionPanel>
             </AccordionItem>
