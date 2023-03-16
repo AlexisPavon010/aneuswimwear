@@ -4,6 +4,51 @@ import { IProduct } from "../interfaces/Product"
 import { sanityClient } from "../sanity"
 import { SHOP_CONTANST } from "./constants"
 
+interface ProductSlug {
+  slug: string;
+}
+
+interface ProductByTypeProps {
+  size: string;
+  color: string;
+  sort: ESort;
+  type: string;
+}
+
+interface getProductByGenderProps {
+  size: string;
+  sort: ESort;
+  gender: string;
+}
+
+interface ProductByCategoriesProps {
+  size: string;
+  color: string;
+  sort: ESort;
+  category: string;
+}
+
+interface getProductByTermProps {
+  size: string;
+  color: string;
+  sort: ESort;
+  search: string;
+}
+
+interface ProductByCollectionProps {
+  size: string;
+  color: string;
+  sort: ESort;
+  collection: string;
+}
+
+enum ESort {
+  title_asc = 'title asc',
+  title_des = 'title desc',
+  low_to_high = 'price asc',
+  high_to_low = 'price desc',
+}
+
 export const getProductBySlug = async (slug: string): Promise<IProduct | null> => {
   const query = groq`
   *[slug.current == "${slug}"]{
@@ -32,10 +77,6 @@ export const getProductBySlug = async (slug: string): Promise<IProduct | null> =
   return JSON.parse(JSON.stringify(pageInfo[0]))
 }
 
-interface ProductSlug {
-  slug: string;
-}
-
 export const getAllProductSlug = async (): Promise<ProductSlug[]> => {
   const query = groq`
   *[_type == "products"]{
@@ -62,48 +103,14 @@ export const getAllProductByGender = async (gender: string) => {
   return JSON.parse(JSON.stringify(pageInfo));
 }
 
-interface getProductByTermProps {
-  size: string;
-  color: string;
-  sort: ESort;
-  search: string;
-}
-
 export const getProductByTerm = async (query: getProductByTermProps) => {
-  const [tag, params] = query.search.substring(query.search.lastIndexOf('/') + 1).split('?')
-
-
-  // let condition = {}
-  // let sort = {}
-
-  // if (SHOP_CONTANST.validSize.includes(`${query.size}`)) {
-  //   condition = { ...condition, sizes: query.size };
-  // }
-
-  // if (query.sort === 'name_asc') {
-  //   sort = { title: 1 }
-  // }
-
-  // if (query.sort === 'name_des') {
-  //   sort = { title: -1 }
-  // }
-
-  // if (query.sort === 'low-to-high') {
-  //   sort = { price: 1 }
-  // }
-
-  // if (query.sort === 'high-to-low') {
-  //   sort = { price: -1 }
-  // }
-
-  // const products = await Product.find({
-  //   $text: { $search: (tag as string).split('?')[0] }
-  // })
-  //   .sort(sort)
-  //   .lean()
+  const { search, sort } = query;
+  const [tag, params] = search.substring(search.lastIndexOf('/') + 1).split('?')
 
   const term = groq`
-    *[_type == "products" && title match "${tag}" + "*"  ]{
+    *[_type == "products" && title match "${tag}" + "*"  ]
+    ${sort ? `| order(${ESort[sort]})` : ''} 
+    {
       "slug": slug.current,
       title,
       price,
@@ -117,29 +124,109 @@ export const getProductByTerm = async (query: getProductByTermProps) => {
   return JSON.parse(JSON.stringify(pageInfo));
 }
 
-interface getProductByTagsProps {
-  size: string;
-  color: string;
-  sort: ESort;
-  collection: string;
+export const getProductByType = async (query: ProductByTypeProps) => {
+  const { type, sort } = query
+  let term = '*[_type == "products"]';
+  const [tag, params] = type.substring(type.lastIndexOf('/') + 1).split('?')
+
+  const validations = [...SHOP_CONTANST.validTypes];
+
+  if (validations.includes(tag)) {
+    term = groq`
+    *[_type == "products" && type[0] == '${tag}']
+    ${sort ? `| order(${ESort[sort]})` : ''} 
+      { 
+        "slug": slug.current,
+        title,
+        price,
+        images[]{
+          ...asset->{url}
+        },
+    }
+    `
+  }
+
+  const pageInfo = await sanityClient.fetch(term)
+  return JSON.parse(JSON.stringify(pageInfo));
 }
 
-enum ESort {
-  name_asc = 'name_asc',
-  name_des = 'name_des',
-  low_to_high = 'low-to-high',
-  high_to_low = 'high-to-low',
-  newest = 'newest'
-}
+export const getProductByGender = async (query: getProductByGenderProps) => {
+  const { gender, sort, size } = query;
+  let term = '*[_type == category]';
 
-export const getProductByTags = async (query: getProductByTagsProps) => {
-  const [tag, params] = query.collection.substring(query.collection.lastIndexOf('/') + 1).split('?')
+  const validTags = [...SHOP_CONTANST.validGeenders, 'all'];
+
+  if (validTags.includes(gender)) {
+    term = groq`
+    *[][0]{
+      "products": *[_type == "products" && gender == '${gender}'] 
+      ${sort ? `| order(${ESort[sort]})` : ''} 
+      {    
+        "slug": slug.current,
+        title,
+        price,
+        images[]{
+          ...asset->{url}
+        },
+      }
+    }
+    `
+  }
+
+  const pageInfo = await sanityClient.fetch(term);
+  return JSON.parse(JSON.stringify(pageInfo));
+};
+
+export const getProductByCategories = async (query: ProductByCategoriesProps) => {
+  const { category, sort } = query;
 
   let term = '*[_type == category]'
 
-  if (tag !== 'all' && !SHOP_CONTANST.validCollections.includes(tag)) {
-    term = groq`
-      *[_type == 'collections' && slug.current == '${tag}'][0]{
+
+  term = `*[_type == 'category' && slug.current == '${category}'][0]
+  ${sort ? `| order(${ESort[sort]})` : ''} 
+ {
+   products[]-> {
+     "slug": slug.current,
+     title,
+     price,
+     images[]{
+       ...asset->{url}
+     },
+   },
+ }
+`;
+
+  const pageInfo = await sanityClient.fetch(term)
+
+  return JSON.parse(JSON.stringify({
+    products: pageInfo.products.filter((el: any) => el !== null)
+  }));
+}
+
+export const getProductByCollection = async (query: ProductByCollectionProps) => {
+
+  const { collection, sort } = query;
+
+  let term = '*[_type == collections]'
+
+  if (collection == 'all') {
+    term = `
+    *[][0]{
+      "products": *[_type == "products"]{    
+        "slug": slug.current,
+          title,
+          price,
+          images[]{
+            ...asset->{url}
+          },
+      }
+    }`
+  } else {
+
+    term = `*[_type == 'collections' && slug.current == '${collection}'][0]
+      ${sort ? `| order(${ESort[sort]})` : ''}  
+      {
         products[]-> {
           "slug": slug.current,
           title,
@@ -148,187 +235,15 @@ export const getProductByTags = async (query: getProductByTagsProps) => {
             ...asset->{url}
           },
         },
-      }`
-  }
-
-  if (tag == 'all') {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"]{    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
       }
-    }
-    `
+  `;
   }
 
-  if (tag !== 'all' && SHOP_CONTANST.validCollections.includes(tag)) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products" && gender == ${tag}]{    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (query.sort === ESort.name_asc) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(title asc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (query.sort === ESort.name_des) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(title desc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (query.sort === ESort.low_to_high) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(price asc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (query.sort === ESort.high_to_low) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(price desc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  const pageInfo = await sanityClient.fetch(term)
-
-  return JSON.parse(JSON.stringify(pageInfo));
-}
-
-
-export const getProductByCategories = async (path: { categories: string, size?: string, sort?: string }) => {
-  const [slug, params] = path.categories.substring(path.categories.lastIndexOf('/') + 1).split('?')
-  let term = '*[_type == category]'
-
-  if (slug !== 'all' && SHOP_CONTANST.validTags.includes(slug)) {
-
-    term = groq`
-    *[_type == 'category' && slug.current == '${slug}'][0]{
-      products[]-> {
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-            ...asset->{url}
-          },
-      },
-    }`
-  }
-
-  if (path.sort === ESort.name_asc) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(title asc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (path.sort === ESort.name_des) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(title desc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (path.sort === ESort.low_to_high) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(price asc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
-
-  if (path.sort === ESort.high_to_low) {
-    term = groq`
-    *[][0]{
-      "products": *[_type == "products"] | order(price desc){    
-        "slug": slug.current,
-        title,
-        price,
-        images[]{
-          ...asset->{url}
-        },
-      }
-    }
-    `
-  }
 
   const pageInfo = await sanityClient.fetch(term)
 
   return JSON.parse(JSON.stringify({
-    products: pageInfo.products.filter((el: any) => el !== null)
+    products: pageInfo.products.filter((el: any) => el !== null) || []
   }));
+
 }
