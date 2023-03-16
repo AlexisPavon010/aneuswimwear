@@ -177,28 +177,28 @@ const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
               <AccordionPanel p={0}>
                 <Flex direction='column'>
                   <Link
-                    onClick={() => handleNavigate('/collections/all-swim')}
+                    onClick={() => handleNavigate('/collections/all')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
                     All Swim
                   </Link>
                   <Link
-                    onClick={() => handleNavigate('/collections/bottoms')}
+                    onClick={() => handleNavigate('/type/bottom')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
-                    Bottoms
+                    Bottom
                   </Link>
                   <Link
-                    onClick={() => handleNavigate('/collections/one-pieces')}
+                    onClick={() => handleNavigate('/type/one-pieces')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
                     One Pieces
                   </Link>
                   <Link
-                    onClick={() => handleNavigate('/collections/tops')}
+                    onClick={() => handleNavigate('/type/tops')}
                     _hover={{ background: 'rgb(244, 245, 246)' }}
                     padding='8px 0px 8px 36px'
                   >
