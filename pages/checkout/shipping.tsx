@@ -235,7 +235,7 @@ const Shipping = ({ shippings }: any) => {
                         purchase_units: [
                           {
                             amount: {
-                              value: `${total}`,
+                              value: `${1}`,
                             },
                           },
                         ],
