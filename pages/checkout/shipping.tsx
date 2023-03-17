@@ -5,7 +5,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Button,
+  CircularProgress,
   Divider,
   Flex,
   GridItem,
@@ -20,26 +20,41 @@ import { useSession } from "next-auth/react"
 import { useDispatch, useSelector } from "react-redux"
 import { GetServerSideProps } from "next"
 import { groq } from "next-sanity"
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 import { CheckoutOrder } from "../../components/CheckoutOrder"
 import { IOrder } from "../../interfaces"
 import { addToCart, getCartTotal, getTotalItems } from "../../redux/cart/cartSlices"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { createOrder, Payphone } from "../../client"
+import { confirmOrder, createOrder, Payphone, successOrder } from "../../client"
 import { setLoadShippings } from "../../redux/shippings/shippings"
 import { sanityClient } from "../../sanity"
+
+interface OrderResponseBody {
+  id: string;
+  status:
+  | "COMPLETED"
+  | "SAVED"
+  | "APPROVED"
+  | "VOIDED"
+  | "COMPLETED"
+  | "PAYER_ACTION_REQUIRED";
+}
 
 
 const Shipping = ({ shippings }: any) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [errorMesage, setErrorMesage] = useState('')
+  const [total, setTotal] = useState(0)
   const { items, discount } = useSelector((state: any) => state.cart)
   const shipping = useSelector((state: any) => state.shippings)
   const router = useRouter()
   const dispatch = useDispatch()
   const { data: session } = useSession()
-  const total = (getCartTotal(items) >= 200 ? getCartTotal(items) : shipping.price + getCartTotal(items, discount?.discount)) * 100
+
+  useEffect(() => {
+    setTotal(getCartTotal(items) >= 200 ? getCartTotal(items) : shipping.price + getCartTotal(items, discount?.discount))
+  }, [shipping, discount])
 
   const {
     country,
@@ -52,11 +67,8 @@ const Shipping = ({ shippings }: any) => {
     phone,
   } = parseCookies()
 
-  const handleCreateOrder = async () => {
-    if (isLoading) return
-    if (items.length === 0) return
+  const handleCreateOrder = async (details: OrderResponseBody) => {
     setIsLoading(true)
-
     const body: IOrder = {
       discount: Number((discount?.discount / 100) * getCartTotal(items)),
       discountCode: discount,
@@ -82,18 +94,15 @@ const Shipping = ({ shippings }: any) => {
 
     try {
       const { data } = await createOrder(body)
-      const orderPay = {
-        amount: total,
-        amountWithoutTax: total,
-        clientTransactionId: data._id,
-        responseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
-        cancelationUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`
-      }
-      const { data: payphone } = await Payphone(orderPay)
+      const response = await confirmOrder({
+        transactionId: details.id,
+        orderId: data._id,
+      })
+      await successOrder(data)
       dispatch(addToCart([]))
       dispatch(setLoadShippings({ name: '', price: 0 }))
       destroyCookie(null, 'cart')
-      router.replace(payphone.payWithCard)
+      router.push(`/order/${data._id}`)
     } catch (error) {
       console.log(error)
       setIsLoading(false)
@@ -201,7 +210,7 @@ const Shipping = ({ shippings }: any) => {
                 <img style={{ height: '24px' }} src="/assets/logo-payment.png" alt="cards" />
               </Flex>
 
-              <Flex justifyContent='space-between' alignItems='center' mt='21px' direction={{ base: 'column-reverse', lg: 'row' }} rowGap='20px'>
+              <Flex justifyContent='space-between' alignItems='center' my='21px' direction={{ base: 'column-reverse', lg: 'row' }} rowGap='20px'>
                 <NextLink href='/checkout/information' passHref>
                   <Link>
                     <Flex alignItems='center' gap='8px'>
@@ -210,17 +219,36 @@ const Shipping = ({ shippings }: any) => {
                     </Flex>
                   </Link>
                 </NextLink>
-                <Button
-                  width={{ base: '100%', lg: 'auto' }}
-                  _hover={{}}
-                  isLoading={isLoading}
-                  onClick={handleCreateOrder}
-                  color='white'
-                  bg='#000000'
-                >
-                  Place Order
-                </Button>
               </Flex>
+              <Box>
+                {isLoading ? (
+                  <Flex justifyContent='center'>
+                    <CircularProgress size='60px' thickness='8px' isIndeterminate color='#009cde' />
+                  </Flex>
+                ) : (
+                  <PayPalButtons
+                    style={{
+                      height: 40,
+                    }}
+                    createOrder={async (data, actions) => {
+                      return actions.order.create({
+                        purchase_units: [
+                          {
+                            amount: {
+                              value: `${total}`,
+                            },
+                          },
+                        ],
+                      });
+                    }}
+                    onApprove={(data, actions) => {
+                      return actions.order!.capture().then((details) => {
+                        handleCreateOrder(details)
+                      });
+                    }}
+                  />
+                )}
+              </Box>
             </Box>
           </Flex>
         </GridItem>

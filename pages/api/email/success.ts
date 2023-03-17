@@ -5,6 +5,7 @@ import handlebars from 'handlebars'
 import moment from 'moment'
 
 import templateHtml from '../../../emails/success.html'
+import { getSession } from 'next-auth/react'
 
 
 export default function handlerSuccess(req: NextApiRequest, res: NextApiResponse) {
@@ -20,7 +21,8 @@ export default function handlerSuccess(req: NextApiRequest, res: NextApiResponse
 }
 
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { _id, total, subTotal, numberOfItems, shippingAddress, shipping, orderItems, createdAt, discount } = req.body.payload
+  const session: any = await getSession({ req })
+  const { _id, total, subTotal, numberOfItems, shippingAddress, shipping, orderItems, createdAt, discount } = req.body
   const { country, firsName, lastName, address, address2, zip, city, phone } = shippingAddress;
   const { price } = shipping;
 
@@ -69,7 +71,7 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const mailOptions = {
       to: [
-        req.body.email,
+        session.user.email,
         'aneuswimwearteam@gmail.com'
       ],
       subject: 'THANK YOU ANEU GIRL 🤍',
