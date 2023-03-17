@@ -244,7 +244,6 @@ export const Footer = () => {
           <Flex pt='25px' justifyContent='center'>
             <Image mr='10px' src="/assets/visa.png" alt="Visa" />
             <Image mr='10px' src="/assets/master_card.png" alt="Master Card" />
-            <Image mr='10px' src="/assets/payphone-xs.svg" alt="Payphone" />
             <Image mr='10px' src="/assets/paypal.png" alt="Paypal" />
           </Flex>
         </Box>
