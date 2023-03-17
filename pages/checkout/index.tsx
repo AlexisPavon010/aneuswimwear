@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
       dbOrder.transactionId = id
       dbOrder.isPaid = true
       await dbOrder.save()
-      await successOrder(dbOrder, session.user.email)
+      await successOrder(dbOrder)
     }
 
     return {
