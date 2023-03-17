@@ -40,8 +40,8 @@ export default function Home({ news, best_sellers, banner, newsletter }: HomePro
         <Banner banner={banner} />
         <Container maxW='1600px'>
           <SlideProducts title='NEW ARRIVALS' products={news} />
-          {/* <Categories /> */}
-          {/* <SlideProducts title='BEST SELLERS' products={best_sellers} /> */}
+          <Categories />
+          <SlideProducts title='BEST SELLERS' products={best_sellers} />
           {/* <InstaFeed /> */}
           {/* <WhatsAppButton /> */}
           {/* <Newsletter newsletter={newsletter} /> */}
