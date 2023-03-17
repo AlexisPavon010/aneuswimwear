@@ -42,8 +42,8 @@ export default function Home({ news, best_sellers, banner, newsletter }: HomePro
           <SlideProducts title='NEW ARRIVALS' products={news} />
           <Categories />
           <SlideProducts title='BEST SELLERS' products={best_sellers} />
-          {/* <InstaFeed /> */}
-          {/* <WhatsAppButton /> */}
+          <InstaFeed />
+          <WhatsAppButton />
           {/* <Newsletter newsletter={newsletter} /> */}
         </Container>
       </Box>
