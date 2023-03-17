@@ -1,3 +1,4 @@
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { SessionProvider } from 'next-auth/react'
@@ -19,13 +20,15 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
     >
       <SessionProvider session={pageProps.session}>
-        <Provider store={store}>
-          <ChakraProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ChakraProvider>
-        </Provider>
+        <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! || '' }}>
+          <Provider store={store}>
+            <ChakraProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ChakraProvider>
+          </Provider>
+        </PayPalScriptProvider>
       </SessionProvider>
     </SWRConfig>
   )
