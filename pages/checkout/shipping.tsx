@@ -45,9 +45,9 @@ interface OrderResponseBody {
 
 const Shipping = ({ shippings }: any) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [total, setTotal] = useState(0)
   const { items, discount } = useSelector((state: any) => state.cart)
   const shipping = useSelector((state: any) => state.shippings)
+  const [total, setTotal] = useState(getCartTotal(items) >= 200 ? getCartTotal(items) : shipping.price + getCartTotal(items, discount?.discount))
   const router = useRouter()
   const dispatch = useDispatch()
   const { data: session } = useSession()
@@ -235,7 +235,7 @@ const Shipping = ({ shippings }: any) => {
                         purchase_units: [
                           {
                             amount: {
-                              value: `${1}`,
+                              value: `${total}`,
                             },
                           },
                         ],
