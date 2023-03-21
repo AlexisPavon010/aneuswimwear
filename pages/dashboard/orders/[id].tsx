@@ -108,6 +108,32 @@ const OrderPages: NextPage<Props> = ({ order }) => {
                 {`${order.shippingAddress.address}, ${order.shippingAddress.country}, ${order.shippingAddress.zip}`}
               </Text>
             </Box>
+            <Box mb={2}>
+              <Text
+                fontWeight={600}
+                mb={2}
+              >
+                Cedula
+              </Text>
+              <Text
+                fontSize='14px'
+              >
+                {order.shippingAddress.cedula || '00000'}
+              </Text>
+            </Box>
+            <Box mb={2}>
+              <Text
+                fontWeight={600}
+                mb={2}
+              >
+                Phone
+              </Text>
+              <Text
+                fontSize='14px'
+              >
+                {order.shippingAddress.phone}
+              </Text>
+            </Box>
           </Flex>
           <Divider />
           <Box>

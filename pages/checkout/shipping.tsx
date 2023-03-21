@@ -64,6 +64,7 @@ const Shipping = ({ shippings }: any) => {
     address2,
     zip,
     city,
+    cedula,
     phone,
   } = parseCookies()
 
@@ -82,6 +83,7 @@ const Shipping = ({ shippings }: any) => {
         address2,
         zip,
         city,
+        cedula,
         phone,
       },
       paymentMethod: "",

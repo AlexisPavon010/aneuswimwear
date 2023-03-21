@@ -110,12 +110,38 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                 {`${order.shippingAddress.address}, ${order.shippingAddress.country}, ${order.shippingAddress.zip}`}
               </Text>
             </Box>
+            <Box mb={2}>
+              <Text
+                fontWeight={600}
+                mb={2}
+              >
+                Cedula
+              </Text>
+              <Text
+                fontSize='14px'
+              >
+                {order.shippingAddress.cedula || '00000'}
+              </Text>
+            </Box>
+            <Box mb={2}>
+              <Text
+                fontWeight={600}
+                mb={2}
+              >
+                Phone
+              </Text>
+              <Text
+                fontSize='14px'
+              >
+                {order.shippingAddress.phone}
+              </Text>
+            </Box>
           </Flex>
           <Divider />
           <Box>
-            {order.orderItems.map((item) => (
+            {order.orderItems.map((item, i) => (
               <>
-                <Flex justifyContent='space-between' p='20px 0'>
+                <Flex key={i} justifyContent='space-between' p='20px 0'>
                   <Flex w='100%' flex={1}>
                     <Box
                       bgImage={`url(${item.image})`}

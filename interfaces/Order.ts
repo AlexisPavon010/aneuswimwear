@@ -38,6 +38,7 @@ export interface IOrderItems {
 }
 
 export interface ShippingAddress {
+  cedula: string;
   country: string;
   firsName: string;
   lastName: string;

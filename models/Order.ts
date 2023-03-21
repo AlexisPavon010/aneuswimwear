@@ -23,6 +23,7 @@ const OrderSchema = new Schema({
     customization: { type: String },
   }],
   shippingAddress: {
+    cedula      : { type: String, required: true },
     country     : { type: String, required: true },
     firsName    : { type: String, required: true },
     lastName    : { type: String, required: true },
