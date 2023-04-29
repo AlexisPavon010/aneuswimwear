@@ -15,7 +15,7 @@ interface TopsProps {
 const ProductsByType = ({ products }: TopsProps) => {
   const router = useRouter()
   const { type } = router.query
-  const pathName = (type as string).split('?')[0]
+  const pathName = (type as string).split('?')[0].replace(/_/g, " ")
 
   return (
     <Box>
