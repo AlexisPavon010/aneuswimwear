@@ -90,13 +90,14 @@ export const getAllProductSlug = async (): Promise<ProductSlug[]> => {
 
 export const getAllProductByGender = async (gender: string) => {
   const query = groq`
-  *[_type == "products"]{
+  *[_type == "products" && gender == "${gender}"]{
     "slug": slug.current,
     title,
+    gender,
     price,
     images[]{
-        ...asset->{url}
-      },
+      ...asset->{url}
+    },
   }
   `
   const pageInfo = await sanityClient.fetch(query)

@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 
   const banner = await getBanner()
   const newsletter = await getNewsletter()
-  const news = await dbProducts.getAllProductByGender('news')
+  const news = await dbProducts.getAllProductByGender('new')
   const best_sellers = await dbProducts.getAllProductByGender('best-seller')
 
   return {
