@@ -20,7 +20,11 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
     >
       <SessionProvider session={pageProps.session}>
-        <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! || '' }}>
+        <PayPalScriptProvider options={{
+          "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! || '',
+          intent: "capture",
+          currency: "USD",
+        }}>
           <Provider store={store}>
             <ChakraProvider>
               <Layout>
