@@ -45,9 +45,9 @@ const getPaypalBearerToken = async () => {
   } catch (error) {
 
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
+      console.error(error.response?.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
 
     return null;
