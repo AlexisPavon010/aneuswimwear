@@ -1,6 +1,7 @@
 export interface IAddress {
   country: string;
-  firsName: string;
+  firsName?: string;
+  firstName: string;
   lastName: string;
   address: string;
   address2?: string;

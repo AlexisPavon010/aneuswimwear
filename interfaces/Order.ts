@@ -40,7 +40,8 @@ export interface IOrderItems {
 export interface ShippingAddress {
   cedula: string;
   country: string;
-  firsName: string;
+  firsName?: string;
+  firstName: string;
   lastName: string;
   address: string;
   address2: string;

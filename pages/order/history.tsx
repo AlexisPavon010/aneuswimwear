@@ -64,7 +64,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
   const rows = orders.map((order: IOrder, i: number) => ({
     id: i + 1,
     _id: order._id,
-    name: `${order.shippingAddress.firsName} ${order.shippingAddress.lastName}`,
+    name: `${order.shippingAddress.firsName || order.shippingAddress.firstName} ${order.shippingAddress.lastName}`,
     address: `${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.country}, ${order.shippingAddress.zip}`,
     phone: order.shippingAddress.phone,
     payment: order.isPaid,

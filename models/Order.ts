@@ -25,7 +25,7 @@ const OrderSchema = new Schema({
   shippingAddress: {
     cedula      : { type: String, required: true },
     country     : { type: String, required: true },
-    firsName    : { type: String, required: true },
+    firstName   : { type: String, required: true },
     lastName    : { type: String, required: true },
     address     : { type: String, required: true },
     address2    : { type: String },

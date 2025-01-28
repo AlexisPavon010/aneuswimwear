@@ -37,7 +37,7 @@ import { GetServerSideProps } from "next";
 
 const schema = yup.object({
   country: yup.string().required('Country is required'),
-  firsName: yup.string().required('FirsName is required'),
+  firstName: yup.string().required('FirstName is required'),
   lastName: yup.string().required('LastName is required'),
   address: yup.string().required('Address is required'),
   address2: yup.string().optional(),
@@ -54,7 +54,7 @@ interface AddressPagesProps {
 const AddressPages = ({ shippings }: AddressPagesProps) => {
   const {
     country,
-    firsName,
+    firstName,
     lastName,
     address,
     address2,
@@ -67,7 +67,7 @@ const AddressPages = ({ shippings }: AddressPagesProps) => {
     resolver: yupResolver(schema),
     defaultValues: {
       country: country,
-      firsName: firsName,
+      firstName: firstName,
       lastName: lastName,
       address: address,
       address2: address2,
@@ -83,7 +83,7 @@ const AddressPages = ({ shippings }: AddressPagesProps) => {
 
   const onSubmitAddress = (data: IAddress) => {
     setCookie(null, 'country', data.country, { path: '/', })
-    setCookie(null, 'firsName', data.firsName, { path: '/', })
+    setCookie(null, 'firstName', data.firstName, { path: '/', })
     setCookie(null, 'lastName', data.lastName, { path: '/', })
     setCookie(null, 'address', data.address, { path: '/', })
     setCookie(null, 'address2', data.address2 || '', { path: '/', })
@@ -201,8 +201,8 @@ const AddressPages = ({ shippings }: AddressPagesProps) => {
                   <FormErrorMessage>{errors?.country?.message}</FormErrorMessage>
                 </FormControl>
                 <Flex gap='12px'>
-                  <FormControl isInvalid={errors.firsName}>
-                    <Input {...register('firsName')} placeholder='First Name' name="firsName" type='text' focusBorderColor='none' />
+                  <FormControl isInvalid={errors.firstName}>
+                    <Input {...register('firstName')} placeholder='First Name' name="firstName" type='text' focusBorderColor='none' />
                     <FormErrorMessage>Enter a name</FormErrorMessage>
                   </FormControl>
                   <FormControl isInvalid={errors.lastName}>
