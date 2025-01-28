@@ -13,6 +13,7 @@ import {
   Radio,
   SimpleGrid,
   Text,
+  useToast,
 } from "@chakra-ui/react"
 import { destroyCookie, parseCookies } from 'nookies'
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
@@ -44,6 +45,7 @@ interface OrderResponseBody {
 
 
 const Shipping = ({ shippings }: any) => {
+  const toast = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const { items, discount } = useSelector((state: any) => state.cart)
   const shipping = useSelector((state: any) => state.shippings)
@@ -58,7 +60,7 @@ const Shipping = ({ shippings }: any) => {
 
   const {
     country,
-    firsName,
+    firstName,
     lastName,
     address,
     address2,
@@ -77,7 +79,7 @@ const Shipping = ({ shippings }: any) => {
       orderItems: items,
       shippingAddress: {
         country,
-        firsName,
+        firstName,
         lastName,
         address,
         address2,
@@ -95,18 +97,42 @@ const Shipping = ({ shippings }: any) => {
     }
 
     try {
-      const { data } = await createOrder(body)
-      const response = await confirmOrder({
+      const { data } = await createOrder(body);
+
+      if (!data?._id) {
+        toast({
+          title: 'Opss!.',
+          description: "Order creation failed.",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+      await confirmOrder({
         transactionId: details.id,
         orderId: data._id,
       })
       await successOrder(data)
+      toast({
+        title: 'Success!',
+        description: "Your payment has been created successfully.",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
       dispatch(addToCart([]))
       dispatch(setLoadShippings({ name: '', price: 0 }))
       destroyCookie(null, 'cart')
       router.push(`/order/${data._id}`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
+      toast({
+        title: 'Opss!.',
+        description: "An error has occurred.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
       setIsLoading(false)
     } finally {
       setIsLoading(false)
@@ -199,29 +225,12 @@ const Shipping = ({ shippings }: any) => {
                   </NextLink>
                 </Flex>
               </Box>
-
               <Text
                 mb='10px'
                 fontSize='18px'
               >
-                Shipping method
+                Payment method
               </Text>
-
-              <Flex justifyContent='space-between' border='1px solid #E2E8F0' borderRadius='8px' p='17px'>
-                <Radio defaultChecked>PayPhone Application Payments</Radio>
-                <img style={{ height: '24px' }} src="/assets/logo-payment.png" alt="cards" />
-              </Flex>
-
-              <Flex justifyContent='space-between' alignItems='center' my='21px' direction={{ base: 'column-reverse', lg: 'row' }} rowGap='20px'>
-                <NextLink href='/checkout/information' passHref>
-                  <Link>
-                    <Flex alignItems='center' gap='8px'>
-                      <FiChevronLeft color='gray.500' />
-                      Return to information
-                    </Flex>
-                  </Link>
-                </NextLink>
-              </Flex>
               <Box>
                 {isLoading ? (
                   <Flex justifyContent='center'>
@@ -251,6 +260,16 @@ const Shipping = ({ shippings }: any) => {
                   />
                 )}
               </Box>
+              <Flex justifyContent='space-between' alignItems='center' my='21px' direction={{ base: 'column-reverse', lg: 'row' }} rowGap='20px'>
+                <NextLink href='/checkout/information' passHref>
+                  <Link>
+                    <Flex alignItems='center' gap='8px'>
+                      <FiChevronLeft color='gray.500' />
+                      Return to information
+                    </Flex>
+                  </Link>
+                </NextLink>
+              </Flex>
             </Box>
           </Flex>
         </GridItem>
